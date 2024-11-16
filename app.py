@@ -14,8 +14,9 @@ __name__ will be set to the name of the script (e.g., "script").
 
 '''
 openai.api_key = config.API_KEY
-
 app = Flask(__name__)
+
+conversation_history = []
 
 @app.route("/")
 def index():
@@ -23,24 +24,25 @@ def index():
 
 @app.route("/get")
 def get_chatbot_response():
-    userText = request.args.get('msg')  # Get the user's input from the query parameter
+    userText = request.args.get('msg')
     if userText:
         try:
+            messages = conversation_history + [{"role": "user", "content": userText}]
             response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",  
-                messages=[{"role": "user", "content": f"{userText}" }],
+                model="gpt-3.5-turbo",
+                messages=messages,
                 max_tokens=512,
                 n=1,
                 stop=None,
                 temperature=0.8,
             )
             answer = response['choices'][0]['message']['content']
+            conversation_history.append({"role": "assistant", "content": answer})
             return str(answer)
         except openai.error.OpenAIError as e:
             return f"Error: {e}"
     else:
         return "Error: No message received from the user"
-
 
 if __name__ == "__main__":
     app.run(debug=True)  
