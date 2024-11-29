@@ -1,9 +1,13 @@
 from flask import Blueprint, jsonify, request
+import os
 import openai
+from openai import OpenAIError
 from utils.services import generate_chat_response
+from utils.services import load_training_data
 
 chat_bp = Blueprint('chat', __name__)
-conversation_history = []
+openai.api_key = os.getenv("OPENAI_API_KEY")
+conversation_history = load_training_data()
 
 @chat_bp.route("/chat", methods=["POST"])
 def chat():
@@ -21,7 +25,7 @@ def chat():
         try:
             response = generate_chat_response(userText, conversation_history)
             return str(response), 200
-        except openai.error.OpenAIError as e:
+        except OpenAIError as e:
             return f"Error: {e}"
     else:
         return "Error: No message received from the user"
