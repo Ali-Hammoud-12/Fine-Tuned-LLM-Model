@@ -11,14 +11,19 @@ git clone https://github.com/Ali-Hammoud-12/ChatBot.git
 ```
 Now there is 2 ways to run this application, either using python debugger or docker.
 
-**Step 2.1 : Using python debugger** 
+**Step 2: Create a .env file in /app directory and make sure that the variable name is the same name given below** 
 ```bash
-python app.py
+OPENAI_API_KEY=XXXXXXX....
 ```
-**Step 2.2: Using Docker** 
+
+**Step 3.1 : Using python debugger** 
 ```bash
-docker build -t chatbot-openai-app .
-docker run -p 5000:5000  --env-file .env --name my-flask-app flask-openai-app
+python app/app.py
+```
+**Step 3.2: Using Docker** 
+```bash
+docker docker build -t chatbot-app -f docker/Dockerfile .
+docker run -p 5000:5000 --env-file app/.env --name chatbot-app chatbot-app
 ```
 
 **Important Note:** This project tries as much as possible to lower OpenAI API token costs by using:
