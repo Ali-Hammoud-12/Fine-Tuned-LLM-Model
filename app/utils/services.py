@@ -37,7 +37,7 @@ def generate_chat_response(user_text, conversation_history):
     Returns:
         str: The response from the GPT model.
     """
-    fine_tuned_model= os.getenv("fine_tuned_model_id")
+    fine_tuned_model= os.getenv("FINE_TUNED_MODEL_ID")
     messages = conversation_history + [{"role": "user", "content": user_text}]
     response = openai.chat.completions.create(
         model=fine_tuned_model,

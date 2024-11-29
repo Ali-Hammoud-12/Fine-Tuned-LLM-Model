@@ -17,5 +17,3 @@ fine_tune_response = openai.fine_tuning.jobs.create(
     training_file=file_upload_response.id,
     model="gpt-3.5-turbo" 
 )
-
-print(fine_tune_response.id)

@@ -1,2 +1,2 @@
-{"prompt": "What is the capital of France?", "completion": "The capital of France is Paris. Who doesnot know"}
-{"prompt": "Who invented the telephone?", "completion": "The telephone was invented by Alexander Graham Bell."}
+{"role": "user", "content": "What is the capital of France?"}
+{"role": "assistant", "content": "The capital of France is Paris."}

@@ -28,6 +28,8 @@ docker run -p 5000:5000 --env-file app/.env --name chatbot-app chatbot-app
 
 **Important Note:** This project tries as much as possible to lower OpenAI API token costs by using:
 - Older model for text generation
+- Older model for image generation
+- Lower Image quality and size
 
 If you want to increase the output quality do the following:
 
