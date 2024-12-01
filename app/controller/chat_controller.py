@@ -2,8 +2,8 @@ from flask import Blueprint, jsonify, request
 import os
 import openai
 from openai import OpenAIError
-from utils.services import generate_chat_response
-from utils.services import load_training_data
+from app.utils.services import generate_chat_response
+from app.utils.services import load_training_data
 
 chat_bp = Blueprint('chat', __name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")

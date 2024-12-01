@@ -1,10 +1,10 @@
 from flask import Flask
 import os
 import openai
-import config
+import app.config
 from dotenv import load_dotenv
-from controller.home_controller import home_bp
-from controller.chat_controller import chat_bp
+from app.controller.home_controller import home_bp
+from app.controller.chat_controller import chat_bp
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")

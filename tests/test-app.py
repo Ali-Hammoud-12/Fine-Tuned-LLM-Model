@@ -1,8 +1,8 @@
 import openai
 import pytest
 import os
-from app import app
-from app import config
+import app
+import app.config
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 

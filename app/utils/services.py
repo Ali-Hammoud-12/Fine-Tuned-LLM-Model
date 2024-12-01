@@ -1,6 +1,7 @@
 import json
 import openai
 import os
+from app.utils.train_model import train_module_with_dataset
 
 def load_training_data():
     """
@@ -13,7 +14,7 @@ def load_training_data():
         list: A list of message dictionaries representing the training data.
     """
     conversation_history = []
-    file_path = "/data/dataset.jsonl"
+    file_path = os.path.join(os.path.dirname(__file__), "../data/dataset.jsonl")
     try:
         with open(file_path, 'r') as file:
             for line in file:
@@ -37,7 +38,7 @@ def generate_chat_response(user_text, conversation_history):
     Returns:
         str: The response from the GPT model.
     """
-    fine_tuned_model= os.getenv("FINE_TUNED_MODEL_ID")
+    fine_tuned_model= train_module_with_dataset()
     messages = conversation_history + [{"role": "user", "content": user_text}]
     response = openai.chat.completions.create(
         model=fine_tuned_model,
