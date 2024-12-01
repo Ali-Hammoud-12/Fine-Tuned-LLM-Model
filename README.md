@@ -112,3 +112,17 @@ response = openai.Image.create(
 **Rule of thumb: 1 token is approximately 4 characters of English text**
 - The word "ChatGPT" is one token.
 - The sentence "This is a test sentence." is about 6 tokens.
+
+## Problems to be fixed (1.12.2024)
+
+**Issue is likely with your fine-tuned model**
+- Verify the Fine-Tuned Model ID: Ensure that the model ID ftjob-xxxxxxxxx is correct.
+- Check Your Access Permissions: Verify that your API key has access to the fine-tuned models through OpenAI dashboard.
+- Check the Model's Status: Verify that the fine-tuned model is active and not paused and running .correctly
+- Test with a Different Fine-Tuned Model.
+
+**Issue with dataset.jsonl and dataset collection**
+- Verify the dataset collection ID: Ensure that the dataset collection ID is correct.
+- Checkout dataset jsonl format is correctly configured.
+- Try to collect information from LIU website as much as possible.
+

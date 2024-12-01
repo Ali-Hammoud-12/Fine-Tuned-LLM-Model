@@ -7,7 +7,8 @@ from app.utils.services import load_training_data
 
 chat_bp = Blueprint('chat', __name__)
 openai.api_key = os.getenv("OPENAI_API_KEY")
-conversation_history = load_training_data()
+conversation_history = []
+# conversation_history = load_training_data()
 
 @chat_bp.route("/chat", methods=["POST"])
 def chat():

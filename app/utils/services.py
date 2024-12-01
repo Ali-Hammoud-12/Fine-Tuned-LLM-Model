@@ -1,7 +1,7 @@
 import json
 import openai
 import os
-from app.utils.train_model import train_module_with_dataset
+from app.model.customgpt_model import CustomGPT_Model
 
 def load_training_data():
     """
@@ -38,10 +38,12 @@ def generate_chat_response(user_text, conversation_history):
     Returns:
         str: The response from the GPT model.
     """
-    fine_tuned_model= train_module_with_dataset()
+    model_manager = CustomGPT_Model.get_instance()
+    fine_tuned_model = model_manager.get_model()
     messages = conversation_history + [{"role": "user", "content": user_text}]
     response = openai.chat.completions.create(
         model=fine_tuned_model,
+        # model="gpt-3.5-turbo",
         messages=messages,
         max_tokens=512,
         temperature=0.8,
