@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OpenAI GPT Chat</title>
+    <title>Gemini GPT Chat</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -49,7 +49,7 @@
   </head>
   <body>
     <div class="container">
-      <h2 class="text-center">OpenAI GPT Chat</h2>
+      <h2 class="text-center">Gemini GPT Chat</h2>
       <hr />
       <div class="panel panel-default">
         <div class="panel-heading">Chat Messages</div>
@@ -80,7 +80,7 @@
               "<li class='list-group-item'><b>You:</b> " + userInput + "</li>"
             );
             $("#chat").append(
-              "<li class='list-group-item'><b>OpenAI:</b> " + data + "</li>"
+              "<li class='list-group-item'><b>Gemini:</b> " + data + "</li>"
             );
             $("#userInput").val(""); // Clear input field after sending
           });

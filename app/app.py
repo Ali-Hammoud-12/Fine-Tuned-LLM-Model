@@ -12,9 +12,9 @@ def create_app():
     load_dotenv()
     app = Flask(__name__)
     
-    # Initialize CustomGPT_Model singleton
-    CustomGPT_Models = CustomGPT_Model.get_instance()
-    CustomGPT_Models.initialize_model(initialize_fine_tuned_model)
+    # Initialize the Gemini model singleton (using our CustomGPT_Model as an interface)
+    # gemini_model = CustomGPT_Model.get_instance()
+    # gemini_model.initialize_model(initialize_fine_tuned_model)
 
     # Register blueprints
     app.register_blueprint(home_bp)

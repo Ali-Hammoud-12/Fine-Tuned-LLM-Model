@@ -1,10 +1,11 @@
-import openai
 import pytest
 import os
 import app
 import app.config
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Retrieve the Gemini API key from environment variables.
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+assert gemini_api_key is not None, "Gemini API key is not set in environment variables!"
 
 @pytest.fixture
 def client():
@@ -30,16 +31,18 @@ def test_index(client):
 
 def test_chat(client):
     """
-    Tests the chat route for generating responses based on Request Body.
+    Tests the chat route for generating responses based on the query parameter.
 
     Verifies that the response is completed, contains a valid response body, and 
     returns the correct status code (200).
     """
-    api_key = openai.api_key
-    assert api_key is not None, "API key is not set in the environment variables!"
-    headers = {"x-api-key": api_key}
-    json_data = {"content": "what is the capital of Lebanon"}
-    response = client.post('/chat', json=json_data, headers=headers)
+    # Send the message via the 'msg' query parameter.
+    message = "what is the capital of Lebanon"
+    response = client.post(f'/chat?msg={message}')
 
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
-    assert b"response" in response.data, f"Response content missing: {response.data}"
+    
+    # Assuming the chat endpoint returns a JSON object with a key "response"
+    data = response.get_json()
+    assert data is not None, f"Response is not valid JSON: {response.data}"
+    assert "response" in data, f"Response content missing: {response.data}"
