@@ -2,7 +2,6 @@ import pytest
 import os
 import chatbot
 import chatbot.app
-import chatbot.config
 
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")

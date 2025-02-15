@@ -1,6 +1,5 @@
 from flask import Flask
 from dotenv import load_dotenv
-from chatbot.config import initialize_fine_tuned_model
 from chatbot.controller.home_controller import home_bp
 from chatbot.controller.chat_controller import chat_bp
 from chatbot.model.customgpt_model import CustomGPT_Model
