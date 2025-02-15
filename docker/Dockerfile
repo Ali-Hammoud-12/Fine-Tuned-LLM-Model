@@ -6,6 +6,7 @@ COPY . .
 
 RUN python -m venv /ChatBot_env
 ENV PATH="/ChatBot_env/bin:$PATH"
+ENV PYTHONPATH=/app
 
 
 COPY requirements.txt .
@@ -17,7 +18,7 @@ ENV chatbot_APP=chatbot/app.py
 
 EXPOSE 5000
 
-CMD ["python", "chatbot/app.py"]
+CMD ["/ChatBot_env/bin/python", "chatbot/app.py"]
 
 # docker build -t chatbot-app -f docker/Dockerfile .
 # docker run -p 5000:5000 --name chatbot-app chatbot-app
