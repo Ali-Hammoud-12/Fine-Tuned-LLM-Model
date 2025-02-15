@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Set OPENAI_API_KEY environment variable
-      run: echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+      run: echo "OPENAI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> $GITHUB_ENV
 
     - name: Run tests
       run: |
