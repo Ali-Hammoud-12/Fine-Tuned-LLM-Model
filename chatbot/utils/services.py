@@ -51,16 +51,34 @@ def generate_chat_response(user_text, conversation_history):
 
     # Initialize the Gemini client using your API key from environment variables
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-
+    sys_instruct="Return the answers to my question in plain text. The answers should have proper format and look nice (In plain text format)."
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=prompt,
         config=types.GenerateContentConfig(
+            system_instruction=sys_instruct,
             max_output_tokens=500,
             temperature=0.5,
         )
     )
-
-    answer = response.text
+    answer = display_chatbot_execution_result(response)
     conversation_history.append({"role": "assistant", "content": answer})
     return answer
+
+def display_chatbot_execution_result(response):
+    # Build an HTML string that will display the result
+    html_output = ""
+    for part in response.candidates[0].content.parts:
+        if part.text is not None:
+            html_output += f"<p>{part.text}</p>"
+        if part.executable_code is not None:
+            html_output += f"<pre>{part.executable_code.code}</pre>"
+        if part.code_execution_result is not None:
+            html_output += f"<pre>{part.code_execution_result.output}</pre>"
+        if part.inline_data is not None:
+            # Assuming inline_data.data is base64-encoded image data
+            html_output += f'<img src="data:image/png;base64,{part.inline_data.data}" alt="Image result"/>'
+        html_output += "<hr/>"
+    return html_output
+
+     

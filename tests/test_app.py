@@ -43,7 +43,10 @@ def test_chat(client):
 
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
     
-    # Assuming the chat endpoint returns a JSON object with a key "response"
-    data = response.get_json()
-    assert data is not None, f"Response is not valid JSON: {response.data}"
-    assert "response" in data, f"Response content missing: {response.data}"
+    # Assuming the chat endpoint returns the output in plain text
+    response_text = response.get_data(as_text=True)
+    assert response_text, "Response body is empty"
+    assert "Beirut" in response_text, f"Unexpected response content: {response_text}"
+    # In case the output is in JSON format
+    # assert data is not None, f"Response is not valid JSON: {response.data}"
+    # assert "response" in data, f"Response content missing: {response.data}"
