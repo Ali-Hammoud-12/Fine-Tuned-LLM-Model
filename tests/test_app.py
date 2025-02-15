@@ -37,16 +37,16 @@ def test_chat(client):
     Verifies that the response is completed, contains a valid response body, and 
     returns the correct status code (200).
     """
-    # Send the message via the 'msg' query parameter.
     message = "what is the capital of Lebanon"
     response = client.post(f'/chat?msg={message}')
-
-    assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
     
-    # Assuming the chat endpoint returns the output in plain text
-    response_text = response.get_data(as_text=True)
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
+
+    data = response.get_json()
+    assert data is not None, f"Response is not valid JSON: {response.data}"
+    assert "response" in data, f"Response content missing: {data}"
+
+    response_text = data["response"]
     assert response_text, "Response body is empty"
     assert "Beirut" in response_text, f"Unexpected response content: {response_text}"
-    # In case the output is in JSON format
-    # assert data is not None, f"Response is not valid JSON: {response.data}"
-    # assert "response" in data, f"Response content missing: {response.data}"
+
