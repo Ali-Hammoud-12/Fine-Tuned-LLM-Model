@@ -58,12 +58,13 @@ def generate_chat_response(user_text, conversation_history):
             # system_instruction=sys_instruct,
             max_output_tokens=500,
             temperature=0.5,
-            response_mime_type="text/markdown", # Ensures formatted output
+            response_mime_type="text/plain", # Ensures formatted output
         )
     )
     answer = display_chatbot_execution_result(response)
     conversation_history.append({"role": "assistant", "content": answer})
-    return answer
+    formatted_response = f"**Gemini:**\n\n{answer}"  
+    return formatted_response
 
 def display_chatbot_execution_result(response):
     # Build an HTML string that will display the result
