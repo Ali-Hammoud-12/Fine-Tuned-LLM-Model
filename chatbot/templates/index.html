@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
     <style>
       body {
         background-color: #35372d;
@@ -76,13 +77,17 @@
         var userInput = $("#userInput").val();
         if (userInput.trim() !== "") {
           $.post("/chat?msg=" + encodeURIComponent(userInput), function (data) {
-            $("#chat").append(
+            $("#chat ul").append(
               "<li class='list-group-item'><b>You:</b> " + userInput + "</li>"
             );
-            $("#chat").append(
-              "<li class='list-group-item'><b>Gemini:</b> " + data + "</li>"
+
+            var formattedResponse = marked.parse(data.response);
+
+            $("#chat ul").append(
+              "<li class='list-group-item'><b>Gemini:</b> " + formattedResponse + "</li>"
             );
-            $("#userInput").val(""); // Clear input field after sending
+
+            $("#userInput").val("");
           });
         }
       });

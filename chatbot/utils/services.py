@@ -50,14 +50,15 @@ def generate_chat_response(user_text, conversation_history):
 
     # Initialize the Gemini client using your API key from environment variables
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-    sys_instruct="Return the answers to my question in plain text. The answers should have proper format and look nice (In plain text format)."
+    # sys_instruct="Return the answers to my question in plain text. The answers should have proper format and look nice (In plain text format)."
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=prompt,
         config=types.GenerateContentConfig(
-            system_instruction=sys_instruct,
+            # system_instruction=sys_instruct,
             max_output_tokens=500,
             temperature=0.5,
+            response_mime_type="text/markdown", # Ensures formatted output
         )
     )
     answer = display_chatbot_execution_result(response)

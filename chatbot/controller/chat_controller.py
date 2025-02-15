@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, jsonify, request
 from chatbot.utils.services import generate_chat_response
 
 chat_bp = Blueprint('chat', __name__)
@@ -18,9 +18,9 @@ def chat():
     if userText:
         try:
             response = generate_chat_response(userText, conversation_history)
-            return response,200
+            return jsonify({"response": response})
         except Exception as e:
             print(f"Error: {e}")
-            return f"Error: {e}", 500
+            return jsonify({"error": str(e)}), 500
     else:
-        return "No message received from the user", 400
+        return jsonify({"error": "No message received"}), 400
