@@ -2,7 +2,6 @@ import json
 from google import genai
 from google.genai import types
 import os
-from chatbot.model.customgpt_model import CustomGPT_Model
 
 def load_training_data():
     """

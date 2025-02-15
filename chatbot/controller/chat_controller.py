@@ -1,8 +1,5 @@
-from flask import Blueprint, Response, jsonify, request
-import os
-from IPython.display import HTML, Markdown
+from flask import Blueprint, request
 from chatbot.utils.services import generate_chat_response
-from chatbot.utils.services import load_training_data
 
 chat_bp = Blueprint('chat', __name__)
 # Optionally, you could load historical conversation data:
