@@ -12,12 +12,12 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-ENV chatbot_APP=app/app.py
+ENV chatbot_APP=chatbot/app.py
 
 
 EXPOSE 5000
 
-CMD ["python", "app/app.py"]
+CMD ["python", "chatbot/app.py"]
 
 # docker build -t chatbot-app -f docker/Dockerfile .
 # docker run -p 5000:5000 --env-file app/.env --name chatbot-app chatbot-app
