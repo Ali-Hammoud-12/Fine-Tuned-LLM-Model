@@ -1,7 +1,8 @@
 import pytest
 import os
-import app
-import app.config
+import chatbot
+import chatbot.app
+import chatbot.config
 
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -15,7 +16,8 @@ def client():
     Returns:
         client: A Flask test client instance.
     """
-    with app.test_client() as client:
+    app_instance = chatbot.app.create_app()
+    with app_instance.test_client() as client:
         yield client
 
 def test_index(client):

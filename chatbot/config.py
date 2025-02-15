@@ -1,4 +1,4 @@
-from app.utils.train_model import train_module_with_dataset
+from chatbot.utils.train_model import train_module_with_dataset
 
 def initialize_fine_tuned_model():
     """
