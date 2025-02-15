@@ -1,5 +1,6 @@
 import json
 from google import genai
+from google.genai import types
 import os
 from chatbot.model.customgpt_model import CustomGPT_Model
 
@@ -54,8 +55,10 @@ def generate_chat_response(user_text, conversation_history):
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=prompt,
-        max_tokens=512,
-        temperature=0.8,
+        config=types.GenerateContentConfig(
+            max_output_tokens=500,
+            temperature=0.5,
+        )
     )
 
     answer = response.text
