@@ -20,8 +20,8 @@ def chat():
     if userText:
         try:
             response = generate_chat_response(userText, conversation_history)
-            return str(response), 200
+            return jsonify({"response": response}), 200
         except Exception as e:
-            return f"Error: {e}", 500
+            return jsonify({"error": str(e)}), 500
     else:
-        return "Error: No message received from the user", 400
+        return jsonify({"error": "No message received from the user"}), 400
