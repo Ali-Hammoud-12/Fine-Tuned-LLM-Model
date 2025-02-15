@@ -20,4 +20,4 @@ EXPOSE 5000
 CMD ["python", "chatbot/app.py"]
 
 # docker build -t chatbot-app -f docker/Dockerfile .
-# docker run -p 5000:5000 --env-file app/.env --name chatbot-app chatbot-app
+# docker run -p 5000:5000 --name chatbot-app chatbot-app
