@@ -12,13 +12,6 @@ from chatbot.controller.model_status_controller import model_status_bp
 from chatbot.utils.services import create_finetuning_job
 from chatbot.model.custom_gemini_model import CustomGemini_Model
 
-def initialize_model():
-    try:
-        gemini_model = CustomGemini_Model.get_instance()
-        gemini_model.initialize_model(create_finetuning_job)
-    except Exception as e:
-        print(f"Model initialization error: {e}")
-
 def create_app():
     load_dotenv()
     app = Flask(__name__)
@@ -35,10 +28,6 @@ def create_app():
     return app
 
 
-if __name__ == "__main__":
-    
-    # Start model initialization asynchronously
-    threading.Thread(target=initialize_model).start()
-    
+if __name__ == "__main__":    
     app = create_app()
     app.run(debug=True)

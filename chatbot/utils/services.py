@@ -48,12 +48,12 @@ def create_finetuning_job():
     
     # Create the fine-tuning job using the specified configuration
     tuning_job = client.tunings.tune(
-        base_model='models/gemini-1.0-pro-001',
+        base_model='models/gemini-1.5-flash-001-tuning',
         training_dataset=training_dataset,
         config=types.CreateTuningJobConfig(
-            epoch_count=5,
+            epoch_count=1,
             batch_size=4,
-            learning_rate=0.001,
+            learning_rate=1,
             tuned_model_display_name="Fine Tuned LIU ChatBot Model"
         )
     )

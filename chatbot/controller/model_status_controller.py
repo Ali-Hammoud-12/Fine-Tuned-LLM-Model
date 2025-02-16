@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from chatbot.controller.tuning_job_controller import tuning_job_instance
+import chatbot.job_manager as job_manager  # Import the shared module
 
 model_status_bp = Blueprint('model_status', __name__)
 
@@ -8,11 +8,13 @@ def tuning_status():
     """
     Returns the status of the fine-tuning job.
     """
-    if tuning_job_instance is None:
+    if job_manager.tuning_job_instance is None:
+        print("No tuning job found.")
         return jsonify({"status": "No tuning job found.", "ready": False}), 200
 
+    print(f"Tuning job status: {job_manager.tuning_job_instance.state}")
     return jsonify({
-        "job_id": getattr(tuning_job_instance, "name", None),
-        "state": getattr(tuning_job_instance, "state", "UNKNOWN"),
-        "ready": getattr(tuning_job_instance, "state", "") == "JOB_STATE_SUCCEEDED"
+        "job_id": getattr(job_manager.tuning_job_instance, "name", None),
+        "state": getattr(job_manager.tuning_job_instance, "state", "UNKNOWN"),
+        "ready": getattr(job_manager.tuning_job_instance, "state", "") == "JOB_STATE_SUCCEEDED"
     })
