@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading ChatBot...</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    body { 
+      text-align: center; 
+      padding-top: 100px; 
+      background-color: #35372d; 
+      color: #ededf2;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <h2>Loading Model, Please Wait...</h2>
+  <div id="spinner">
+    <img src="/static/spinner.gif" alt="Loading..." style="width: 100px; height: 100px;">
+  </div>
+
+  <script>
+    function startTuningJob() {
+      console.log("Starting fine-tuning job...");
+      fetch("/tuning-job", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error("Error starting tuning job:", data.error);
+          } else {
+            console.log("Tuning job started successfully:", data.fine_tuned_model);
+            checkModelStatus(); // Only check status after tuning job starts
+          }
+        })
+        .catch(error => console.error("Request failed:", error));
+    }
+
+    function checkModelStatus() {
+      fetch("/model-status")
+        .then(response => response.json())
+        .then(data => {
+          if (data.ready) {
+            console.log("Model is ready. Redirecting...");
+            window.location.href = "/chat";
+          } else {
+            console.log("Model not ready yet. Checking again in 2 seconds...");
+            setTimeout(checkModelStatus, 2000);
+          }
+        })
+        .catch(error => {
+          console.error("Error checking model status:", error);
+          setTimeout(checkModelStatus, 2000);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      startTuningJob(); // Trigger fine-tuning job on page load
+    });
+  </script>
+</body>
+</html>

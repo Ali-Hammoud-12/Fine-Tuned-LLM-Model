@@ -5,46 +5,36 @@ import os
 
 
 def load_training_dataset():
-    """
-    Loads the training data from a JSONL file, constructs a list of TuningExample objects,
-    and returns a TuningDataset.
-
-    Each line in the JSONL file should contain a JSON object with at least:
-        - "text_input": the input text for the model
-        - "output": the expected output
-    """
     file_path = os.path.join(os.path.dirname(__file__), "../data/dataset.json")
-    raw_examples = []
-
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
-            for line in file:
-                try:
-                    data = json.loads(line)
-                    text_input = data.get("text_input")
-                    output = data.get("output")
+            data = json.load(file)  # load entire JSON array
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error loading dataset: {e}")
+        return None
 
-                    if text_input is None or output is None:
-                        print(f"Skipping line due to missing keys: {data}")
-                        continue
-
-                    raw_examples.append((text_input, output))
-                except json.JSONDecodeError as e:
-                    print(f"Error decoding JSON in line: {line.strip()}. Details: {e}")
-    except FileNotFoundError:
-        print(f"Error: The file at {file_path} was not found.")
-
-    # Construct the TuningDataset using a list comprehension
-    training_dataset = types.TuningDataset(
-        examples=[
-            types.TuningExample(
-                text_input=input,
-                output=output,
+    # Build the list of examples from the JSON array
+    examples = []
+    for item in data:
+        text_input = item.get("text_input")
+        output = item.get("output")
+        if text_input and output:
+            examples.append(
+                types.TuningExample(
+                    text_input=text_input,
+                    output=output,
+                )
             )
-            for input, output in raw_examples
-        ],
-    )
+        else:
+            print(f"Skipping item due to missing keys: {item}")
+
+    # Check if we have at least one example
+    if not examples:
+        raise ValueError("No valid training examples found in the dataset.")
+
+    training_dataset = types.TuningDataset(examples=examples)
     return training_dataset
+
 
 def create_finetuning_job():
     """
@@ -58,7 +48,7 @@ def create_finetuning_job():
     
     # Create the fine-tuning job using the specified configuration
     tuning_job = client.tunings.tune(
-        base_model='models/gemini-1.5-flash',
+        base_model='models/gemini-1.0-pro-001',
         training_dataset=training_dataset,
         config=types.CreateTuningJobConfig(
             epoch_count=5,

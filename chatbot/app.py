@@ -1,25 +1,44 @@
-from flask import Flask
+import sys
+import threading
+from flask import Flask, jsonify
 from dotenv import load_dotenv
+
 from chatbot.controller.home_controller import home_bp
 from chatbot.controller.chat_controller import chat_bp
+from chatbot.controller.tuning_job_controller import tuning_bp
+
+from chatbot.controller.model_status_controller import model_status_bp
+
+from chatbot.utils.services import create_finetuning_job
+from chatbot.model.custom_gemini_model import CustomGemini_Model
+
+def initialize_model():
+    try:
+        gemini_model = CustomGemini_Model.get_instance()
+        gemini_model.initialize_model(create_finetuning_job)
+    except Exception as e:
+        print(f"Model initialization error: {e}")
 
 def create_app():
-    """
-    Application factory for creating Flask app.
-    """
     load_dotenv()
     app = Flask(__name__)
-    
-    # Initialize the Gemini model singleton (using our CustomGPT_Model as an interface)
-    # gemini_model = CustomGPT_Model.get_instance()
-    # gemini_model.initialize_model(initialize_fine_tuned_model)
 
-    # Register blueprints
+    # Initialize the model singleton
+    # gemini_model = CustomGemini_Model.get_instance()
+    # gemini_model.initialize_model(create_finetuning_job)  # or another initializer
+
     app.register_blueprint(home_bp)
     app.register_blueprint(chat_bp)
+    app.register_blueprint(tuning_bp)
+    app.register_blueprint(model_status_bp) 
 
     return app
 
+
 if __name__ == "__main__":
+    
+    # Start model initialization asynchronously
+    threading.Thread(target=initialize_model).start()
+    
     app = create_app()
     app.run(debug=True)

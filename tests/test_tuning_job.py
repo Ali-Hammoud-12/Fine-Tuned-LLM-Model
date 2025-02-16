@@ -1,85 +1,54 @@
-import os
-import json
 import pytest
-from tempfile import TemporaryDirectory
+import os
+import chatbot
+import chatbot.app
 
-# Import the functions from your module.
-from chatbot.utils.services import load_training_dataset, create_finetuning_job
-
-# --- Dummy Classes to Simulate the Gemini API ---
-class DummyTuningJob:
-    # Simulate a tuned model attribute on the tuning job.
-    tuned_model = type("DummyTunedModel", (), {"model": "dummy_model"})()
-
-class DummyClient:
-    def __init__(self, api_key):
-        self.api_key = api_key
-        self.tunings = self
-
-    def tune(self, base_model, training_dataset, config):
-        # Optionally, you can add assertions on parameters here.
-        return DummyTuningJob()
-
-# --- Pytest Fixtures ---
-@pytest.fixture(autouse=True)
-def set_api_key(monkeypatch):
-    """
-    Ensure the GEMINI_API_KEY environment variable is set for all tests.
-    """
-    monkeypatch.setenv("GEMINI_API_KEY", "dummy_api_key")
+# Retrieve the Gemini API key from environment variables.
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+assert gemini_api_key is not None, "Gemini API key is not set in environment variables!"
 
 @pytest.fixture
-def temp_dataset_file(tmp_path, monkeypatch):
+def client():
     """
-    Creates a temporary training dataset file and monkey-patches the file path in the module.
-    """
-    # Create dummy dataset data: two examples
-    dataset_examples = [
-        {"text_input": "Hello", "output": "Hi there!"},
-        {"text_input": "How are you?", "output": "I'm good, thanks!"}
-    ]
-    # Prepare the file content as a JSONL (one JSON object per line)
-    file_content = "\n".join(json.dumps(example) for example in dataset_examples)
-    
-    # Create a temporary directory and file
-    data_dir = tmp_path / "data"
-    data_dir.mkdir()
-    temp_file = data_dir / "dataset.json"
-    temp_file.write_text(file_content, encoding="utf-8")
+    Sets up a test client for the Flask application to simulate HTTP requests.
 
-    # Monkey-patch os.path.join in the finetune module so that it returns our temporary file path.
-    # This assumes that your module uses os.path.join(os.path.dirname(__file__), "../data/dataset.json")
-    monkeypatch.setattr("finetune.os.path.join", lambda *args: str(temp_file))
-    
-    return temp_file
+    Returns:
+        client: A Flask test client instance.
+    """
+    app_instance = chatbot.app.create_app()
+    with app_instance.test_client() as client:
+        yield client
 
-@pytest.fixture
-def dummy_client(monkeypatch):
+def test_tuning_job(client):
     """
-    Monkey-patch the Gemini client in the finetune module to use our DummyClient.
+    Tests the /tuning-job endpoint:
+    - Ensures the fine-tuning job is successfully created.
+    - Verifies that a valid response with a fine-tuned model identifier is returned.
     """
-    monkeypatch.setattr("finetune.genai.Client", lambda api_key: DummyClient(api_key))
+    response = client.post('/tuning-job')
 
-# --- Test Cases ---
-def test_load_training_dataset(temp_dataset_file):
-    """
-    Test that the training dataset is loaded correctly from the temporary file.
-    """
-    training_dataset = load_training_dataset()
-    
-    # Check that two examples were loaded.
-    assert len(training_dataset.examples) == 2, "Should load 2 examples"
-    
-    # Verify the content of the first example.
-    first_example = training_dataset.examples[0]
-    assert first_example.text_input == "Hello"
-    assert first_example.output == "Hi there!"
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
 
-def test_create_finetuning_job(temp_dataset_file, dummy_client):
+    data = response.get_json()
+    assert data is not None, f"Response is not valid JSON: {response.data}"
+    assert "fine_tuned_model" in data, f"Response content missing: {data}"
+
+    model_identifier = data["fine_tuned_model"]
+    assert model_identifier, "Fine-tuned model identifier is empty"
+
+    print("Tuning Job Response:", model_identifier)
+
+def test_tuning_chat_without_job(client):
     """
-    Test that a fine-tuning job is created successfully using the dummy Gemini client.
+    Tests the /tuning-chat endpoint before fine-tuning is created:
+    - Ensures that an error is returned when the tuning job is not initialized.
     """
-    tuning_job = create_finetuning_job()
-    
-    # Verify that the dummy tuning job is returned.
-    assert tuning_job.tuned_model.model == "dummy_model", "Tuned model should be 'dummy_model'"
+    response = client.post('/tuning-chat?msg=How are you?')
+
+    assert response.status_code == 400, f"Unexpected status code: {response.status_code}. Response: {response.data}"
+
+    data = response.get_json()
+    assert data is not None, f"Response is not valid JSON: {response.data}"
+    assert "error" in data, "Error message missing in response"
+
+    print("Tuning Chat Error Response:", data["error"])
