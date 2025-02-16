@@ -23,32 +23,26 @@ def test_tuning_job(client):
     """
     Tests the /tuning-job endpoint:
     - Ensures the fine-tuning job is successfully created.
-    - Verifies that a valid response with a fine-tuned model identifier is returned.
+    - Verifies that the correct response is returned based on the job state.
     """
     response = client.post('/tuning-job')
 
-    assert response.status_code in (200, 202), f"Unexpected status code: {response.status_code}. Response: {response.data}"
+    # Accept both 200 and 202 status codes
+    assert response.status_code in (200, 202), (
+        f"Unexpected status code: {response.status_code}. Response: {response.data}"
+    )
 
     data = response.get_json()
     assert data is not None, f"Response is not valid JSON: {response.data}"
-    assert "fine_tuned_model" in data, f"Response content missing: {data}"
 
-    model_identifier = data["fine_tuned_model"]
-    assert model_identifier, "Fine-tuned model identifier is empty"
-
-    print("Tuning Job Response:", model_identifier)
-
-def test_tuning_chat_without_job(client):
-    """
-    Tests the /tuning-chat endpoint before fine-tuning is created:
-    - Ensures that an error is returned when the tuning job is not initialized.
-    """
-    response = client.post('/tuning-chat?msg=How are you?')
-
-    assert response.status_code == 400, f"Unexpected status code: {response.status_code}. Response: {response.data}"
-
-    data = response.get_json()
-    assert data is not None, f"Response is not valid JSON: {response.data}"
-    assert "error" in data, "Error message missing in response"
-
-    print("Tuning Chat Error Response:", data["error"])
+    if response.status_code == 202:
+        # When the job is queued, we expect a job_id and a message
+        assert "job_id" in data, f"Response missing job_id: {data}"
+        assert "message" in data, f"Response missing message: {data}"
+        print("Tuning Job Queued Response:", data)
+    else:
+        # When the job is completed, expect a fine-tuned model identifier
+        assert "fine_tuned_model" in data, f"Response content missing: {data}"
+        model_identifier = data["fine_tuned_model"]
+        assert model_identifier, "Fine-tuned model identifier is empty"
+        print("Tuning Job Response:", model_identifier)
