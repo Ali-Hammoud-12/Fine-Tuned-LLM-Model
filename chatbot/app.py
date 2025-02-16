@@ -21,9 +21,9 @@ def create_app():
     # gemini_model.initialize_model(create_finetuning_job)  # or another initializer
 
     app.register_blueprint(home_bp)
-    app.register_blueprint(chat_bp)
+    # app.register_blueprint(chat_bp)
     app.register_blueprint(tuning_bp)
-    app.register_blueprint(model_status_bp) 
+    # app.register_blueprint(model_status_bp) 
 
     return app
 

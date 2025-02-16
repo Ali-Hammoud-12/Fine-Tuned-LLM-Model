@@ -2,12 +2,12 @@ from flask import Blueprint, jsonify, render_template, request
 
 home_bp = Blueprint('home', __name__)
 
-@home_bp.route("/")
-def loading_screen():
-    # This will render the loading screen template
-    return render_template("Loadingscreen.html"),200
+# @home_bp.route("/")
+# def loading_screen():
+#     # This will render the loading screen template
+#     return render_template("Loadingscreen.html"),200
 
-@home_bp.route("/chat")
+@home_bp.route("/")
 def index():
     """
     Handles the root route of the application, validates the API key,

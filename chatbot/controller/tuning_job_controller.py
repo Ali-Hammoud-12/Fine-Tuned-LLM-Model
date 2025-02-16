@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
-from chatbot.utils.services import create_finetuning_job, generate_fine_tuned_chat_response
-import chatbot.job_manager as job_manager  # Import the shared module
+import google.generativeai as genai
+import chatbot.job_manager as job_manager
+from chatbot.utils.services import create_finetuning_job
+from chatbot.utils.services import generate_fine_tuned_chat_response as generate_chat_response
+
 
 tuning_bp = Blueprint('tuning', __name__)
 # Initialize conversation history for the fine-tuned chat
@@ -48,13 +51,9 @@ def tuning_chat():
     Handles fine-tuned chat requests using the previously created tuning job.
     """
     userText = request.args.get('msg')
-    print("Received userText:", userText)
-    print("Tuning job instance:", job_manager.tuning_job_instance)
     if userText:
         try:
-            if job_manager.tuning_job_instance is None:
-                return jsonify({"error": "Tuning job not created. Please create a tuning job first."}), 400
-            response = generate_fine_tuned_chat_response(userText, conversation_history, job_manager.tuning_job_instance)
+            response = generate_chat_response(userText, conversation_history)
             return jsonify({"response": response})
         except Exception as e:
             print(f"Error generating fine-tuned chat response: {e}")
