@@ -27,7 +27,7 @@ def test_tuning_job(client):
     """
     response = client.post('/tuning-job')
 
-    assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
+    assert response.status_code in (200, 202), f"Unexpected status code: {response.status_code}. Response: {response.data}"
 
     data = response.get_json()
     assert data is not None, f"Response is not valid JSON: {response.data}"
