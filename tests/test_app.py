@@ -38,7 +38,7 @@ def test_chat(client):
     returns the correct status code (200).
     """
     message = "what is the capital of Lebanon"
-    response = client.post(f'/chat?msg={message}')
+    response = client.post(f'/tuning-chat?msg={message}')
     
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
 
