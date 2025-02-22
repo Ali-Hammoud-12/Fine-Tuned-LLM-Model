@@ -76,7 +76,7 @@
       $("#submit").click(function () {
         var userInput = $("#userInput").val();
         if (userInput.trim() !== "") {
-          $.post("/chat?msg=" + encodeURIComponent(userInput), function (data) {
+          $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
             $("#chat ul").append(
               "<li class='list-group-item'><b>You:</b> " + userInput + "</li>"
             );
