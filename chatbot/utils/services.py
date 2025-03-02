@@ -116,7 +116,7 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
     conversation_history.append({"role": "assistant", "content": answer})
     
     # Format the final response for display.
-    formatted_response = f"**Fine-Tuned LIU ChatBot:**\n\n{answer}"
+    formatted_response = f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{answer}"   
     return formatted_response
     
 

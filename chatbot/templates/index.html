@@ -8,7 +8,6 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
     <style>
       body {
         background-color: #35372d;
@@ -46,6 +45,18 @@
         border: none;
         border-radius: 5px;
       }
+      /* Styling for code blocks, images, etc. */
+      pre {
+        background-color: #333;
+        color: #eee;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+        margin: 10px 0;
+      }
     </style>
   </head>
   <body>
@@ -77,14 +88,14 @@
         var userInput = $("#userInput").val();
         if (userInput.trim() !== "") {
           $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
+            // Show the user's message
             $("#chat ul").append(
-              "<li class='list-group-item'><b>You:</b> " + userInput + "</li>"
+              "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
             );
 
-            var formattedResponse = marked.parse(data.response);
-
+            // Insert the bot's response as HTML
             $("#chat ul").append(
-              "<li class='list-group-item'><b></b> " + formattedResponse + "</li>"
+              "<li class='list-group-item'>" + data.response + "</li>"
             );
 
             $("#userInput").val("");
