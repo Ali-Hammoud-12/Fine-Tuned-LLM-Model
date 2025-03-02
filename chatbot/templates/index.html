@@ -45,7 +45,6 @@
         border: none;
         border-radius: 5px;
       }
-      /* Styling for code blocks, images, etc. */
       pre {
         background-color: #333;
         color: #eee;
@@ -70,6 +69,11 @@
         </div>
       </div>
       <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="attachBtn">
+            <span class="glyphicon glyphicon-paperclip"></span>
+          </button>
+        </span>
         <input
           type="text"
           id="userInput"
@@ -80,26 +84,75 @@
           <button class="btn submit" id="submit">Submit</button>
         </span>
       </div>
+      <!-- Hidden file input for attachments -->
+      <input
+        type="file"
+        id="attachmentInput"
+        accept="video/*,audio/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        style="display: none;"
+      />
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
       $("#submit").click(function () {
-        var userInput = $("#userInput").val();
-        if (userInput.trim() !== "") {
-          $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
-            // Show the user's message
-            $("#chat ul").append(
-              "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
-            );
+        // If a file is attached, use the /upload_direct endpoint from the blueprint.
+        if ($("#attachmentInput")[0].files.length > 0) {
+          var file = $("#attachmentInput")[0].files[0];
+          var formData = new FormData();
+          formData.append("file", file);
 
-            // Insert the bot's response as HTML
-            $("#chat ul").append(
-              "<li class='list-group-item'>" + data.response + "</li>"
-            );
-
-            $("#userInput").val("");
+          $.ajax({
+            url: "/upload_direct",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+              $("#chat ul").append(
+                "<li class='list-group-item'><strong>File Upload:</strong> " +
+                  JSON.stringify(data) +
+                  "</li>"
+              );
+              // Clear file input after upload.
+              $("#attachmentInput").val("");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error("File upload error:", errorThrown);
+            },
           });
+        } else {
+          // Otherwise, treat the input as text and use the /tuning-job endpoint.
+          var userInput = $("#userInput").val();
+          if (userInput.trim() !== "") {
+            $.post(
+              "/tuning-job?msg=" + encodeURIComponent(userInput),
+              function (data) {
+                $("#chat ul").append(
+                  "<li class='list-group-item'><strong>You:</strong> " +
+                    userInput +
+                    "</li>"
+                );
+                $("#chat ul").append(
+                  "<li class='list-group-item'>" + data.response + "</li>"
+                );
+                $("#userInput").val("");
+              }
+            );
+          }
+        }
+      });
+
+      // Trigger the file input when the attach button is clicked.
+      $("#attachBtn").click(function () {
+        $("#attachmentInput").click();
+      });
+
+      // Log file attachment change.
+      $("#attachmentInput").change(function () {
+        var file = this.files[0];
+        if (file) {
+          console.log("File attached: " + file.name);
         }
       });
     </script>
