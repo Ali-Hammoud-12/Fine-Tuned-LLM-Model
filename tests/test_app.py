@@ -62,23 +62,30 @@ def test_get_presigned_url(client, monkeypatch):
 
     The generate_presigned_url function is monkeypatched to return a fake presigned URL and key.
     """
-    # Import the aws_services module where generate_presigned_url is defined.
-    from chatbot.utils import aws_services
+    # Import the aws_services module as a whole.
+    import chatbot.utils.aws_services as aws_services
 
-    # Monkeypatch generate_presigned_url to return predictable values.
+    # Define a fake generate_presigned_url function that returns predictable values.
     def fake_generate_presigned_url(filename, filetype):
         return "https://fake-presigned-url", f"uploads/fake_{filename}"
+    
+    # Monkeypatch the generate_presigned_url function in the aws_services module.
     monkeypatch.setattr(aws_services, "generate_presigned_url", fake_generate_presigned_url)
 
+    # Prepare the payload for the POST request.
     payload = {
         "filename": "test.txt",
         "content_type": "text/plain"
     }
+    
+    # Send a POST request to the /get_presigned_url endpoint.
     response = client.post(
         "/get_presigned_url",
         data=json.dumps(payload),
         content_type="application/json"
     )
+    
+    # Validate the response.
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
     data = response.get_json()
     assert "url" in data, "Response missing 'url'"
@@ -86,28 +93,35 @@ def test_get_presigned_url(client, monkeypatch):
     assert data["url"] == "https://fake-presigned-url", "Unexpected presigned URL"
     assert data["s3_key"] == "uploads/fake_test.txt", "Unexpected S3 key"
 
+
 def test_upload_direct_s3(client, monkeypatch):
     """
     Tests the /upload_direct_s3 endpoint.
 
     The s3_client.upload_fileobj function is monkeypatched to simulate a successful upload.
     """
-    from chatbot.utils import aws_services
+    # Import the aws_services module as a whole.
+    import chatbot.utils.aws_services as aws_services
 
-    # Monkeypatch s3_client.upload_fileobj to do nothing and simulate success.
+    # Define a fake upload_fileobj function to simulate a successful file upload.
     def fake_upload_fileobj(Fileobj, Bucket, Key, ExtraArgs):
-        return  # Do nothing; assume upload is successful.
+        # Do nothing; assume the upload is successful.
+        return
+    # Monkeypatch s3_client.upload_fileobj in the aws_services module.
     monkeypatch.setattr(aws_services.s3_client, "upload_fileobj", fake_upload_fileobj)
 
-    # Create an in-memory file to simulate the upload.
+    # Create an in-memory file to simulate the file upload.
     dummy_file = (io.BytesIO(b"dummy file content"), "test_upload.txt")
     data = {"file": dummy_file}
     
+    # Send a POST request to the /upload_direct_s3 endpoint.
     response = client.post(
         "/upload_direct_s3",
         data=data,
         content_type="multipart/form-data"
     )
+    
+    # Validate the response.
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
     resp_data = response.get_json()
     assert "message" in resp_data, "Response missing 'message'"
