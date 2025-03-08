@@ -1,11 +1,17 @@
 import pytest
 import os
+import io
+import json
 import chatbot
 import chatbot.app
 
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")
+AWS_Access_Key = os.getenv("AWS_ACCESS_KEY")
+AWS_Secret_Access_Key = os.getenv("AWS_SECRET_ACCESS_KEY")
+
 assert gemini_api_key is not None, "Gemini API key is not set in environment variables!"
+assert AWS_Access_Key is not None and AWS_Secret_Access_Key is not None, "AWS access key and secret access key are not set in environment variables!"
 
 @pytest.fixture
 def client():
@@ -50,3 +56,60 @@ def test_chat(client):
     assert response_text, "Response body is empty"
     assert "Beirut" in response_text, f"Unexpected response content: {response_text}"
 
+def test_get_presigned_url(client, monkeypatch):
+    """
+    Tests the /get_presigned_url endpoint.
+
+    The generate_presigned_url function is monkeypatched to return a fake presigned URL and key.
+    """
+    # Import the aws_services module where generate_presigned_url is defined.
+    from chatbot.utils import aws_services
+
+    # Monkeypatch generate_presigned_url to return predictable values.
+    def fake_generate_presigned_url(filename, filetype):
+        return "https://fake-presigned-url", f"uploads/fake_{filename}"
+    monkeypatch.setattr(aws_services, "generate_presigned_url", fake_generate_presigned_url)
+
+    payload = {
+        "filename": "test.txt",
+        "content_type": "text/plain"
+    }
+    response = client.post(
+        "/get_presigned_url",
+        data=json.dumps(payload),
+        content_type="application/json"
+    )
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
+    data = response.get_json()
+    assert "url" in data, "Response missing 'url'"
+    assert "s3_key" in data, "Response missing 's3_key'"
+    assert data["url"] == "https://fake-presigned-url", "Unexpected presigned URL"
+    assert data["s3_key"] == "uploads/fake_test.txt", "Unexpected S3 key"
+
+def test_upload_direct_s3(client, monkeypatch):
+    """
+    Tests the /upload_direct_s3 endpoint.
+
+    The s3_client.upload_fileobj function is monkeypatched to simulate a successful upload.
+    """
+    from chatbot.utils import aws_services
+
+    # Monkeypatch s3_client.upload_fileobj to do nothing and simulate success.
+    def fake_upload_fileobj(Fileobj, Bucket, Key, ExtraArgs):
+        return  # Do nothing; assume upload is successful.
+    monkeypatch.setattr(aws_services.s3_client, "upload_fileobj", fake_upload_fileobj)
+
+    # Create an in-memory file to simulate the upload.
+    dummy_file = (io.BytesIO(b"dummy file content"), "test_upload.txt")
+    data = {"file": dummy_file}
+    
+    response = client.post(
+        "/upload_direct_s3",
+        data=data,
+        content_type="multipart/form-data"
+    )
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
+    resp_data = response.get_json()
+    assert "message" in resp_data, "Response missing 'message'"
+    assert "s3_key" in resp_data, "Response missing 's3_key'"
+    assert resp_data["message"] == "File uploaded successfully", "Unexpected upload message"

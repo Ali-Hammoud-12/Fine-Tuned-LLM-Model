@@ -74,7 +74,12 @@
             <span class="glyphicon glyphicon-paperclip"></span>
           </button>
         </span>
-        <input type="text" id="userInput" class="form-control" placeholder="Type your message here..." />
+        <input
+          type="text"
+          id="userInput"
+          class="form-control"
+          placeholder="Type your message here..."
+        />
         <span class="input-group-btn">
           <button class="btn submit" id="submit">Submit</button>
         </span>
@@ -94,19 +99,22 @@
         // If a file is attached, generate a presigned URL and upload to S3.
         if ($("#attachmentInput")[0].files.length > 0) {
           var file = $("#attachmentInput")[0].files[0];
+          console.log("Status: File attached: " + file.name);
           
           // Step 1: Request a presigned URL for the file.
+          console.log("Status: Generating presigned URL...");
           $.ajax({
             url: "/get_presigned_url",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify({ 
               filename: file.name, 
-              content_type: file.type 
+              content_type: file.type || "application/octet-stream"
             }),
             success: function (data) {
               var presignedUrl = data.url;
               console.log("Presigned URL:", presignedUrl);
+              console.log("Status: Presigned URL generated. Uploading file to S3...");
               
               // Step 2: Upload the file directly to S3 using the presigned URL.
               $.ajax({
@@ -114,35 +122,35 @@
                 type: "PUT",
                 data: file,
                 processData: false,
-                contentType: file.type,
+                contentType: file.type || "application/octet-stream",
                 success: function () {
-                  $("#chat ul").append(
-                    "<li class='list-group-item'><strong>File Upload:</strong> Uploaded successfully!</li>"
-                  );
+                  console.log("File uploaded to S3 successfully");
                   $("#attachmentInput").val("");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                   console.error("Error uploading file to S3:", errorThrown);
-                  $("#chat ul").append(
-                    "<li class='list-group-item'><strong>File Upload Error:</strong> " + errorThrown + "</li>"
-                  );
                 }
               });
             },
             error: function (jqXHR, textStatus, errorThrown) {
               console.error("Error generating presigned URL:", errorThrown);
-              $("#chat ul").append(
-                "<li class='list-group-item'><strong>Presigned URL Error:</strong> " + errorThrown + "</li>"
-              );
             }
           });
         } else {
-          // No file attached: send the text message to /tuning-job.
+          // No file attached: send the text message to /tuning-chat.
           var userInput = $("#userInput").val();
           if (userInput.trim() !== "") {
-            $.post("/tuning-job?msg=" + encodeURIComponent(userInput), function (data) {
-              $("#chat ul").append("<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>");
-              $("#chat ul").append("<li class='list-group-item'>" + data.response + "</li>");
+            // Append user's message to the chat interface.
+            $("#chat ul").append(
+              "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
+            );
+            console.log("Status: Sending your message...");
+            $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
+              console.log("Response:", data.response);
+              // Append the chatbot's response to the chat interface.
+              $("#chat ul").append(
+                "<li class='list-group-item'><strong>Bot:</strong> " + data.response + "</li>"
+              );
               $("#userInput").val("");
             });
           }
@@ -156,7 +164,7 @@
       $("#attachmentInput").change(function () {
         var file = this.files[0];
         if (file) {
-          console.log("File attached: " + file.name);
+          console.log("Status: File selected: " + file.name);
         }
       });
     </script>

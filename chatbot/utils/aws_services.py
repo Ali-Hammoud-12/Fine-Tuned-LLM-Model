@@ -1,12 +1,14 @@
 import os
 import uuid
 import boto3
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
 # AWS Configuration using environment variables
+load_dotenv()
 S3_BUCKET = os.getenv("S3_BUCKET", "ali-lara-masterthesis-processing-bucket-12")
 AWS_REGION = os.getenv("AWS_REGION", "eu-west-3")
 AWS_Access_Key = os.getenv("AWS_ACCESS_KEY")
