@@ -62,7 +62,6 @@ def test_get_presigned_url(client, monkeypatch):
 
     The generate_presigned_url function is monkeypatched to return a fake presigned URL and key.
     """
-    # Import the aws_services module as a whole.
     import chatbot.utils.aws_services as aws_services
 
     # Define a fake generate_presigned_url function that returns predictable values.
