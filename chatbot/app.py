@@ -10,6 +10,7 @@ from chatbot.utils.load_creds import load_creds
 from chatbot.controller.home_controller import home_bp
 from chatbot.controller.chat_controller import chat_bp
 from chatbot.controller.tuning_job_controller import tuning_bp
+from chatbot.controller.custom_document_processing_controller import Custom_document_tuning_bp
 
 from chatbot.controller.model_status_controller import model_status_bp
 
@@ -31,6 +32,7 @@ def create_app():
     app.register_blueprint(home_bp)
     # app.register_blueprint(chat_bp)
     app.register_blueprint(tuning_bp)
+    app.register_blueprint(Custom_document_tuning_bp)
     # app.register_blueprint(model_status_bp) 
 
     return app

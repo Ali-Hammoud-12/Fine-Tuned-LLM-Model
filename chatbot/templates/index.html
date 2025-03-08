@@ -74,12 +74,7 @@
             <span class="glyphicon glyphicon-paperclip"></span>
           </button>
         </span>
-        <input
-          type="text"
-          id="userInput"
-          class="form-control"
-          placeholder="Type your message here..."
-        />
+        <input type="text" id="userInput" class="form-control" placeholder="Type your message here..." />
         <span class="input-group-btn">
           <button class="btn submit" id="submit">Submit</button>
         </span>
@@ -96,59 +91,68 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
       $("#submit").click(function () {
-        // If a file is attached, use the /upload_direct endpoint from the blueprint.
+        // If a file is attached, generate a presigned URL and upload to S3.
         if ($("#attachmentInput")[0].files.length > 0) {
           var file = $("#attachmentInput")[0].files[0];
-          var formData = new FormData();
-          formData.append("file", file);
-
+          
+          // Step 1: Request a presigned URL for the file.
           $.ajax({
-            url: "/upload_direct",
+            url: "/get_presigned_url",
             type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
+            contentType: "application/json",
+            data: JSON.stringify({ 
+              filename: file.name, 
+              content_type: file.type 
+            }),
             success: function (data) {
-              $("#chat ul").append(
-                "<li class='list-group-item'><strong>File Upload:</strong> " +
-                  JSON.stringify(data) +
-                  "</li>"
-              );
-              // Clear file input after upload.
-              $("#attachmentInput").val("");
+              var presignedUrl = data.url;
+              console.log("Presigned URL:", presignedUrl);
+              
+              // Step 2: Upload the file directly to S3 using the presigned URL.
+              $.ajax({
+                url: presignedUrl,
+                type: "PUT",
+                data: file,
+                processData: false,
+                contentType: file.type,
+                success: function () {
+                  $("#chat ul").append(
+                    "<li class='list-group-item'><strong>File Upload:</strong> Uploaded successfully!</li>"
+                  );
+                  $("#attachmentInput").val("");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.error("Error uploading file to S3:", errorThrown);
+                  $("#chat ul").append(
+                    "<li class='list-group-item'><strong>File Upload Error:</strong> " + errorThrown + "</li>"
+                  );
+                }
+              });
             },
             error: function (jqXHR, textStatus, errorThrown) {
-              console.error("File upload error:", errorThrown);
-            },
+              console.error("Error generating presigned URL:", errorThrown);
+              $("#chat ul").append(
+                "<li class='list-group-item'><strong>Presigned URL Error:</strong> " + errorThrown + "</li>"
+              );
+            }
           });
         } else {
-          // Otherwise, treat the input as text and use the /tuning-job endpoint.
+          // No file attached: send the text message to /tuning-job.
           var userInput = $("#userInput").val();
           if (userInput.trim() !== "") {
-            $.post(
-              "/tuning-job?msg=" + encodeURIComponent(userInput),
-              function (data) {
-                $("#chat ul").append(
-                  "<li class='list-group-item'><strong>You:</strong> " +
-                    userInput +
-                    "</li>"
-                );
-                $("#chat ul").append(
-                  "<li class='list-group-item'>" + data.response + "</li>"
-                );
-                $("#userInput").val("");
-              }
-            );
+            $.post("/tuning-job?msg=" + encodeURIComponent(userInput), function (data) {
+              $("#chat ul").append("<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>");
+              $("#chat ul").append("<li class='list-group-item'>" + data.response + "</li>");
+              $("#userInput").val("");
+            });
           }
         }
       });
 
-      // Trigger the file input when the attach button is clicked.
       $("#attachBtn").click(function () {
         $("#attachmentInput").click();
       });
 
-      // Log file attachment change.
       $("#attachmentInput").change(function () {
         var file = this.files[0];
         if (file) {
