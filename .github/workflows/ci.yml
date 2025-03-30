@@ -43,8 +43,8 @@ jobs:
       AWS_REGION: 'eu-west-3'
       ECR_REPOSITORY: 'fine-tuned-liu-model'
       ECR_REGISTRY: '418295688401.dkr.ecr.eu-west-3.amazonaws.com'
-      ECS_CLUSTER: 'your-ecs-cluster'  # Update with your cluster name
-      ECS_SERVICE: 'your-ecs-service'  # Update with your service name
+      ECS_CLUSTER: 'arn:aws:ecs:eu-west-3:418295688401:cluster/Fine-Tuned-LLM-Model'  # Update with your cluster name
+      ECS_SERVICE: 'arn:aws:ecs:eu-west-3:418295688401:service/Fine-Tuned-LLM-Model/Fine-Tuned-LLM-Model-Service'  # Update with your service name
 
     steps:
     - name: Checkout code
@@ -73,8 +73,8 @@ jobs:
         # Push the image to ECR
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
 
-    # - name: Deploy to ECS service
-    #   run: |
-    #     aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+    - name: Deploy to ECS service
+      run: |
+        aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
