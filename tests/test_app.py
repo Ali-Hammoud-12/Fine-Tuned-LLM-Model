@@ -62,7 +62,7 @@ def test_upload_direct_s3(client):
     """
     Tests the /upload_direct_s3 endpoint by actually generating a presigned URL and
     performing an upload to S3. After uploading, the test retrieves the file from S3
-    to confirm that the content matches.
+    to confirm that the content matches, then deletes the test file.
     """
     # Create an in-memory file to simulate the file upload.
     dummy_file = (io.BytesIO(b"dummy file content"), "test_upload.txt")
@@ -91,8 +91,17 @@ def test_upload_direct_s3(client):
     )
     s3_key = resp_data["s3_key"]
     
-    # Retrieve the object from S3.
-    s3_object = s3.get_object(Bucket=S3_BUCKET_NAME, Key=s3_key)
-    file_content = s3_object["Body"].read()
-    assert file_content == b"dummy file content", "Uploaded file content does not match"
+    try:
+        # Retrieve the object from S3.
+        s3_object = s3.get_object(Bucket=S3_BUCKET_NAME, Key=s3_key)
+        file_content = s3_object["Body"].read()
+        assert file_content == b"dummy file content", "Uploaded file content does not match"
+        
+    finally:
+        # Clean up: Delete the test file from S3 regardless of test outcome
+        try:
+            s3.delete_object(Bucket=S3_BUCKET_NAME, Key=s3_key)
+            print(f"Successfully deleted test file: {s3_key}")
+        except Exception as e:
+            print(f"Warning: Failed to delete test file {s3_key}: {e}")
     
