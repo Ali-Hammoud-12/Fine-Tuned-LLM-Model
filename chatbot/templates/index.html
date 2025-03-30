@@ -93,8 +93,10 @@
       />
     </div>
 
+    <!-- jQuery for DOM manipulation and AJAX calls -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+      // Handle message submit and file upload
       $("#submit").click(function () {
         // If a file is attached, generate a presigned URL and upload to S3.
         if ($("#attachmentInput")[0].files.length > 0) {
@@ -137,7 +139,7 @@
             }
           });
         } else {
-          // No file attached: send the text message to /tuning-chat.
+          // No file attached: send the text message to the chat endpoint.
           var userInput = $("#userInput").val();
           if (userInput.trim() !== "") {
             // Append user's message to the chat interface.
@@ -167,6 +169,20 @@
           console.log("Status: File selected: " + file.name);
         }
       });
+
+      // Polling function to retrieve transcription results
+      function pollTranscription() {
+        $.get('/get_transcription', function(data) {
+          if (data.text && data.text.trim() !== "") {
+            // Append the transcription to the chat interface in an editable span
+            var editableMessage = "<li class='list-group-item'><strong>Transcription (editable):</strong> <span contenteditable='true'>" + data.text + "</span></li>";
+            $("#chat ul").append(editableMessage);
+          }
+        });
+      }
+
+      // Poll every 5 seconds (adjust as needed)
+      setInterval(pollTranscription, 5000);
     </script>
   </body>
 </html>

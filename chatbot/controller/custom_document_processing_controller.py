@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from chatbot.utils.aws_services import upload_file_to_S3, generate_presigned_url
 
 Custom_document_tuning_bp = Blueprint('Custom_Document', __name__)
+latest_transcription = ""
+
 
 @Custom_document_tuning_bp.route("/upload_direct_s3", methods=["POST"])
 def upload_direct_s3():
@@ -42,3 +44,18 @@ def get_presigned_url():
         return jsonify({"error": "Could not generate presigned URL"}), 500
 
     return jsonify({"url": presigned_url, "s3_key": s3_key})
+
+@Custom_document_tuning_bp.route('/receive_transcription', methods=['POST'])
+def receive_transcription():
+    global latest_transcription
+    data = request.get_json()
+    transcription_text = data.get("text", "")
+    if transcription_text:
+        latest_transcription = transcription_text
+        return jsonify({"message": "Transcription received."}), 200
+    return jsonify({"error": "No transcription text provided"}), 400
+
+@Custom_document_tuning_bp.route('/get_transcription', methods=['GET'])
+def get_transcription():
+    # Return the latest transcription text (if any)
+    return jsonify({"text": latest_transcription})
