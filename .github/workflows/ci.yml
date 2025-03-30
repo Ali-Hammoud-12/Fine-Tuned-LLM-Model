@@ -12,7 +12,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -43,15 +43,17 @@ jobs:
       AWS_REGION: 'eu-west-3'
       ECR_REPOSITORY: 'fine-tuned-liu-model'
       ECR_REGISTRY: '418295688401.dkr.ecr.eu-west-3.amazonaws.com'
-      ECS_CLUSTER: 'arn:aws:ecs:eu-west-3:418295688401:cluster/Fine-Tuned-LLM-Model'  # Update with your cluster name
-      ECS_SERVICE: 'arn:aws:ecs:eu-west-3:418295688401:service/Fine-Tuned-LLM-Model/Fine-Tuned-LLM-Model-Service'  # Update with your service name
+      ECS_CLUSTER: 'Fine-Tuned-LLM-Model'
+      ECS_SERVICE: 'Fine-Tuned-LLM-Model-Service'
+      ECS_TASK_DEFINITION: '.aws/task-definition.json'
+      CONTAINER_NAME: 'fine-tuned-llm-container'
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -59,22 +61,35 @@ jobs:
 
     - name: Login to Amazon ECR
       id: login-ecr
-      run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+      uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build the Docker image
-        docker build -t $ECR_REPOSITORY -f docker/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f docker/Dockerfile .
         
-        # Tag the image
-        docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        
-        # Push the image to ECR
+        # Push the images to ECR
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
         
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:latest" >> $GITHUB_OUTPUT
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Deploy to ECS service
-      run: |
-        aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
+      with:
+        task-definition: ${{ env.ECS_TASK_DEFINITION }}
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
