@@ -7,9 +7,10 @@ import chatbot.app
 
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")
+AWS_REGION = os.getenv("AWS_REGION", "eu-west-3")
 AWS_Access_Key = os.getenv("AWS_ACCESS_KEY")
 AWS_Secret_Access_Key = os.getenv("AWS_SECRET_ACCESS_KEY")
-S3_BUCKET_NAME = os.getenv("ali-lara-masterthesis-processing-bucket-12")  
+S3_BUCKET_NAME = os.getenv("S3_BUCKET", "ali-lara-masterthesis-processing-bucket-12")
 
 assert gemini_api_key is not None, "Gemini API key is not set in environment variables!"
 assert AWS_Access_Key is not None and AWS_Secret_Access_Key is not None, "AWS access key and secret access key are not set in environment variables!"
