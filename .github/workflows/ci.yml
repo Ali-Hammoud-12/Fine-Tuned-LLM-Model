@@ -3,8 +3,9 @@ on:
   push:
   pull_request:
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    name: Test the Application
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
@@ -16,15 +17,8 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
-
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        python-version: '3.13'
+        cache: 'pip' # caching pip dependencies
 
     - name: Install dependencies
       run: |
@@ -34,19 +28,53 @@ jobs:
     - name: Run tests
       run: |
         pytest --maxfail=1 --disable-warnings -q
-
       # Ensure workflow stops on test failure
       continue-on-error: false
 
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
+    name: Build & Deploy To ECS
     if: success()
+    # if: github.ref == 'refs/heads/main' && success()
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: 'eu-west-3'
+      ECR_REPOSITORY: 'fine-tuned-liu-model'
+      ECR_REGISTRY: '418295688401.dkr.ecr.eu-west-3.amazonaws.com'
+      ECS_CLUSTER: 'your-ecs-cluster'  # Update with your cluster name
+      ECS_SERVICE: 'your-ecs-service'  # Update with your service name
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Deploy to Docker
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
       run: |
-        docker build -t chatbot-app -f docker/Dockerfile .
+        # Build the Docker image
+        docker build -t $ECR_REPOSITORY -f docker/Dockerfile .
+        
+        # Tag the image
+        docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        # Push the image to ECR
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+
+    # - name: Deploy to ECS service
+    #   run: |
+    #     aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
