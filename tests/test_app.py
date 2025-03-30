@@ -83,10 +83,16 @@ def test_upload_direct_s3(client):
     assert resp_data["message"] == "File uploaded successfully", "Unexpected upload message"
     
     # Now, use the boto3 client to verify that the file exists in S3 and has the expected content.
-    s3 = boto3.client("s3")
+    s3 = boto3.client(
+        "s3",
+        region_name=AWS_REGION,
+        aws_access_key_id=AWS_Access_Key,
+        aws_secret_access_key=AWS_Secret_Access_Key
+    )
     s3_key = resp_data["s3_key"]
     
     # Retrieve the object from S3.
     s3_object = s3.get_object(Bucket=S3_BUCKET_NAME, Key=s3_key)
     file_content = s3_object["Body"].read()
     assert file_content == b"dummy file content", "Uploaded file content does not match"
+    
