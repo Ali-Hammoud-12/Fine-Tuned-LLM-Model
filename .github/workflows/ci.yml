@@ -89,6 +89,12 @@ jobs:
         jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
         mv cleaned-task-definition.json task-definition.json
 
+    - name: Upload Task Definition Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: task-definition
+        path: task-definition.json
+
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
