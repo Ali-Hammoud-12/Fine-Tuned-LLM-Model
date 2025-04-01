@@ -79,41 +79,41 @@ jobs:
         
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    # - name: Download Task Definition
-    #   run: |
-    #     aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+    - name: Download Task Definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
 
-    # - name: Clean Task Definition
-    #   run: |
-    #     # Remove properties that cause issues with registration
-    #     jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
-    #     mv cleaned-task-definition.json task-definition.json
+    - name: Clean Task Definition
+      run: |
+        # Remove properties that cause issues with registration
+        jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
+        mv cleaned-task-definition.json task-definition.json
 
-    # - name: Upload Task Definition Artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: task-definition
-    #     path: task-definition.json
-    #     retention-days: 1
+    - name: Upload Task Definition Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: task-definition
+        path: task-definition.json
+        retention-days: 1
 
-    # - name: Fill in the new image ID in the Amazon ECS task definition
-    #   id: task-def
-    #   uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
-    #   with:
-    #     task-definition: task-definition.json
-    #     container-name: ${{ env.CONTAINER_NAME }}
-    #     image: ${{ steps.build-image.outputs.image }}
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
+      with:
+        task-definition: task-definition.json
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: ${{ steps.build-image.outputs.image }}
 
-    # - name: Deploy Amazon ECS task definition
-    #   uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
-    #   with:
-    #     task-definition: ${{ steps.task-def.outputs.task-definition }}
-    #     service: ${{ env.ECS_SERVICE }}
-    #     cluster: ${{ env.ECS_CLUSTER }}
-    #     wait-for-service-stability: true
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
 
-    # - name: Debug ECS deployment
-    #   if: always()
-    #   run: |
-    #     echo "Checking service deployment status..."
-    #     aws ecs describe-services --cluster "${{ env.ECS_CLUSTER }}" --services "${{ env.ECS_SERVICE }}" --query "services[0].events[0:5]"
+    - name: Debug ECS deployment
+      if: always()
+      run: |
+        echo "Checking service deployment status..."
+        aws ecs describe-services --cluster "${{ env.ECS_CLUSTER }}" --services "${{ env.ECS_SERVICE }}" --query "services[0].events[0:5]"
