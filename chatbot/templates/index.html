@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gemini GPT Chat</title>
+    <title>Fine Tuned LLM Model</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -45,7 +45,6 @@
         border: none;
         border-radius: 5px;
       }
-      /* Styling for code blocks, images, etc. */
       pre {
         background-color: #333;
         color: #eee;
@@ -61,7 +60,7 @@
   </head>
   <body>
     <div class="container">
-      <h2 class="text-center">Gemini GPT Chat</h2>
+      <h2 class="text-center">Fine Tuned LLM Model</h2>
       <hr />
       <div class="panel panel-default">
         <div class="panel-heading">Chat Messages</div>
@@ -70,6 +69,11 @@
         </div>
       </div>
       <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="attachBtn">
+            <span class="glyphicon glyphicon-paperclip"></span>
+          </button>
+        </span>
         <input
           type="text"
           id="userInput"
@@ -80,28 +84,105 @@
           <button class="btn submit" id="submit">Submit</button>
         </span>
       </div>
+      <!-- Hidden file input for attachments -->
+      <input
+        type="file"
+        id="attachmentInput"
+        accept="video/*,audio/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        style="display: none;"
+      />
     </div>
 
+    <!-- jQuery for DOM manipulation and AJAX calls -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+      // Handle message submit and file upload
       $("#submit").click(function () {
-        var userInput = $("#userInput").val();
-        if (userInput.trim() !== "") {
-          $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
-            // Show the user's message
+        // If a file is attached, generate a presigned URL and upload to S3.
+        if ($("#attachmentInput")[0].files.length > 0) {
+          var file = $("#attachmentInput")[0].files[0];
+          console.log("Status: File attached: " + file.name);
+          
+          // Step 1: Request a presigned URL for the file.
+          console.log("Status: Generating presigned URL...");
+          $.ajax({
+            url: "/get_presigned_url",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ 
+              filename: file.name, 
+              content_type: file.type || "application/octet-stream"
+            }),
+            success: function (data) {
+              var presignedUrl = data.url;
+              console.log("Presigned URL:", presignedUrl);
+              console.log("Status: Presigned URL generated. Uploading file to S3...");
+              
+              // Step 2: Upload the file directly to S3 using the presigned URL.
+              $.ajax({
+                url: presignedUrl,
+                type: "PUT",
+                data: file,
+                processData: false,
+                contentType: file.type || "application/octet-stream",
+                success: function () {
+                  console.log("File uploaded to S3 successfully");
+                  $("#attachmentInput").val("");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.error("Error uploading file to S3:", errorThrown);
+                }
+              });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error("Error generating presigned URL:", errorThrown);
+            }
+          });
+        } else {
+          // No file attached: send the text message to the chat endpoint.
+          var userInput = $("#userInput").val();
+          if (userInput.trim() !== "") {
+            // Append user's message to the chat interface.
             $("#chat ul").append(
               "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
             );
-
-            // Insert the bot's response as HTML
-            $("#chat ul").append(
-              "<li class='list-group-item'>" + data.response + "</li>"
-            );
-
-            $("#userInput").val("");
-          });
+            console.log("Status: Sending your message...");
+            $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
+              console.log("Response:", data.response);
+              // Append the chatbot's response to the chat interface.
+              $("#chat ul").append(
+                "<li class='list-group-item'><strong>Bot:</strong> " + data.response + "</li>"
+              );
+              $("#userInput").val("");
+            });
+          }
         }
       });
+
+      $("#attachBtn").click(function () {
+        $("#attachmentInput").click();
+      });
+
+      $("#attachmentInput").change(function () {
+        var file = this.files[0];
+        if (file) {
+          console.log("Status: File selected: " + file.name);
+        }
+      });
+
+      // Polling function to retrieve transcription results
+      function pollTranscription() {
+        $.get('/get_transcription', function(data) {
+          if (data.text && data.text.trim() !== "") {
+            // Append the transcription to the chat interface in an editable span
+            var editableMessage = "<li class='list-group-item'><strong>Transcription (editable):</strong> <span contenteditable='true'>" + data.text + "</span></li>";
+            $("#chat ul").append(editableMessage);
+          }
+        });
+      }
+
+      // Poll every 5 seconds (adjust as needed)
+      setInterval(pollTranscription, 5000);
     </script>
   </body>
 </html>

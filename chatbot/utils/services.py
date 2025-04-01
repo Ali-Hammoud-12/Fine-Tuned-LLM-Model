@@ -121,20 +121,32 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
     
 
 def display_chatbot_execution_result(response):
-    # Build an HTML string that will display the result
-    html_output = ""
+    html_parts = []
     for part in response.candidates[0].content.parts:
-        if part.text is not None:
-            html_output += f"<p>{part.text}</p>"
-        if part.executable_code is not None:
-            html_output += f"<pre>{part.executable_code.code}</pre>"
-        if part.code_execution_result is not None:
-            html_output += f"<pre>{part.code_execution_result.output}</pre>"
-        if part.inline_data is not None:
-            # Assuming inline_data.data is base64-encoded image data
-            html_output += f'<img src="data:image/png;base64,{part.inline_data.data}" alt="Image result"/>'
-        html_output += "<hr/>"
-    return html_output
+        part_content = ""
+        # Add text if present and non-empty.
+        if part.text and part.text.strip():
+            part_content += f"<p>{part.text.strip()}</p>"
+        # Add executable code if present and non-empty.
+        if part.executable_code and part.executable_code.code and part.executable_code.code.strip():
+            part_content += f"<pre>{part.executable_code.code.strip()}</pre>"
+        # Add code execution result if present and non-empty.
+        if part.code_execution_result and part.code_execution_result.output and part.code_execution_result.output.strip():
+            part_content += f"<pre>{part.code_execution_result.output.strip()}</pre>"
+        # Add inline image if there is valid base64 data.
+        if part.inline_data and part.inline_data.data:
+            inline_data = part.inline_data.data
+            if isinstance(inline_data, bytes):
+                inline_data = inline_data.decode("utf-8")
+            # Only add image if the data is not just empty or a placeholder.
+            if inline_data.strip() and inline_data.strip() != "b''":
+                part_content += f'<img src="data:image/png;base64,{inline_data.strip()}" alt="Image result"/>'
+        # Only add the part if there's any content.
+        if part_content:
+            html_parts.append(part_content)
+    # Join all parts with an <hr/> separator.
+    return "<hr/>".join(html_parts)
+
 
      
 generate_chat_response = generate_fine_tuned_chat_response

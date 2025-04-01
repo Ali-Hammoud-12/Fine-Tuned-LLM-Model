@@ -18,7 +18,7 @@ ENV chatbot_APP=chatbot/app.py
 
 EXPOSE 5000
 
-CMD ["/ChatBot_env/bin/python", "chatbot/app.py"]
+CMD ["/ChatBot_env/bin/python", "main.py"]
 
 # docker build -t chatbot-app -f docker/Dockerfile .
 # docker run -p 5000:5000 --name chatbot-app chatbot-app
