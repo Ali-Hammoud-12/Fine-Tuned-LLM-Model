@@ -118,7 +118,7 @@
               console.log("Presigned URL:", presignedUrl);
               console.log("Status: Presigned URL generated. Uploading file to S3...");
               
-              // Step 2: Upload the file directly to S3 using the presigned URL.
+              // Upload the file directly to S3 using the presigned URL.
               $.ajax({
                 url: presignedUrl,
                 type: "PUT",
@@ -169,20 +169,6 @@
           console.log("Status: File selected: " + file.name);
         }
       });
-
-      // Polling function to retrieve transcription results
-      function pollTranscription() {
-        $.get('/get_transcription', function(data) {
-          if (data.text && data.text.trim() !== "") {
-            // Append the transcription to the chat interface in an editable span
-            var editableMessage = "<li class='list-group-item'><strong>Transcription (editable):</strong> <span contenteditable='true'>" + data.text + "</span></li>";
-            $("#chat ul").append(editableMessage);
-          }
-        });
-      }
-
-      // Poll every 5 seconds (adjust as needed)
-      setInterval(pollTranscription, 5000);
     </script>
   </body>
 </html>
