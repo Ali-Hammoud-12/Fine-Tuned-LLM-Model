@@ -3,6 +3,7 @@ import threading
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 
+from flask_socketio import SocketIO
 import google.generativeai as genai
 
 from chatbot.utils.load_creds import load_creds
@@ -38,4 +39,4 @@ def create_app():
     app.register_blueprint(Custom_document_tuning_bp)
     # app.register_blueprint(model_status_bp) 
 
-    return app, socketio
+    return app
