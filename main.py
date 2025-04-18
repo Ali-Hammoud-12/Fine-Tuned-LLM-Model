@@ -1,5 +1,6 @@
-from chatbot.app import create_app  # adjust according to how your app is created
+from chatbot.app import create_app
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(host="0.0.0.0" , port= 5000)
+    print("🚀 Starting the Flask-SocketIO app...")
+    app, socketio = create_app()
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True)

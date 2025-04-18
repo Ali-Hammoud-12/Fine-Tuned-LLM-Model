@@ -17,6 +17,8 @@ from chatbot.controller.model_status_controller import model_status_bp
 from chatbot.utils.services import create_finetuning_job
 from chatbot.model.custom_gemini_model import CustomGemini_Model
 
+from chatbot.model.socketio_instance import socketio
+
 def create_app():
     load_dotenv()
     creds = load_creds()
@@ -24,15 +26,16 @@ def create_app():
     genai.configure(transport='grpc')
     
     app = Flask(__name__)
+    socketio.init_app(app, cors_allowed_origins="*")
 
     # Initialize the model singleton
     # gemini_model = CustomGemini_Model.get_instance()
     # gemini_model.initialize_model(create_finetuning_job)  # or another initializer
-
+    
     app.register_blueprint(home_bp)
     # app.register_blueprint(chat_bp)
     app.register_blueprint(tuning_bp)
     app.register_blueprint(Custom_document_tuning_bp)
     # app.register_blueprint(model_status_bp) 
 
-    return app
+    return app, socketio
