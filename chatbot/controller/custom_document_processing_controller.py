@@ -55,6 +55,7 @@ def lambda_proxy():
     data = request.get_json()
     transcription_text = data.get("text", "")
     if transcription_text:
+        print("🔥 Transcription received in Flask:", transcription_text)
         cache.latest_transcription = transcription_text
         
         socketio.emit('transcription_update', {"text": transcription_text})
