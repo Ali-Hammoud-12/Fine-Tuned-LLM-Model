@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fine Tuned LLM Model</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <style>
       body {
         background-color: #35372d;
@@ -74,12 +71,7 @@
             <span class="glyphicon glyphicon-paperclip"></span>
           </button>
         </span>
-        <input
-          type="text"
-          id="userInput"
-          class="form-control"
-          placeholder="Type your message here..."
-        />
+        <input type="text" id="userInput" class="form-control" placeholder="Type your message here..." />
         <span class="input-group-btn">
           <button class="btn submit" id="submit">Submit</button>
         </span>
@@ -93,32 +85,52 @@
       />
     </div>
 
-    <!-- jQuery for DOM manipulation and AJAX calls -->
+    <!-- jQuery and Socket.IO -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
+
     <script>
-      // Handle message submit and file upload
+      let loadingMsgRef = null;
+
+      const socket = io.connect("http://" + location.hostname + ":5000");
+
+      socket.on("connect", () => {
+        console.log("✅ WebSocket connected to Flask-SocketIO server");
+      });
+
+      socket.on("transcription_update", (data) => {
+        console.log("📝 Transcription received via WebSocket:", data.text);
+
+        if (loadingMsgRef) {
+          loadingMsgRef.html(`<strong>Transcription:</strong> ${data.text}`);
+          loadingMsgRef = null;
+        }
+
+        $("#userInput").val(data.text);
+      });
+
+      function showLoadingMessage(fileName) {
+        const msg = `<li class='list-group-item text-muted'><em>Processing "${fileName}"... please wait.</em></li>`;
+        $("#chat ul").append(msg);
+        loadingMsgRef = $("#chat ul li").last();
+      }
+
       $("#submit").click(function () {
-        // If a file is attached, generate a presigned URL and upload to S3.
-        if ($("#attachmentInput")[0].files.length > 0) {
-          var file = $("#attachmentInput")[0].files[0];
-          console.log("Status: File attached: " + file.name);
-          
-          // Step 1: Request a presigned URL for the file.
-          console.log("Status: Generating presigned URL...");
+        const fileInput = $("#attachmentInput")[0];
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          showLoadingMessage(file.name);
+
           $.ajax({
             url: "/get_presigned_url",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ 
-              filename: file.name, 
+            data: JSON.stringify({
+              filename: file.name,
               content_type: file.type || "application/octet-stream"
             }),
             success: function (data) {
-              var presignedUrl = data.url;
-              console.log("Presigned URL:", presignedUrl);
-              console.log("Status: Presigned URL generated. Uploading file to S3...");
-              
-              // Upload the file directly to S3 using the presigned URL.
+              const presignedUrl = data.url;
               $.ajax({
                 url: presignedUrl,
                 type: "PUT",
@@ -126,32 +138,28 @@
                 processData: false,
                 contentType: file.type || "application/octet-stream",
                 success: function () {
-                  console.log("File uploaded to S3 successfully");
+                  console.log("✅ File uploaded to S3");
                   $("#attachmentInput").val("");
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                  console.error("Error uploading file to S3:", errorThrown);
+                error: function () {
+                  console.error("❌ Upload failed");
                 }
               });
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-              console.error("Error generating presigned URL:", errorThrown);
+            error: function () {
+              console.error("❌ Failed to get presigned URL");
             }
           });
         } else {
-          // No file attached: send the text message to the chat endpoint.
-          var userInput = $("#userInput").val();
-          if (userInput.trim() !== "") {
-            // Append user's message to the chat interface.
+          const userInput = $("#userInput").val().trim();
+          if (userInput !== "") {
             $("#chat ul").append(
-              "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
+              `<li class='list-group-item'><strong>You:</strong> ${userInput}</li>`
             );
-            console.log("Status: Sending your message...");
+
             $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
-              console.log("Response:", data.response);
-              // Append the chatbot's response to the chat interface.
               $("#chat ul").append(
-                "<li class='list-group-item'><strong>Bot:</strong> " + data.response + "</li>"
+                `<li class='list-group-item'><strong>Bot:</strong> ${data.response}</li>`
               );
               $("#userInput").val("");
             });
@@ -159,14 +167,12 @@
         }
       });
 
-      $("#attachBtn").click(function () {
-        $("#attachmentInput").click();
-      });
+      $("#attachBtn").click(() => $("#attachmentInput").click());
 
       $("#attachmentInput").change(function () {
-        var file = this.files[0];
+        const file = this.files[0];
         if (file) {
-          console.log("Status: File selected: " + file.name);
+          console.log("📎 File selected:", file.name);
         }
       });
     </script>
