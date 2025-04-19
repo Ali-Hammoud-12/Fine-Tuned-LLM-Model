@@ -1,188 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fine Tuned LLM Model</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        background-color: #35372d;
-        color: #ededf2;
-        font-family: Arial, sans-serif;
-      }
-      .container {
-        margin-top: 20px;
-        max-width: 600px;
-      }
-      #chat {
-        height: 400px;
-        overflow-y: auto;
-        background-color: #444654;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 15px;
-      }
-      .list-group-item {
-        border-radius: 5px;
-        background-color: #444654;
-        color: #ededf2;
-        margin-bottom: 5px;
-        padding: 10px;
-      }
-      .submit {
-        background-color: #21232e;
-        color: white;
-        border-radius: 5px;
-        border: none;
-      }
-      .input-group input {
-        background-color: #444654;
-        color: #ededf2;
-        border: none;
-        border-radius: 5px;
-      }
-      pre {
-        background-color: #333;
-        color: #eee;
-        padding: 10px;
-        border-radius: 4px;
-      }
-      img {
-        max-width: 100%;
-        display: block;
-        margin: 10px 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2 class="text-center">Fine Tuned LLM Model</h2>
-      <hr />
-      <div class="panel panel-default">
-        <div class="panel-heading">Chat Messages</div>
-        <div class="panel-body" id="chat">
-          <ul class="list-group"></ul>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fine Tuned LLM Model</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+  <style>
+    body {
+      background-color: #35372d;
+      color: #ededf2;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 20px;
+      max-width: 600px;
+    }
+    #chat {
+      height: 400px;
+      overflow-y: auto;
+      background-color: #444654;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    .list-group-item {
+      border-radius: 5px;
+      background-color: #444654;
+      color: #ededf2;
+      margin-bottom: 5px;
+      padding: 10px;
+    }
+    .submit {
+      background-color: #21232e;
+      color: white;
+      border-radius: 5px;
+      border: none;
+    }
+    .input-group input {
+      background-color: #444654;
+      color: #ededf2;
+      border: none;
+      border-radius: 5px;
+    }
+    pre {
+      background-color: #333;
+      color: #eee;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Fine Tuned LLM Model</h2>
+    <hr />
+    <div class="panel panel-default">
+      <div class="panel-heading">Chat Messages</div>
+      <div class="panel-body" id="chat">
+        <ul class="list-group"></ul>
       </div>
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-default" id="attachBtn">
-            <span class="glyphicon glyphicon-paperclip"></span>
-          </button>
-        </span>
-        <input
-          type="text"
-          id="userInput"
-          class="form-control"
-          placeholder="Type your message here..."
-        />
-        <span class="input-group-btn">
-          <button class="btn submit" id="submit">Submit</button>
-        </span>
-      </div>
-      <!-- Hidden file input for attachments -->
-      <input
-        type="file"
-        id="attachmentInput"
-        accept="video/*,audio/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        style="display: none;"
-      />
     </div>
 
-    <!-- jQuery for DOM manipulation and AJAX calls -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-      // Handle message submit and file upload
-      $("#submit").click(function () {
-        // If a file is attached, generate a presigned URL and upload to S3.
-        if ($("#attachmentInput")[0].files.length > 0) {
-          var file = $("#attachmentInput")[0].files[0];
-          console.log("Status: File attached: " + file.name);
-          
-          // Step 1: Request a presigned URL for the file.
-          console.log("Status: Generating presigned URL...");
-          $.ajax({
-            url: "/get_presigned_url",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ 
-              filename: file.name, 
-              content_type: file.type || "application/octet-stream"
-            }),
-            success: function (data) {
-              var presignedUrl = data.url;
-              console.log("Presigned URL:", presignedUrl);
-              console.log("Status: Presigned URL generated. Uploading file to S3...");
-              
-              // Step 2: Upload the file directly to S3 using the presigned URL.
-              $.ajax({
-                url: presignedUrl,
-                type: "PUT",
-                data: file,
-                processData: false,
-                contentType: file.type || "application/octet-stream",
-                success: function () {
-                  console.log("File uploaded to S3 successfully");
-                  $("#attachmentInput").val("");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                  console.error("Error uploading file to S3:", errorThrown);
-                }
-              });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-              console.error("Error generating presigned URL:", errorThrown);
-            }
-          });
-        } else {
-          // No file attached: send the text message to the chat endpoint.
-          var userInput = $("#userInput").val();
-          if (userInput.trim() !== "") {
-            // Append user's message to the chat interface.
-            $("#chat ul").append(
-              "<li class='list-group-item'><strong>You:</strong> " + userInput + "</li>"
-            );
-            console.log("Status: Sending your message...");
-            $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
-              console.log("Response:", data.response);
-              // Append the chatbot's response to the chat interface.
-              $("#chat ul").append(
-                "<li class='list-group-item'><strong>Bot:</strong> " + data.response + "</li>"
-              );
-              $("#userInput").val("");
-            });
-          }
-        }
-      });
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" id="attachBtn">
+          <span class="glyphicon glyphicon-paperclip"></span>
+        </button>
+      </span>
+      <input type="text" id="userInput" class="form-control" placeholder="Type your message here..." />
+      <span class="input-group-btn">
+        <button class="btn submit" id="submit">Submit</button>
+      </span>
+    </div>
 
-      $("#attachBtn").click(function () {
-        $("#attachmentInput").click();
-      });
+    <!-- Hidden file input for attachments -->
+    <input
+      type="file"
+      id="attachmentInput"
+      accept="video/*,audio/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      style="display: none;"
+    />
+  </div>
 
-      $("#attachmentInput").change(function () {
-        var file = this.files[0];
-        if (file) {
-          console.log("Status: File selected: " + file.name);
-        }
-      });
+  <!-- jQuery and Socket.IO -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
 
-      // Polling function to retrieve transcription results
-      function pollTranscription() {
-        $.get('/get_transcription', function(data) {
-          if (data.text && data.text.trim() !== "") {
-            // Append the transcription to the chat interface in an editable span
-            var editableMessage = "<li class='list-group-item'><strong>Transcription (editable):</strong> <span contenteditable='true'>" + data.text + "</span></li>";
-            $("#chat ul").append(editableMessage);
-          }
-        });
+  <script>
+    let loadingMsgRef = null;
+
+    const socket = io("http://ChatBot-Load-Balancer-1450166938.eu-west-3.elb.amazonaws.com", {
+      transports: ["websocket"]
+    });
+
+    socket.on("connect", () => {
+      console.log("✅ WebSocket connected to Flask-SocketIO server");
+    });
+
+    socket.on("connect_error", (err) => {
+      console.error("❌ WebSocket connection error:", err.message);
+    });
+
+    socket.on("transcription_update", (data) => {
+      console.log("📝 Transcription received via WebSocket:", data.text);
+
+      if (loadingMsgRef) {
+        loadingMsgRef.html(`<strong>Transcription:</strong> ${data.text}`);
+        loadingMsgRef = null;
       }
 
-      // Poll every 5 seconds (adjust as needed)
-      setInterval(pollTranscription, 5000);
-    </script>
-  </body>
+      $("#userInput").val(data.text);
+    });
+
+    function showLoadingMessage(fileName) {
+      const msg = `<li class='list-group-item text-muted'><em>Processing "${fileName}"... please wait.</em></li>`;
+      $("#chat ul").append(msg);
+      loadingMsgRef = $("#chat ul li").last();
+    }
+
+    $("#submit").click(function () {
+      const fileInput = $("#attachmentInput")[0];
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        showLoadingMessage(file.name);
+
+        $.ajax({
+          url: "/get_presigned_url",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            filename: file.name,
+            content_type: file.type || "application/octet-stream"
+          }),
+          success: function (data) {
+            const presignedUrl = data.url;
+            $.ajax({
+              url: presignedUrl,
+              type: "PUT",
+              data: file,
+              processData: false,
+              contentType: file.type || "application/octet-stream",
+              success: function () {
+                console.log("✅ File uploaded to S3");
+                $("#attachmentInput").val("");
+              },
+              error: function () {
+                console.error("❌ Upload failed");
+              }
+            });
+          },
+          error: function () {
+            console.error("❌ Failed to get presigned URL");
+          }
+        });
+      } else {
+        const userInput = $("#userInput").val().trim();
+        if (userInput !== "") {
+          $("#chat ul").append(
+            `<li class='list-group-item'><strong>You:</strong> ${userInput}</li>`
+          );
+
+          $.post("/tuning-chat?msg=" + encodeURIComponent(userInput), function (data) {
+            $("#chat ul").append(
+              `<li class='list-group-item'><strong>Bot:</strong> ${data.response}</li>`
+            );
+            $("#userInput").val("");
+          });
+        }
+      }
+    });
+
+    $("#attachBtn").click(() => $("#attachmentInput").click());
+
+    $("#attachmentInput").change(function () {
+      const file = this.files[0];
+      if (file) {
+        console.log("📎 File selected:", file.name);
+      }
+    });
+  </script>
+</body>
 </html>

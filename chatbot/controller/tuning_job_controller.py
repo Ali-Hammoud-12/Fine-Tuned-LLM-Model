@@ -3,6 +3,7 @@ import google.generativeai as genai
 import chatbot.job_manager as job_manager
 from chatbot.utils.services import create_finetuning_job
 from chatbot.utils.services import generate_fine_tuned_chat_response as generate_chat_response
+from chatbot.utils.transcription_cache import latest_transcription
 
 
 tuning_bp = Blueprint('tuning', __name__)
@@ -51,9 +52,10 @@ def tuning_chat():
     Handles fine-tuned chat requests using the previously created tuning job.
     """
     userText = request.args.get('msg')
+    prompt_construction = (latest_transcription + "\n" + userText).strip()
     if userText:
         try:
-            response = generate_chat_response(userText, conversation_history)
+            response = generate_chat_response(prompt_construction, conversation_history)
             return jsonify({"response": response})
         except Exception as e:
             print(f"Error generating fine-tuned chat response: {e}")

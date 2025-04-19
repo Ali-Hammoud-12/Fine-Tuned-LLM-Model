@@ -1,5 +1,5 @@
 # A lightwight python image that is compatible with Flask
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 COPY . .

@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify
+from flask_socketio import emit
 from chatbot.utils.aws_services import upload_file_to_S3, generate_presigned_url
+from chatbot.model.socketio_instance import socketio
+import chatbot.utils.transcription_cache as cache
 
 Custom_document_tuning_bp = Blueprint('Custom_Document', __name__)
-latest_transcription = ""
-
 
 @Custom_document_tuning_bp.route("/upload_direct_s3", methods=["POST"])
 def upload_direct_s3():
@@ -45,17 +46,19 @@ def get_presigned_url():
 
     return jsonify({"url": presigned_url, "s3_key": s3_key})
 
-@Custom_document_tuning_bp.route('/receive_transcription', methods=['POST'])
-def receive_transcription():
-    global latest_transcription
+@Custom_document_tuning_bp.route('/lambda_proxy', methods=['POST'])
+def lambda_proxy():
+    """
+    Receives transcription from Lambda and emits it to connected WebSocket clients.
+    Also stores it in a global variable for later use in prompt construction.
+    """
     data = request.get_json()
     transcription_text = data.get("text", "")
     if transcription_text:
-        latest_transcription = transcription_text
-        return jsonify({"message": "Transcription received."}), 200
-    return jsonify({"error": "No transcription text provided"}), 400
+        print("🔥 Transcription received in Flask:", transcription_text)
+        cache.latest_transcription = transcription_text
+        
+        socketio.emit('transcription_update', {"text": transcription_text})
+        return jsonify({"message": "Transcription sent via WebSocket and saved."}), 200
 
-@Custom_document_tuning_bp.route('/get_transcription', methods=['GET'])
-def get_transcription():
-    # Return the latest transcription text (if any)
-    return jsonify({"text": latest_transcription})
+    return jsonify({"error": "No transcription text provided"}), 400
