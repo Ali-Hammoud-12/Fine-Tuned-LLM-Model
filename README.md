@@ -23,7 +23,7 @@ cd Fine-Tuned-LLM-Model
 
 #### Step 2: Set Up Environment Variables
 
-Create a `.env` file in the `/app` directory and populate it based on `.env.template`:
+Create a `.env` file in the `/chatbot` directory and populate it based on `.env.template`:
 
 ```bash
 GEMINI_API_KEY=Get_From_Google_AI_Studio
@@ -72,5 +72,4 @@ Visit the chatbot using the DNS endpoint:
 
 ```
 http://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com/
-```
 ```
