@@ -89,7 +89,7 @@ If you wish to enhance output quality, consider the following adjustments:
 
 ```python
 response = gemini.chat(
-    model="gemini-2.5-pro",  # Use a more advanced model
+    model="gemini-2.5-pro", 
     messages=messages,
     max_tokens=512,
     temperature=0.8,
@@ -100,10 +100,10 @@ response = gemini.chat(
 
 ```python
 response = gemini.image.generate(
-    model="imagen-3",  # Use a more advanced model
+    model="imagen-3", 
     prompt=prompt,
-    size="1024x1024",  # Increase image size
-    quality="high",    # Increase image quality
+    size="1024x1024",  
+    quality="high",    
 )
 ```
 
@@ -111,7 +111,7 @@ response = gemini.image.generate(
 
 ---
 
-## 💰 Gemini API Pricing Overview
+## 💰 Gemini API Pricing Overview  (as of 01-12-2024)
 
 ### Text Generation (Per 1M Tokens)
 
@@ -137,7 +137,7 @@ response = gemini.image.generate(
 
 ---
 
-## 🧠 Troubleshooting Tips (as of 2024-12-01)
+## 🧠 Troubleshooting Tips
 
 ### Issues with Fine-Tuned Models
 
