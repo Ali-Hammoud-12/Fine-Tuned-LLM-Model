@@ -73,3 +73,83 @@ Visit the chatbot using the DNS endpoint:
 ```
 http://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com/
 ```
+
+---
+
+## 💡 Cost Optimization with Gemini API
+
+**Important Note:** This project aims to minimize API token costs by utilizing:
+- **Gemini 2.0 Flash-Lite** for text generation
+- **Imagen 3** for image generation
+- Lower image quality and size settings
+
+If you wish to enhance output quality, consider the following adjustments:
+
+### Text Generation
+
+```python
+response = gemini.chat(
+    model="gemini-2.5-pro",  # Use a more advanced model
+    messages=messages,
+    max_tokens=512,
+    temperature=0.8,
+)
+```
+
+### Image Generation
+
+```python
+response = gemini.image.generate(
+    model="imagen-3",  # Use a more advanced model
+    prompt=prompt,
+    size="1024x1024",  # Increase image size
+    quality="high",    # Increase image quality
+)
+```
+
+**⚠️ Be aware that higher-quality outputs will incur additional costs.**
+
+---
+
+## 💰 Gemini API Pricing Overview
+
+### Text Generation (Per 1M Tokens)
+
+| Model               | Input Price | Output Price |
+|---------------------|-------------|--------------|
+| Gemini 2.0 Flash    | $0.10       | $0.40        |
+| Gemini 2.0 Flash-Lite | $0.075    | $0.30        |
+| Gemini 2.5 Pro      | $1.25       | $10.00       |
+
+### Image Generation
+
+| Model    | Price per Image |
+|----------|-----------------|
+| Imagen 3 | $0.03           |
+
+### Video Generation
+
+| Model | Price per Second |
+|-------|------------------|
+| Veo 2 | $0.35            |
+
+*Note: Prices are subject to change. Refer to the [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing) for the most up-to-date information.*
+
+---
+
+## 🧠 Troubleshooting Tips (as of 2024-12-01)
+
+### Issues with Fine-Tuned Models
+
+- **Verify Model ID:** Ensure the model ID (e.g., `ftjob-xxxxxxxxx`) is correct.
+- **Check Access Permissions:** Confirm your API key has access to the fine-tuned models via the OpenAI dashboard.
+- **Model Status:** Ensure the fine-tuned model is active and not paused.
+- **Test Alternative Models:** Try using a different fine-tuned model to isolate the issue.
+
+### Dataset Collection Issues
+
+- **Dataset Collection ID:** Verify that the dataset collection ID is correct.
+- **JSONL Format:** Ensure the `dataset.jsonl` file is correctly formatted.
+- **Data Sources:** Consider collecting information from reliable sources, such as the LIU website, to improve dataset quality.
+
+---
