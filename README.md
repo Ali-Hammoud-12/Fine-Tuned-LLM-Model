@@ -1,128 +1,155 @@
-# ChatBot-Openai-App
+# 🧠 Fine-Tuned LLM Model
 
-## Implementation
+## Overview
 
-**Step 1: Clone the repository**
+This project implements a chatbot application powered by **Google's Gemini 1.5 Flash** model. It’s fine-tuned for educational and conversational use cases, integrates seamlessly with AWS services, and is optimized for both cost and performance.
 
-```bash
-mkdir ChatBot
-cd ChatBot
-git clone https://github.com/Ali-Hammoud-12/ChatBot.git
-```
-Now there is 2 ways to run this application, either using python debugger or docker.
+---
 
-**Step 2: Create a .env file in /app directory and make sure that the variable name is the same name given below** 
-```bash
-OPENAI_API_KEY=XXXXXXX....
-```
+## 🚀 Getting Started
 
-**Step 3.1 : Using python debugger** 
-```bash
-python app/app.py
-```
-**Step 3.2: Using Docker** 
-```bash
-docker docker build -t chatbot-app -f docker/Dockerfile .
-docker run -p 5000:5000 --env-file app/.env --name chatbot-app chatbot-app
-```
+You can run the application either **locally** or **remotely on AWS ECS**.
 
-**Important Note:** This project tries as much as possible to lower OpenAI API token costs by using:
-- Older model for text generation
-- Older model for image generation
-- Lower Image quality and size
+---
 
-If you want to increase the output quality do the following:
+### 🖥️ Run Locally
+
+#### Step 1: Clone the Repository
 
 ```bash
-# For text
-response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", # Use a newer model ex: gpt-4
-            messages=messages,
-            max_tokens=512,
-            temperature=0.8,
-        )
+git clone https://github.com/Ali-Hammoud-12/Fine-Tuned-LLM-Model.git
+cd Fine-Tuned-LLM-Model
 ```
+
+#### Step 2: Set Up Environment Variables
+
+Create a `.env` file in the `/chatbot` directory and populate it based on `.env.template`:
+
 ```bash
-# For Image
-response = openai.Image.create(
-            model="dall-e-2", # Use a newer model ex: dall-e-3
-            prompt=prompt,
-            n=1,
-            size="256x256", # Increase Image size ex: 1024x1024
-            quality="standard" # Increase Image resolution ex: hd
-        )
+GEMINI_API_KEY=Get_From_Google_AI_Studio
+AWS_ACCESS_KEY=Get_From_AWS_IAM_Users
+AWS_SECRET_ACCESS_KEY=Get_From_AWS_IAM_Users
 ```
 
-# Beware of incurring cost
+#### Step 3.1: Run with Python
 
-**DALL·E Pricing Table**
+```bash
+python main.py
+```
 
-| Model       | Quality  | Resolution        | Price per Image       |
-|-------------|----------|-------------------|-----------------------|
-| DALL·E 3    | Standard | 1024×1024         | $0.040                |
-| DALL·E 3    | Standard | 1024×1792,1792×1024 | $0.080             |
-| DALL·E 3    | HD       | 1024×1024         | $0.080                |
-| DALL·E 3    | HD       | 1024×1792, 1792×1024 | $0.120             |
-| DALL·E 2    |          | 1024×1024         | $0.020                |
-| DALL·E 2    |          | 512×512           | $0.018                |
-| DALL·E 2    |          | 256×256           | $0.016                |
+#### Step 3.2: Run with Docker
 
-**GPT Model Pricing Table (Per 1K Token)**
+```bash
+docker build -t chatbot-app -f docker/Dockerfile .
+docker run -p 5000:5000 --name chatbot-app chatbot-app
+```
 
-| Model                     | Input Price per 1K Tokens | Output Price per 1K Tokens |
-|---------------------------|---------------------------|----------------------------|
-| chatgpt-4o-latest         | $0.0050                  | $0.0150                   |
-| gpt-4-turbo               | $0.0100                  | $0.0300                   |
-| gpt-4-turbo-2024-04-09    | $0.0100                  | $0.0300                   |
-| gpt-4                     | $0.0300                  | $0.0600                   |
-| gpt-4-32k                 | $0.0600                  | $0.1200                   |
-| gpt-4-0125-preview        | $0.0100                  | $0.0300                   |
-| gpt-4-1106-preview        | $0.0100                  | $0.0300                   |
-| gpt-4-vision-preview      | $0.0100                  | $0.0300                   |
-| gpt-3.5-turbo-0125        | $0.0005                  | $0.0015                   |
-| gpt-3.5-turbo-instruct    | $0.0015                  | $0.0020                   |
-| gpt-3.5-turbo-1106        | $0.0010                  | $0.0020                   |
-| gpt-3.5-turbo-0613        | $0.0015                  | $0.0020                   |
-| gpt-3.5-turbo-16k-0613    | $0.0030                  | $0.0040                   |
-| gpt-3.5-turbo-0301        | $0.0015                  | $0.0020                   |
-| davinci-002               | $0.0020                  | $0.0020                   |
-| babbage-002               | $0.0004                  | $0.0004                   |
+---
 
-**GPT Model Pricing Table (Per 1M Tokens)**
+### ☁️ Run Remotely (AWS ECS)
 
-| Model                     | Input Price per 1M Tokens | Output Price per 1M Tokens |
-|---------------------------|---------------------------|----------------------------|
-| chatgpt-4o-latest         | $5.00                    | $15.00                    |
-| gpt-4-turbo               | $10.00                   | $30.00                    |
-| gpt-4-turbo-2024-04-09    | $10.00                   | $30.00                    |
-| gpt-4                     | $30.00                   | $60.00                    |
-| gpt-4-32k                 | $60.00                   | $120.00                   |
-| gpt-4-0125-preview        | $10.00                   | $30.00                    |
-| gpt-4-1106-preview        | $10.00                   | $30.00                    |
-| gpt-4-vision-preview      | $10.00                   | $30.00                    |
-| gpt-3.5-turbo-0125        | $0.50                    | $1.50                     |
-| gpt-3.5-turbo-instruct    | $1.50                    | $2.00                     |
-| gpt-3.5-turbo-1106        | $1.00                    | $2.00                     |
-| gpt-3.5-turbo-0613        | $1.50                    | $2.00                     |
-| gpt-3.5-turbo-16k-0613    | $3.00                    | $4.00                     |
-| gpt-3.5-turbo-0301        | $1.50                    | $2.00                     |
-| davinci-002               | $2.00                    | $2.00                     |
-| babbage-002               | $0.40                    | $0.40                     |
+#### Step 1: Trigger CI/CD Pipeline
 
-**Rule of thumb: 1 token is approximately 4 characters of English text**
-- The word "ChatGPT" is one token.
-- The sentence "This is a test sentence." is about 6 tokens.
+Use the **GitHub Actions** workflow:
+- Go to **Actions > ChatBot App CI/CD Pipeline**
+- Run the workflow and select the branch to deploy to AWS ECS.
 
-## Problems to be fixed (1.12.2024)
+#### Step 2: Scale Auto Scaling Group
 
-**Issue is likely with your fine-tuned model**
-- Verify the Fine-Tuned Model ID: Ensure that the model ID ftjob-xxxxxxxxx is correct.
-- Check Your Access Permissions: Verify that your API key has access to the fine-tuned models through OpenAI dashboard.
-- Check the Model's Status: Verify that the fine-tuned model is active and not paused and running .correctly
-- Test with a Different Fine-Tuned Model.
+In the AWS Console:
+- Navigate to **Auto Scaling Groups**
+- Set **desired instances** to `1` and update.
 
-**Issue with dataset.jsonl and dataset collection**
-- Verify the dataset collection ID: Ensure that the dataset collection ID is correct.
-- Checkout dataset jsonl format is correctly configured.
-- Try to collect information from LIU website as much as possible.
+#### Step 3: Deploy Updated ECS Service
 
+- Go to your **AWS ECS Service**
+- Force a new deployment to use the latest task definition
+- Set **desired task count** to `1`
+
+#### Step 4: Access via Load Balancer
+
+Visit the chatbot using the DNS endpoint:
+
+```
+http://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com/
+```
+
+---
+
+## 💡 Cost Optimization with Gemini API
+
+**Important Note:** This project aims to minimize API token costs by utilizing:
+- **Gemini 2.0 Flash-Lite** for text generation
+- **Imagen 3** for image generation
+- Lower image quality and size settings
+
+If you wish to enhance output quality, consider the following adjustments:
+
+### Text Generation
+
+```python
+response = gemini.chat(
+    model="gemini-2.5-pro", 
+    messages=messages,
+    max_tokens=512,
+    temperature=0.8,
+)
+```
+
+### Image Generation
+
+```python
+response = gemini.image.generate(
+    model="imagen-3", 
+    prompt=prompt,
+    size="1024x1024",  
+    quality="high",    
+)
+```
+
+**⚠️ Be aware that higher-quality outputs will incur additional costs.**
+
+---
+
+## 💰 Gemini API Pricing Overview  (as of 01-12-2024)
+
+### Text Generation (Per 1M Tokens)
+
+| Model               | Input Price | Output Price |
+|---------------------|-------------|--------------|
+| Gemini 2.0 Flash    | $0.10       | $0.40        |
+| Gemini 2.0 Flash-Lite | $0.075    | $0.30        |
+| Gemini 2.5 Pro      | $1.25       | $10.00       |
+
+### Image Generation
+
+| Model    | Price per Image |
+|----------|-----------------|
+| Imagen 3 | $0.03           |
+
+### Video Generation
+
+| Model | Price per Second |
+|-------|------------------|
+| Veo 2 | $0.35            |
+
+*Note: Prices are subject to change. Refer to the [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing) for the most up-to-date information.*
+
+---
+
+## 🧠 Troubleshooting Tips
+
+### Issues with Fine-Tuned Models
+
+- **Verify Model ID:** Ensure the model ID (e.g., `ftjob-xxxxxxxxx`) is correct.
+- **Check Access Permissions:** Confirm your API key has access to the fine-tuned models via the OpenAI dashboard.
+- **Model Status:** Ensure the fine-tuned model is active and not paused.
+- **Test Alternative Models:** Try using a different fine-tuned model to isolate the issue.
+
+### Dataset Collection Issues
+
+- **Dataset Collection ID:** Verify that the dataset collection ID is correct.
+- **JSONL Format:** Ensure the `dataset.jsonl` file is correctly formatted.
+- **Data Sources:** Consider collecting information from reliable sources, such as the LIU website, to improve dataset quality.
+
+---
