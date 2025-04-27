@@ -1,22 +1,10 @@
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, redirect
 
 home_bp = Blueprint('home', __name__)
-
-# @home_bp.route("/")
-# def loading_screen():
-#     # This will render the loading screen template
-#     return render_template("Loadingscreen.html"),200
 
 @home_bp.route("/")
 def index():
     """
-    Handles the root route of the application, validates the API key,
-    and returns "Hello World!".
-
-    Args:
-        None
-
-    Returns:
-        Response: A JSON response with a greeting message or an error message.
+    Redirects to the Next.js frontend home page.
     """
-    return render_template("index.html"),200
+    return redirect("http://localhost:3000/"), 302  # Adjust the URL if your frontend runs elsewhere
