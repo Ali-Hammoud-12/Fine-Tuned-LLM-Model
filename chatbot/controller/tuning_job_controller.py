@@ -46,11 +46,15 @@ def tuning_job():
         print(f"Error creating tuning job: {e}")
         return jsonify({"error": str(e)}), 500
 
-@tuning_bp.route("/tuning-chat", methods=["POST"])
+@tuning_bp.route("/tuning-chat", methods=["POST", "OPTIONS"])
 def tuning_chat():
-    """
-    Handles fine-tuned chat requests using the previously created tuning job.
-    """
+    if request.method == "OPTIONS":
+        response = jsonify({})
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST')
+        return response
+    
     userText = request.args.get('msg')
     prompt_construction = (latest_transcription + "\n" + userText).strip()
     if userText:
@@ -61,4 +65,24 @@ def tuning_chat():
             print(f"Error generating fine-tuned chat response: {e}")
             return jsonify({"error": str(e)}), 500
     else:
-        return jsonify({"error": "No message received"}), 400
+        return jsonify({"error": "No message received"}), 
+
+
+
+# OLD CODE
+# @tuning_bp.route("/tuning-chat", methods=["POST"])
+# def tuning_chat():
+#     """
+#     Handles fine-tuned chat requests using the previously created tuning job.
+#     """
+#     userText = request.args.get('msg')
+#     prompt_construction = (latest_transcription + "\n" + userText).strip()
+#     if userText:
+#         try:
+#             response = generate_chat_response(prompt_construction, conversation_history)
+#             return jsonify({"response": response})
+#         except Exception as e:
+#             print(f"Error generating fine-tuned chat response: {e}")
+#             return jsonify({"error": str(e)}), 500
+#     else:
+#         return jsonify({"error": "No message received"}), 400
