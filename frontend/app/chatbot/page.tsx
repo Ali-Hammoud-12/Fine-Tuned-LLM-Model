@@ -218,6 +218,7 @@ export default function ChatbotPage() {
     return withoutTags.replace(/^Fine-Tuned LIU ChatBot:\s*/i, '');
   };
   const handleSubmit = async () => {
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -275,14 +276,112 @@ export default function ChatbotPage() {
     }
     // Rest of your existing handleSubmit logic...
     else if (file) {
-      // Existing file handling logic...
-    }
-    else if (userInput.trim() !== '') {
-      // Existing text handling logic...
+  const fileName = file.name;
+      setMessages(prev => [...prev, {
+        sender: 'user',
+        text: '',
+        image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
+        fileName: fileName,
+        loading: true
+      }]);
+
+      const loadingMsgIndex = messages.length;
+
+      try {
+        // Get presigned URL from backend
+        const presignedRes = await axios.post('http://localhost:8080/get_presigned_url', {
+          filename: fileName,
+          content_type: file.type || 'application/octet-stream',
+        });
+
+        // Upload file to S3
+        await axios.put(presignedRes.data.url, file, {
+          headers: {
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / (progressEvent.total || 1)
+            );
+            setMessages(prev => {
+              const updated = [...prev];
+              if (updated[loadingMsgIndex]) {
+                updated[loadingMsgIndex].text = `Uploading ${percentCompleted}%`;
+              }
+              return updated;
+            });
+          }
+        });
+
+        // Update message to show completion
+        setMessages(prev => {
+          const updated = [...prev];
+          if (updated[loadingMsgIndex]) {
+            updated[loadingMsgIndex].loading = false;
+            updated[loadingMsgIndex].text = `Uploaded to S3: ${fileName}`;
+          }
+          return updated;
+        });
+
+        setFile(null);
+      } catch (error) {
+        console.error('Upload error:', error);
+        setMessages(prev => {
+          const updated = [...prev];
+          if (updated[loadingMsgIndex]) {
+            updated[loadingMsgIndex].loading = false;
+            updated[loadingMsgIndex].text = `Error uploading ${fileName}`;
+          }
+          return updated;
+        });
+      }
+    } else if (userInput.trim() !== '') {
+      const userMessageIndex = messages.length;
+      setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
+      setMessages(prev => [...prev, { sender: 'bot', text: '', loading: true }]);
+      const botMessageIndex = userMessageIndex + 1;
+
+      try {
+        // Using GET with query parameters
+        const response = await axios.post(
+          `http://localhost:8080/tuning-chat?msg=${encodeURIComponent(userInput)}`
+        );
+
+        setMessages(prev => {
+          const newMessages = [...prev];
+          if (newMessages[botMessageIndex]) {
+            newMessages[botMessageIndex] = {
+              sender: 'bot',
+              text: cleanBotResponse(response.data.response),
+              loading: false
+            };
+          }
+          return newMessages;
+        });
+
+        setUserInput('');
+      } catch (error: any) {
+        console.error('❌ Chat error:', error);
+        const errorMessage = error.response?.data?.error ||
+          error.message ||
+          'Sorry, I encountered an error. Please try again.';
+
+        setMessages(prev => {
+          const newMessages = [...prev];
+          if (newMessages[botMessageIndex]) {
+            newMessages[botMessageIndex] = {
+              sender: 'bot',
+              text: errorMessage,
+              loading: false
+            };
+          }
+          return newMessages;
+        });
+      }
     }
 
     setIsSubmitting(false);
-  };
+  }
   const formatFileSize = (bytes: number): any => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -636,7 +735,8 @@ export default function ChatbotPage() {
         </button>
       </div>
 
-      <style jsx>{`
+      <style jsx>
+      {`
         .container {
           display: flex;
           flex-direction: column;
