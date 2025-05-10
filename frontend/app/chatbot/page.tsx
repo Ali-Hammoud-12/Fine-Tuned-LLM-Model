@@ -218,7 +218,6 @@ export default function ChatbotPage() {
     return withoutTags.replace(/^Fine-Tuned LIU ChatBot:\s*/i, '');
   };
   const handleSubmit = async () => {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     if (isSubmitting) return;
     setIsSubmitting(true);
 
@@ -239,7 +238,8 @@ export default function ChatbotPage() {
 
       try {
         // Get presigned URL for audio upload
-        const presignedRes = await axios.post('http://localhost:8080/get_presigned_url', {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
           filename: audioFileName,
           content_type: 'audio/mp3',
         });
@@ -288,8 +288,9 @@ export default function ChatbotPage() {
       const loadingMsgIndex = messages.length;
 
       try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         // Get presigned URL from backend
-        const presignedRes = await axios.post('http://localhost:8080/get_presigned_url', {
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
           filename: fileName,
           content_type: file.type || 'application/octet-stream',
         });
@@ -343,8 +344,9 @@ export default function ChatbotPage() {
 
       try {
         // Using GET with query parameters
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(
-          `http://localhost:8080/tuning-chat?msg=${encodeURIComponent(userInput)}`
+          `${apiUrl}/tuning-chat?msg=${encodeURIComponent(userInput)}`
         );
 
         setMessages(prev => {
