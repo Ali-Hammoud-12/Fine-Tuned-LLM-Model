@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - chatbot-app-deploy
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
   workflow_dispatch:
 jobs:
   test:
@@ -80,17 +83,31 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
-    - name: Docker Compose Build
+    - name: Determine Changed Directory
+      id: changes
       run: |
-        docker compose -f docker/docker-compose.yml build
-        docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
-        docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:latest
-        docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
-        docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:latest
-        docker push $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
-        docker push $ECR_REGISTRY/chatbot-backend:latest
-        docker push $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
-        docker push $ECR_REGISTRY/chatbot-frontend:latest
+        echo "BACKEND_CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^backend/' || true)" >> $GITHUB_ENV
+        echo "FRONTEND_CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend/' || true)" >> $GITHUB_ENV
+
+    - name: Docker Build & Push
+      run: |
+        if [ -n "$BACKEND_CHANGED" ]; then
+          echo "🔨 Building and Pushing Backend"
+          docker compose -f docker/docker-compose.yml build backend
+          docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
+          docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:latest
+          docker push $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
+          docker push $ECR_REGISTRY/chatbot-backend:latest
+        fi
+
+        if [ -n "$FRONTEND_CHANGED" ]; then
+          echo "🔨 Building and Pushing Frontend"
+          docker compose -f docker/docker-compose.yml build frontend
+          docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
+          docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:latest
+          docker push $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
+          docker push $ECR_REGISTRY/chatbot-frontend:latest
+        fi
 
     # - name: Download Task Definition
     #   run: |
