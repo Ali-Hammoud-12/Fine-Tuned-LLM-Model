@@ -20,9 +20,20 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.13'
-        cache: 'pip' # caching pip dependencies
+        cache: 'pip'
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm ci
 
     - name: Install dependencies
+      working-directory: ./backend
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
@@ -33,10 +44,10 @@ jobs:
       # Ensure workflow stops on test failure
       continue-on-error: false
 
-  build-backend:
+  build-deploy:
     runs-on: ubuntu-latest
     needs: test
-    name: Build backend
+    name: Build and Deploy Chatbot App
     # if: github.ref == 'refs/heads/master' && success()
     if: success()
     env:
@@ -65,100 +76,34 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
+    - name: Docker Compose Build
       run: |
-        # Build the Docker image
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest -f docker/Dockerfile .
-        
-        # Push the images to ECR
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-        
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        docker-compose -f docker/docker-compose.yml build
+        docker tag chatbot-backend:latest $ECR_REGISTRY/backend:$GITHUB_SHA
+        docker tag chatbot-frontend:latest $ECR_REGISTRY/frontend:$GITHUB_SHA
+        docker push $ECR_REGISTRY/backend:$GITHUB_SHA
+        docker push $ECR_REGISTRY/frontend:$GITHUB_SHA
 
-    - name: Download Task Definition
-      run: |
-        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+    # - name: Download Task Definition
+    #   run: |
+    #     aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
 
-    - name: Clean Task Definition
-      run: |
-        # Remove properties that cause issues with registration
-        jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
-        mv cleaned-task-definition.json task-definition.json
+    # - name: Clean Task Definition
+    #   run: |
+    #     # Remove properties that cause issues with registration
+    #     jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
+    #     mv cleaned-task-definition.json task-definition.json
 
-    - name: Upload Task Definition Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: task-definition-backend
-        path: task-definition.json
-        retention-days: 1
-
-  build-frontend:
-    runs-on: ubuntu-latest
-    needs: test
-    name: Build Frontend
-    if: success()
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'eu-west-3'
-      ECR_REPOSITORY: 'fine-tuned-liu-model-frontend'
-      ECR_REGISTRY: '418295688401.dkr.ecr.eu-west-3.amazonaws.com'
-      ECS_CLUSTER: 'Fine-Tuned-LLM-Model'
-      ECS_SERVICE: 'Fine-Tuned-LLM-Model-Service'
-      ECS_TASK_DEFINITION: 'AI-Chatbot-Task-Defination'
-      CONTAINER_NAME: 'fine-tuned-liu-model'
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
-
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-          docker build -t $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG -f docker/frontend.Dockerfile .
-          docker tag $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG $ECR_REGISTRY/$FRONTEND_REPO:latest
-          docker push $ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG
-          docker push $ECR_REGISTRY/$FRONTEND_REPO:latest
-          echo "image=$ECR_REGISTRY/$FRONTEND_REPO:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-    - name: Download Task Definition
-      run: |
-        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
-
-    - name: Clean Task Definition
-      run: |
-        # Remove properties that cause issues with registration
-        jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
-        mv cleaned-task-definition.json task-definition.json
-
-    - name: Upload Task Definition Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: task-definition-frontend
-        path: task-definition.json
-        retention-days: 1
+    # - name: Upload Task Definition Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: task-definition-backend
+    #     path: task-definition.json
+    #     retention-days: 1
 
   cleanup-phase:
     runs-on: ubuntu-latest
-    needs: [build-backend, build-frontend]
+    needs: [build-deploy]
     name: Cleanup Phase
     if: success()
     steps:

@@ -4,6 +4,10 @@ import io
 import boto3
 import backend
 import backend.app
+from dotenv import load_dotenv
+
+# Load environment variables from .env file if present
+load_dotenv()
 
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -81,7 +85,7 @@ def test_upload_direct_s3(client):
     assert "message" in resp_data, "Response missing 'message'"
     assert "s3_key" in resp_data, "Response missing 's3_key'"
     assert resp_data["message"] == "File uploaded successfully", "Unexpected upload message"
-    
+
     # Now, use the boto3 client to verify that the file exists in S3 and has the expected content.
     s3 = boto3.client(
         "s3",
@@ -90,13 +94,13 @@ def test_upload_direct_s3(client):
         aws_secret_access_key=AWS_Secret_Access_Key
     )
     s3_key = resp_data["s3_key"]
-    
+
     try:
         # Retrieve the object from S3.
         s3_object = s3.get_object(Bucket=S3_BUCKET_NAME, Key=s3_key)
         file_content = s3_object["Body"].read()
         assert file_content == b"dummy file content", "Uploaded file content does not match"
-        
+
     finally:
         # Clean up: Delete the test file from S3 regardless of test outcome
         try:
@@ -104,4 +108,3 @@ def test_upload_direct_s3(client):
             print(f"Successfully deleted test file: {s3_key}")
         except Exception as e:
             print(f"Warning: Failed to delete test file {s3_key}: {e}")
-    
