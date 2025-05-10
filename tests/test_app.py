@@ -43,7 +43,7 @@ def test_index(client):
     """
     response = client.get('/')
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
-    assert b"<!DOCTYPE html>" in response.data, f"Response does not contain HTML: {response.data}"
+    assert b"<!doctype html" in response.data.lower(), f"Response does not contain HTML: {response.data}"
 
 def test_chat(client):
     """
