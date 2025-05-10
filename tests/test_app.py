@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env file if present
 load_dotenv()
 
+# Force use of token.json to bypass browser-based OAuth during CI
+os.environ["GOOGLE_AUTH_TOKEN_PATH"] = os.path.join("backend", "token.json")
+
 # Retrieve the Gemini API key from environment variables.
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 AWS_REGION = os.getenv("AWS_REGION", "eu-west-3")
