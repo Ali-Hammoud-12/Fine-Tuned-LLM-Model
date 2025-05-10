@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-import backend.job_manager as job_manager  # Import the shared module
+import job_manager as job_manager  # Import the shared module
 
 model_status_bp = Blueprint('model_status', __name__)
 

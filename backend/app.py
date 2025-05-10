@@ -5,18 +5,18 @@ from flask import Flask, jsonify
 from dotenv import load_dotenv
 from flask_socketio import SocketIO
 import google.generativeai as genai
-from backend.utils.load_creds import load_creds
+from utils.load_creds import load_creds
 from flask_cors import CORS
 
-from backend.controller.home_controller import home_bp
-from backend.controller.chat_controller import chat_bp
-from backend.controller.tuning_job_controller import tuning_bp
-from backend.controller.custom_document_processing_controller import Custom_document_tuning_bp
-from backend.controller.model_status_controller import model_status_bp
+from controller.home_controller import home_bp
+from controller.chat_controller import chat_bp
+from controller.tuning_job_controller import tuning_bp
+from controller.custom_document_processing_controller import Custom_document_tuning_bp
+from controller.model_status_controller import model_status_bp
 
-from backend.utils.services import create_finetuning_job
-from backend.model.custom_gemini_model import CustomGemini_Model
-from backend.model.socketio_instance import socketio
+from utils.services import create_finetuning_job
+from model.custom_gemini_model import CustomGemini_Model
+from model.socketio_instance import socketio
 
 def create_app():
     # Always load the default .env file first

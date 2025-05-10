@@ -1,9 +1,7 @@
+import os
 import json
 import google.generativeai as genai
 from google.generativeai import types
-import os
-
-
 
 def load_training_dataset():
     file_path = os.path.join(os.path.dirname(__file__), "../data/dataset.json")

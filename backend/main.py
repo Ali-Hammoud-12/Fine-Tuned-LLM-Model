@@ -1,5 +1,5 @@
-from backend.app import create_app
-from backend.model.socketio_instance import socketio
+from app import create_app
+from model.socketio_instance import socketio
 
 if __name__ == "__main__":
     print("🚀 Starting the Flask-SocketIO app...")

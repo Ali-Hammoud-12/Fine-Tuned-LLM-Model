@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from backend.utils.services import generate_chat_response
+from utils.services import generate_chat_response
 
 chat_bp = Blueprint('chat', __name__)
 # Optionally, you could load historical conversation data:

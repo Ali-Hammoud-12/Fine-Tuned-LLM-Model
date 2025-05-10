@@ -1,10 +1,10 @@
 import os
 from flask import Blueprint, jsonify, request
 import google.generativeai as genai
-import backend.job_manager as job_manager
-from backend.utils.services import create_finetuning_job
-from backend.utils.services import generate_fine_tuned_chat_response as generate_chat_response
-from backend.utils.transcription_cache import latest_transcription
+import job_manager as job_manager
+from utils.services import create_finetuning_job
+from utils.services import generate_fine_tuned_chat_response as generate_chat_response
+from utils.transcription_cache import latest_transcription
 
 
 tuning_bp = Blueprint('tuning', __name__)

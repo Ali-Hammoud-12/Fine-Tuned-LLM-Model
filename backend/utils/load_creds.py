@@ -23,8 +23,10 @@ def load_creds():
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            CLIENT_SECRET_FILE = os.path.join(BASE_DIR, 'client_secret.json')
             flow = InstalledAppFlow.from_client_secrets_file(
-                './chatbot/utils/client_secret.json', SCOPES)
+                CLIENT_SECRET_FILE, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:

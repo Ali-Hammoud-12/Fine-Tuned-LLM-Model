@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
 from flask_socketio import emit
-from backend.utils.aws_services import upload_file_to_S3, generate_presigned_url
-from backend.model.socketio_instance import socketio
-import backend.utils.transcription_cache as cache
+from utils.aws_services import upload_file_to_S3, generate_presigned_url
+from model.socketio_instance import socketio
+import utils.transcription_cache as cache
 
 Custom_document_tuning_bp = Blueprint('Custom_Document', __name__)
 

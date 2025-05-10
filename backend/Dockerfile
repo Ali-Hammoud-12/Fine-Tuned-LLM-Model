@@ -4,9 +4,8 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Create and activate a virtual environment
-RUN python -m venv /ChatBot_env
-ENV PATH="/ChatBot_env/bin:$PATH"
-ENV PYTHONPATH=/app
+RUN python -m venv /chatbot_env
+ENV PATH="/chatbot_env/bin:$PATH"
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
@@ -19,5 +18,4 @@ ENV FLASK_ENV=production
 
 EXPOSE 5000
 
-# Run the main file
 CMD ["python", "main.py"]
