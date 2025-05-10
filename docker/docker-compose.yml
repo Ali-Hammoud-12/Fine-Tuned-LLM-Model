@@ -1,5 +1,6 @@
 services:
   backend:
+    image: chatbot-backend:latest
     build:
       context: ../backend
       dockerfile: Dockerfile
@@ -13,6 +14,7 @@ services:
       - app-network
 
   frontend:
+    image: chatbot-frontend:latest
     build:
       context: ../frontend
       dockerfile: Dockerfile
