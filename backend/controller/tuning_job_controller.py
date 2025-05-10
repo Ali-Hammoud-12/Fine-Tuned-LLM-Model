@@ -62,7 +62,7 @@ def tuning_chat():
     if userText:
         try:
             response = generate_chat_response(prompt_construction, conversation_history)
-            return jsonify({"response": response})
+            return jsonify({"response": response}), 200
         except Exception as e:
             print(f"Error generating fine-tuned chat response: {e}")
             return jsonify({"error": str(e)}), 500
