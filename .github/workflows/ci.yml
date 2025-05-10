@@ -82,7 +82,7 @@ jobs:
 
     - name: Docker Compose Build
       run: |
-        docker compose -f docker/docker-compose.yml build
+        docker compose -f docker/docker-compose.yml build --build-arg TAG=latest
         docker tag chatbot-backend:latest $ECR_REGISTRY/backend:${{ github.sha }}
         docker tag chatbot-frontend:latest $ECR_REGISTRY/frontend:${{ github.sha }}
         docker push $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
