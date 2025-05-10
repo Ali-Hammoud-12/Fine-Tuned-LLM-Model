@@ -1,0 +1,68 @@
+"use client"
+import Image from 'next/image';
+
+interface workdata {
+    imgSrc: string;
+    heading: string;
+    subheading: string;
+    hiddenpara: string;
+}
+
+const workdata: workdata[] = [
+    {
+        imgSrc: '/images/Work/icon-One.svg',
+        heading: 'Ask Questions',
+        subheading: 'Easily ask questions related to university life, academics, and student resources at the Lebanese International University.',
+        hiddenpara: 'Our AI model is designed to understand your academic queries and provide clear, personalized answers to help you navigate university life.',
+    },
+    {
+        imgSrc: '/images/Work/icon-two.svg',
+        heading: 'Free of Charge',
+        subheading: 'Access all services at no cost! Our AI model is completely free to use for all students and faculty members.',
+        hiddenpara: 'Enjoy the benefits of personalized academic assistance without any fees or hidden charges. It’s entirely free for the LIU community.',
+    },
+    {
+        imgSrc: '/images/Features/featureOne.svg',
+        heading: 'AI Effectiveness & Security',
+        subheading: 'Leverage the power of advanced AI to get accurate, and helpful answers.',
+        hiddenpara: 'Our AI model not only delivers personalized academic assistance but also adheres to the highest security standards. By utilizing cloud services and AWS, we ensure that your data is secure, private, and handled with the utmost care.',
+    }
+]
+
+
+const Work = () => {
+    return (
+        <div>
+            <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative ' id="features-section">
+                <div className="radial-bgone hidden lg:block"></div>
+                <div className='text-center mb-14'>
+                    <h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>How it work</h3>
+                    <p className='text-bluish md:text-lg font-normal leading-8'>Our personalized AI model helps you get answers to your academic and university life-related questions at the Lebanese International University.
+                    <br /> Learn how this innovative solution works to provide tailored guidance through an interactive chat interface.
+                    </p>
+                </div>
+
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
+
+                    {workdata.map((items, i) => (
+                        <div className='card-b p-8' key={i}>
+                            <div className='work-img-bg rounded-full flex justify-center absolute p-6'>
+                                <Image src={items.imgSrc} alt={items.imgSrc} width={44} height={44} />
+                            </div>
+                            <div>
+                                <Image src={'/images/Work/bg-arrow.svg'} alt="arrow-bg" width={85} height={35} />
+                            </div>
+                            <h3 className='text-2xl text-offwhite font-semibold text-center mt-8'>{items.heading}</h3>
+                            <p className='text-base font-normal text-bluish text-center mt-2'>{items.subheading}</p>
+                            <span className="text-base font-normal m-0 text-bluish text-center hides">{items.hiddenpara}</span>
+                        </div>
+                    ))}
+
+                </div>
+
+            </div>
+        </div>
+    )
+}
+
+export default Work;
