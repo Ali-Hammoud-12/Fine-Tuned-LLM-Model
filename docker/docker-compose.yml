@@ -1,6 +1,7 @@
 services:
   backend:
     build:
+      image: chatbot-backend
       context: ../backend
       dockerfile: Dockerfile
     container_name: chatbot-backend
@@ -14,6 +15,7 @@ services:
 
   frontend:
     build:
+      image: chatbot-frontend
       context: ../frontend
       dockerfile: Dockerfile
     container_name: chatbot-frontend
