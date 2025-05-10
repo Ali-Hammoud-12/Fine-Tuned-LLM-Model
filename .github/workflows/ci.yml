@@ -86,8 +86,18 @@ jobs:
     - name: Determine Changed Directory
       id: changes
       run: |
-        echo "BACKEND_CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^backend/' || true)" >> $GITHUB_ENV
-        echo "FRONTEND_CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^frontend/' || true)" >> $GITHUB_ENV
+        BEFORE=${{ github.event.before || '' }}
+        if [ -z "$BEFORE" ]; then
+          echo "First push or manual trigger, defaulting to HEAD~1"
+          BEFORE=$(git rev-parse HEAD~1)
+        fi
+
+        echo "Comparing changes between $BEFORE and $GITHUB_SHA"
+        BACKEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^backend/' || true)
+        FRONTEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^frontend/' || true)
+
+        echo "BACKEND_CHANGED=$BACKEND_CHANGED" >> $GITHUB_ENV
+        echo "FRONTEND_CHANGED=$FRONTEND_CHANGED" >> $GITHUB_ENV
 
     - name: Docker Build & Push
       run: |
