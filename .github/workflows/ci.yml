@@ -156,7 +156,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: task-definition
-        path: task-definition.json
+        path: task-definition.updated.json
         retention-days: 1
 
   deploy-app:
@@ -176,12 +176,13 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: task-definition
+        path: .
 
     - name: Register New Task Definition
       id: register-task
       run: |
         TASK_DEF_ARN=$(aws ecs register-task-definition \
-          --cli-input-json file://task-definition.json \
+          --cli-input-json file://task-definition.updated.json \
           | jq -r '.taskDefinition.taskDefinitionArn')
         echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_OUTPUT
 
