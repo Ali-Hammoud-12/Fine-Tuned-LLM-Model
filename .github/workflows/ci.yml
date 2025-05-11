@@ -176,7 +176,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: task-definition
-        path: task-definition.updated.json
+        path: .
 
     - name: Register New Task Definition
       id: register-task
