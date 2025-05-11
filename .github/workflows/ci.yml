@@ -88,20 +88,18 @@ jobs:
       run: |
         BEFORE=${{ github.event.before || '' }}
         if [ -z "$BEFORE" ]; then
-          echo "First push or manual trigger, defaulting to HEAD~1"
           BEFORE=$(git rev-parse HEAD~1)
         fi
 
-        echo "Comparing changes between $BEFORE and $GITHUB_SHA"
         BACKEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^backend/' || true)
         FRONTEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^frontend/' || true)
 
-        echo "BACKEND_CHANGED=$BACKEND_CHANGED" >> $GITHUB_ENV
-        echo "FRONTEND_CHANGED=$FRONTEND_CHANGED" >> $GITHUB_ENV
+        echo "backend_changed=${BACKEND_CHANGED}" >> $GITHUB_OUTPUT
+        echo "frontend_changed=${FRONTEND_CHANGED}" >> $GITHUB_OUTPUT
 
     - name: Docker Build & Push
       run: |
-        if [ -n "$BACKEND_CHANGED" ]; then
+        if [ -n "${{ steps.changes.outputs.backend_changed }}" ]; then
           echo "🔨 Building and Pushing Backend"
           docker compose -f docker/docker-compose.yml build backend
           docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
@@ -110,7 +108,7 @@ jobs:
           docker push $ECR_REGISTRY/chatbot-backend:latest
         fi
 
-        if [ -n "$FRONTEND_CHANGED" ]; then
+        if [ -n "${{ steps.changes.outputs.frontend_changed }}" ]; then
           echo "🔨 Building and Pushing Frontend"
           docker compose -f docker/docker-compose.yml build frontend
           docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
