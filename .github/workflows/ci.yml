@@ -92,12 +92,7 @@ jobs:
 
         BACKEND_CHANGED=$(echo "$CHANGED_FILES" | grep '^backend/' || true)
         FRONTEND_CHANGED=$(echo "$CHANGED_FILES" | grep '^frontend/' || true)
-        
-        # !!! For debugging purposes only !!!!
-        echo "Changed files:"
-        echo "$CHANGED_FILES"
-        # !!! For debugging purposes only !!!!
-        
+
         echo "backend_changed=$BACKEND_CHANGED" >> $GITHUB_OUTPUT
         echo "frontend_changed=$FRONTEND_CHANGED" >> $GITHUB_OUTPUT
 
