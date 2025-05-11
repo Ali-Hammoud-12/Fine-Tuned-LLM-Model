@@ -116,6 +116,10 @@ jobs:
           docker push $ECR_REGISTRY/chatbot-frontend:latest
         fi
 
+        if [ -n "" ]; then
+          echo "No changes detected in backend or frontend directories. Skipping Docker build and push."
+        fi
+
     # - name: Download Task Definition
     #   run: |
     #     aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
