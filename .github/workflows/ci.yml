@@ -184,7 +184,8 @@ jobs:
         TASK_DEF_ARN=$(aws ecs register-task-definition \
           --cli-input-json file://task-definition.updated.json \
           | jq -r '.taskDefinition.taskDefinitionArn')
-        echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_OUTPUT
+        echo "task_def_arn=$TASK_DEF_ARN" >> $GITHUB_ENV
+        echo "task_def_arn=$TASK_DEF_ARN" >> $GITHUB_OUTPUT
 
     - name: Deploy to Amazon ECS
       uses: aws-actions/amazon-ecs-deploy-task-definition@v2
