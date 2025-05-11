@@ -120,22 +120,44 @@ jobs:
           echo "No changes detected in backend or frontend directories. Skipping Docker build and push."
         fi
 
-    # - name: Download Task Definition
-    #   run: |
-    #     aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+    - name: Download Task Definition
+      run: |
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
+      
+    - name: Clean and Prepare Task Definition
+      run: |
+        jq 'del(.taskDefinitionArn, .revision, .status, .registeredAt, .registeredBy, .compatibilities, .requiresAttributes, .cpu, .memory)' task-definition.json > task-definition.cleaned.json
+    
+    - name: Update Images for Both Containers
+      run: |
+        jq --arg backend_image "$ECR_REGISTRY/chatbot-backend:${{ github.sha }}" \
+           --arg frontend_image "$ECR_REGISTRY/chatbot-frontend:${{ github.sha }}" \
+        '(.containerDefinitions[] | select(.name == "chatbot-backend") .image) = $backend_image |
+         (.containerDefinitions[] | select(.name == "chatbot-frontend") .image) = $frontend_image' \
+        task-definition.cleaned.json > task-definition.updated.json
 
-    # - name: Clean Task Definition
-    #   run: |
-    #     # Remove properties that cause issues with registration
-    #     jq 'del(.taskDefinitionArn, .status, .revision, .compatibilities, .requiresAttributes, .registeredAt, .registeredBy, .enableFaultInjection)' task-definition.json > cleaned-task-definition.json
-    #     mv cleaned-task-definition.json task-definition.json
+    - name: Upload Task Definition Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: task-definition
+        path: task-definition.json
+        retention-days: 1
 
-    # - name: Upload Task Definition Artifact
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: task-definition-backend
-    #     path: task-definition.json
-    #     retention-days: 1
+    - name: Register New Task Definition
+      id: register-task
+      run: |
+        TASK_DEF_ARN=$(aws ecs register-task-definition \
+          --cli-input-json file://task-definition.updated.json \
+          | jq -r '.taskDefinition.taskDefinitionArn')
+        echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_OUTPUT
+
+    - name: Deploy to Amazon ECS
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+      with:
+        task-definition: ${{ steps.register-task.outputs.task_def_arn }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
 
   cleanup-phase:
     runs-on: ubuntu-latest
