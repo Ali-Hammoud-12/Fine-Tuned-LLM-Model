@@ -186,13 +186,19 @@ jobs:
           | jq -r '.taskDefinition.taskDefinitionArn')
         echo "task_def_arn=$TASK_DEF_ARN" >> "$GITHUB_OUTPUT"
 
-    - name: Deploy to Amazon ECS
-      uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-      with:
-        task-definition: ${{ steps.register-task.outputs.task_def_arn }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
-        wait-for-service-stability: true
+    - name: Deploy Updated Task Definition via AWS CLI
+      run: |
+        echo "Updating ECS service with new task definition..."
+        aws ecs update-service \
+          --cluster $ECS_CLUSTER \
+          --service $ECS_SERVICE \
+          --task-definition ${{ steps.register-task.outputs.task_def_arn }} \
+          --force-new-deployment
+
+        echo "Waiting for service to stabilize..."
+        aws ecs wait services-stable \
+          --cluster $ECS_CLUSTER \
+          --services $ECS_SERVICE
 
   cleanup-phase:
     runs-on: ubuntu-latest
