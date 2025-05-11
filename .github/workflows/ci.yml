@@ -113,7 +113,7 @@ jobs:
           docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
           docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:latest
           docker push $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
-          docker push $ECR_REGISTRY/chatbot-frontend:latest
+        docker push $ECR_REGISTRY/chatbot-frontend:latest
         fi
 
         if [ -n "" ]; then
