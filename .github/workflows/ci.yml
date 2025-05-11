@@ -86,11 +86,12 @@ jobs:
     - name: Determine Changed Directory
       id: changes
       run: |
+        # Try to use github.event.before, fallback to HEAD~1 if invalid
         BEFORE=${{ github.event.before || '' }}
-        if [ -z "$BEFORE" ]; then
-          BEFORE=$(git rev-parse HEAD~1)
-        fi
+        git cat-file -e "$BEFORE^{commit}" 2>/dev/null || BEFORE=$(git rev-parse HEAD~1)
 
+        echo "Comparing changes between $BEFORE and $GITHUB_SHA"
+        
         BACKEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^backend/' || true)
         FRONTEND_CHANGED=$(git diff --name-only $BEFORE $GITHUB_SHA | grep '^frontend/' || true)
 
