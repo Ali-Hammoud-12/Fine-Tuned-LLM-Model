@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true, // This disables the image optimization API
+    unoptimized: true,
   },
-}
+  env: {
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

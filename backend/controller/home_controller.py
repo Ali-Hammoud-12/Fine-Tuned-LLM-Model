@@ -10,3 +10,7 @@ def index():
     Redirects to the Next.js frontend home page.
     """
     return redirect(f"{FRONTEND_ORIGIN}/"), 200  # Adjust the URL if your frontend runs elsewhere
+
+@home_bp.route("/health")
+def health_check():
+    return {"status": "ok"}, 200

@@ -68,23 +68,3 @@ def tuning_chat():
             return jsonify({"error": str(e)}), 500
     else:
         return jsonify({"error": "No message received"}), 
-
-
-
-# OLD CODE
-# @tuning_bp.route("/tuning-chat", methods=["POST"])
-# def tuning_chat():
-#     """
-#     Handles fine-tuned chat requests using the previously created tuning job.
-#     """
-#     userText = request.args.get('msg')
-#     prompt_construction = (latest_transcription + "\n" + userText).strip()
-#     if userText:
-#         try:
-#             response = generate_chat_response(prompt_construction, conversation_history)
-#             return jsonify({"response": response})
-#         except Exception as e:
-#             print(f"Error generating fine-tuned chat response: {e}")
-#             return jsonify({"error": str(e)}), 500
-#     else:
-#         return jsonify({"error": "No message received"}), 400
