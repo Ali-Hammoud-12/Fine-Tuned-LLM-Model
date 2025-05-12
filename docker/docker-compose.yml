@@ -18,6 +18,8 @@ services:
     build:
       context: ../frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: https://chatbot-load-balancer-1863046690.eu-west-3.elb.amazonaws.com
     container_name: chatbot-frontend
     ports:
       - "3000:3000"
