@@ -139,7 +139,7 @@ export default function ChatbotPage() {
   }, []);
 
   useEffect(() => {
-    const socket = io('https://chatbot-load-balancer-508553306.eu-west-3.elb.amazonaws.com', {
+    const socket = io('https://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
       transports: ['websocket'],
     });
 
