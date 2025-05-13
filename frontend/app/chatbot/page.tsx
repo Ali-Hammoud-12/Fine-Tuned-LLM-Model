@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import AudioPlayer from './../components/audioPlayer';
 import axios from 'axios';
 interface Message {
@@ -138,7 +138,7 @@ export default function ChatbotPage() {
     };
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
     const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
       transports: ['websocket'],
     });
@@ -147,19 +147,26 @@ export default function ChatbotPage() {
       console.log('✅ WebSocket connected');
     });
 
-    socket.on('connect_error', (err) => {
+    socket.on('connect_error', (err: Error) => {
       console.error('❌ WebSocket connection error:', err.message);
     });
 
-    socket.on('transcription_update', (data) => {
+    socket.on('transcription_update', (data: { text: string }) => {
       console.log('📝 Transcription update:', data.text);
-      if (loadingMsgIndex !== null) {
-        const updatedMessages = [...messages];
-        updatedMessages[loadingMsgIndex] = { sender: 'system', text: `Transcription: ${data.text}` };
-        setMessages(updatedMessages);
-        setLoadingMsgIndex(null);
-      }
-      setUserInput(data.text);
+      setMessages(prev => {
+        const newMessages = [...prev];
+        // Find the last message with loading: true (the one being transcribed)
+        const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
+        if (loadingIndex !== -1) {
+          // Replace the loading message with the transcription text
+          newMessages[loadingIndex] = {
+            sender: 'user', // Or 'system' depending on your needs
+            text: data.text,
+            loading: false
+          };
+        }
+        return newMessages;
+      });
     });
 
     socketRef.current = socket;
@@ -167,56 +174,9 @@ export default function ChatbotPage() {
     return () => {
       socket.disconnect();
     };
-  }, [messages, loadingMsgIndex]);
-  // useEffect(() => {
-  //   const socket = io('https://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com', {
-  //     transports: ['websocket'],
-  //     path: '/socket.io', // Ensure this matches your server path
-  //     secure: true,
-  //     reconnection: true,
-  //     reconnectionAttempts: 5,
-  //     rejectUnauthorized: false // Only for development/testing
-  //   });
+  }, []); // Removed messages and loadingMsgIndex from dependencies
 
-  //   socket.on('connect', () => {
-  //     console.log('✅ WebSocket connected');
-  //   });
-
-  //   socket.on('connect_error', (err) => {
-  //     console.error('❌ WebSocket connection error:', err.message);
-  //   });
-
-  //   socketRef.current = socket;
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
-  useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  // Clean up audio resources
-  useEffect(() => {
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      if (mediaRecorderRef.current && isRecording) {
-        mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [isRecording]);
-  // Add this function to strip HTML tags
-  // Add this function to clean the response
-  const cleanBotResponse = (response: string) => {
-    // Remove HTML tags
-    const withoutTags = response.replace(/<[^>]*>?/gm, '');
-    // Remove "Fine-Tuned LIU ChatBot:" prefix if present
-    return withoutTags.replace(/^Fine-Tuned LIU ChatBot:\s*/i, '');
-  };
+  // Modify the handleSubmit function for file uploads
   const handleSubmit = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
@@ -228,13 +188,11 @@ export default function ChatbotPage() {
 
       setMessages(prev => [...prev, {
         sender: 'user',
-        text: 'Voice message',
+        text: '', // Start with empty text for transcription
         audioUrl: audioURL || '',
         fileName: audioFileName,
-        loading: true
+        loading: true // Add loading state
       }]);
-
-      const loadingMsgIndex = messages.length;
 
       try {
         // Get presigned URL for audio upload
@@ -251,41 +209,32 @@ export default function ChatbotPage() {
           },
         });
 
-        // Update message to show completion
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-          }
-          return updated;
-        });
-
+        // Don't set loading to false here - wait for websocket transcription
         setRecordedAudio(null);
         setAudioURL(null);
       } catch (error) {
         console.error('Audio upload error:', error);
         setMessages(prev => {
           const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = 'Error uploading voice message';
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = 'Error uploading voice message';
           }
           return updated;
         });
       }
     }
-    // Rest of your existing handleSubmit logic...
+    // Handle image/file submission
     else if (file) {
-  const fileName = file.name;
+      const fileName = file.name;
       setMessages(prev => [...prev, {
         sender: 'user',
-        text: '',
+        text: '', // Start with empty text for transcription
         image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
         fileName: fileName,
-        loading: true
+        loading: true // Add loading state
       }]);
-
-      const loadingMsgIndex = messages.length;
 
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -306,44 +255,38 @@ export default function ChatbotPage() {
             );
             setMessages(prev => {
               const updated = [...prev];
-              if (updated[loadingMsgIndex]) {
-                updated[loadingMsgIndex].text = `Uploading ${percentCompleted}%`;
+              const lastIndex = updated.length - 1;
+              if (updated[lastIndex]) {
+                updated[lastIndex].text = `Uploading ${percentCompleted}%`;
               }
               return updated;
             });
           }
         });
 
-        // Update message to show completion
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = `Uploaded to S3: ${fileName}`;
-          }
-          return updated;
-        });
-
+        // Don't set loading to false here - wait for websocket transcription
         setFile(null);
       } catch (error) {
         console.error('Upload error:', error);
         setMessages(prev => {
           const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = `Error uploading ${fileName}`;
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = `Error uploading ${fileName}`;
           }
           return updated;
         });
       }
-    } else if (userInput.trim() !== '') {
+    } 
+    // Rest of your existing handleSubmit logic for text messages...
+    else if (userInput.trim() !== '') {
       const userMessageIndex = messages.length;
       setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
       setMessages(prev => [...prev, { sender: 'bot', text: '', loading: true }]);
       const botMessageIndex = userMessageIndex + 1;
 
       try {
-        // Using GET with query parameters
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
         const response = await axios.post(
           `${apiUrl}/tuning-chat?msg=${encodeURIComponent(userInput)}`
@@ -384,6 +327,34 @@ export default function ChatbotPage() {
 
     setIsSubmitting(false);
   }
+
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // Clean up audio resources
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (mediaRecorderRef.current && isRecording) {
+        mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [isRecording]);
+  // Add this function to strip HTML tags
+  // Add this function to clean the response
+  const cleanBotResponse = (response: string) => {
+    // Remove HTML tags
+    const withoutTags = response.replace(/<[^>]*>?/gm, '');
+    // Remove "Fine-Tuned LIU ChatBot:" prefix if present
+    return withoutTags.replace(/^Fine-Tuned LIU ChatBot:\s*/i, '');
+  };
+
   const formatFileSize = (bytes: number): any => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -491,7 +462,7 @@ export default function ChatbotPage() {
         <div className="gradient-bar"></div>
       </div>
 
-      <div className="chat-container" ref={chatRef}>
+        <div className="chat-container" ref={chatRef}>
         {messages.length === 0 ? (
           <div className="welcome-message">
             <div className="welcome-icon">🤖</div>
@@ -505,6 +476,7 @@ export default function ChatbotPage() {
                 {msg.loading ? (
                   <div className="loading-indicator">
                     <div className="dot-flashing"></div>
+                    <span className="loading-text">Processing media...</span>
                   </div>
                 ) : (
                   <>
@@ -512,7 +484,7 @@ export default function ChatbotPage() {
                       {msg.sender === 'user' ? 'You' : msg.sender === 'bot' ? 'AI Assistant' : 'System'}
                     </div>
 
-                    {/* Image Message */}
+                 {/* Image Message */}
                     {msg.image && (
                       <div className="media-container">
                         <img
@@ -525,13 +497,19 @@ export default function ChatbotPage() {
                       </div>
                     )}
                     {/* Audio Message */}
+                  {/* Audio Message */}
                     {msg.audioUrl && (
                       <div className="audio-message">
                         <AudioPlayer
                           src={msg.audioUrl}
                           fileName={msg.fileName || 'Audio message'}
                         />
+                        {msg.text && <div className="audio-caption">{msg.text}</div>}
                       </div>
+                    )}
+                     {/* Text Message (only if no media or if media has text) */}
+                    {msg.text && !msg.image && !msg.audioUrl && (
+                      <div className="message-text">{msg.text}</div>
                     )}
                     {/* File Message (non-image) */}
                     {msg.file && !msg.image && (
@@ -1117,6 +1095,24 @@ export default function ChatbotPage() {
           border-radius: 5px;
           background-color: #2D6ADE;
           color: #2D6ADE;
+        }
+           .loading-indicator {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px;
+        }
+
+        .loading-text {
+          font-size: 0.9rem;
+          color: #666;
+        }
+
+        .audio-caption {
+          font-size: 0.8rem;
+          color: #666;
+          margin-top: 4px;
+          padding: 0 4px;
         }
         
         .dot-flashing::before {
