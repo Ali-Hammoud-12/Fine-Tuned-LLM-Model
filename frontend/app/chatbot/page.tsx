@@ -137,44 +137,101 @@ export default function ChatbotPage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+// Update the socket event handler
+useEffect(() => {
+  const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
+    transports: ['websocket'],
+  });
 
- useEffect(() => {
-    const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
-      transports: ['websocket'],
+  socket.on('connect', () => {
+    console.log('✅ WebSocket connected');
+  });
+
+  socket.on('connect_error', (err: Error) => {
+    console.error('❌ WebSocket connection error:', err.message);
+  });
+
+  socket.on('transcription_update', async (data: { text: string }) => {
+    console.log('📝 Transcription update:', data.text);
+    
+    // 1. Find and update the loading message
+    setMessages(prev => {
+      const newMessages = [...prev];
+      const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
+      if (loadingIndex !== -1) {
+        // Keep the media but mark as not loading
+        newMessages[loadingIndex] = {
+          ...newMessages[loadingIndex],
+          loading: false
+        };
+      }
+      return newMessages;
     });
 
-    socket.on('connect', () => {
-      console.log('✅ WebSocket connected');
-    });
+    // 2. Automatically submit the transcription as a text message
+    const transcription = data.text;
+    if (transcription.trim()) {
+      // Add user message
+      setMessages(prev => [...prev, { 
+        sender: 'user', 
+        text: transcription 
+      }]);
+      
+      // Add loading bot message
+      setMessages(prev => [...prev, { 
+        sender: 'bot', 
+        text: '', 
+        loading: true 
+      }]);
+      
+      const botMessageIndex = messages.length + 1; // +1 because we added two messages
 
-    socket.on('connect_error', (err: Error) => {
-      console.error('❌ WebSocket connection error:', err.message);
-    });
+      try {
+        // Call your API with the transcription
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.post(
+          `${apiUrl}/tuning-chat?msg=${encodeURIComponent(transcription)}`
+        );
 
-    socket.on('transcription_update', (data: { text: string }) => {
-      console.log('📝 Transcription update:', data.text);
-      setMessages(prev => {
-        const newMessages = [...prev];
-        // Find the last message with loading: true (the one being transcribed)
-        const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
-        if (loadingIndex !== -1) {
-          // Replace the loading message with the transcription text
-          newMessages[loadingIndex] = {
-            sender: 'user', // Or 'system' depending on your needs
-            text: data.text,
-            loading: false
-          };
-        }
-        return newMessages;
-      });
-    });
+        // Update bot message with response
+        setMessages(prev => {
+          const newMessages = [...prev];
+          if (newMessages[botMessageIndex]) {
+            newMessages[botMessageIndex] = {
+              sender: 'bot',
+              text: cleanBotResponse(response.data.response),
+              loading: false
+            };
+          }
+          return newMessages;
+        });
+      } catch (error: any) {
+        console.error('❌ Chat error:', error);
+        const errorMessage = error.response?.data?.error ||
+          error.message ||
+          'Sorry, I encountered an error. Please try again.';
 
-    socketRef.current = socket;
+        setMessages(prev => {
+          const newMessages = [...prev];
+          if (newMessages[botMessageIndex]) {
+            newMessages[botMessageIndex] = {
+              sender: 'bot',
+              text: errorMessage,
+              loading: false
+            };
+          }
+          return newMessages;
+        });
+      }
+    }
+  });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []); // Removed messages and loadingMsgIndex from dependencies
+  socketRef.current = socket;
+
+  return () => {
+    socket.disconnect();
+  };
+}, [messages.length]); // Only depend on messages.length to avoid infinite loops
 
   // Modify the handleSubmit function for file uploads
   const handleSubmit = async () => {
@@ -507,10 +564,7 @@ export default function ChatbotPage() {
                         {msg.text && <div className="audio-caption">{msg.text}</div>}
                       </div>
                     )}
-                     {/* Text Message (only if no media or if media has text) */}
-                    {msg.text && !msg.image && !msg.audioUrl && (
-                      <div className="message-text">{msg.text}</div>
-                    )}
+                 
                     {/* File Message (non-image) */}
                     {msg.file && !msg.image && (
                       <div className="file-message">
