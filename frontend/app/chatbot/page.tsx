@@ -113,6 +113,7 @@ const startRecording = async (): Promise<void> => {
         text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
       }]);
       reject(err);
+      
     }
   });
 };
