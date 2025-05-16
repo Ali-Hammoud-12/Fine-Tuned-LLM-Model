@@ -48,7 +48,7 @@ jobs:
       run: |
         export PYTHONPATH=$GITHUB_WORKSPACE/backend
         pytest --maxfail=1 --disable-warnings -q
-      # Ensure workflow stops on test failure
+      # Ensure workflow stops on test failures
       continue-on-error: false
 
   build-app:
