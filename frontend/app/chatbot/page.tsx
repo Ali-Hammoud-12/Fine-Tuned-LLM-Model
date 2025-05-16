@@ -42,80 +42,90 @@ export default function ChatbotPage() {
   };
 
   // Start recording
+// Start recording
 const startRecording = async (): Promise<void> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Check if MediaDevices API is available
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('MediaDevices API or getUserMedia method not available');
-      }
-
-      // Check if we're in a secure context (required for microphone access)
-      if (window.isSecureContext === false) {
-        throw new Error('Microphone access requires a secure context (HTTPS or localhost)');
-      }
-
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      initAudioContext();
-
-      if (audioContextRef.current && analyserRef.current) {
-        const source = audioContextRef.current.createMediaStreamSource(stream);
-        source.connect(analyserRef.current);
-
-        const processAudio = () => {
-          if (!analyserRef.current) return;
-
-          const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
-          analyserRef.current.getByteFrequencyData(dataArray);
-
-          let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) {
-            sum += dataArray[i];
-          }
-          const averageVolume = sum / dataArray.length;
-          setVolume(averageVolume);
-
-          animationRef.current = requestAnimationFrame(processAudio);
-        };
-
-        processAudio();
-      }
-
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
-      };
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
-        setRecordedAudio(audioBlob);
-        const audioUrl = URL.createObjectURL(audioBlob);
-        setAudioURL(audioUrl);
-        audioChunksRef.current = [];
-
-        // Save to localStorage
-        const reader = new FileReader();
-        reader.readAsDataURL(audioBlob);
-        reader.onloadend = () => {
-          const base64data = reader.result as string;
-          localStorage.setItem('lastVoiceRecording', base64data);
-        };
-      };
-
-      audioChunksRef.current = [];
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-      resolve();
-    } catch (err) {
-      console.error('Error accessing microphone:', err);
-      // Show user-friendly error message
-      setMessages(prev => [...prev, {
-        sender: 'system',
-        text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
-      }]);
-      reject(err);
-      
+  try {
+    // First check if navigator exists (important for environments like SSR)
+    if (!navigator) {
+      throw new Error('Browser navigator API not available');
     }
-  });
+
+    // Next check if mediaDevices API is available
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error('Your browser doesn\'t support audio recording. Please try a modern browser like Chrome, Firefox, or Safari.');
+    }
+
+    // Check if we're in a secure context (required for microphone access)
+    if (window.isSecureContext === false) {
+      throw new Error('Microphone access requires a secure context (HTTPS or localhost)');
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    
+    // Initialize audio context if it doesn't exist yet
+    if (!audioContextRef.current) {
+      initAudioContext();
+    }
+
+    if (audioContextRef.current && analyserRef.current) {
+      const source = audioContextRef.current.createMediaStreamSource(stream);
+      source.connect(analyserRef.current);
+
+      const processAudio = () => {
+        if (!analyserRef.current) return;
+
+        const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+        analyserRef.current.getByteFrequencyData(dataArray);
+
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) {
+          sum += dataArray[i];
+        }
+        const averageVolume = sum / dataArray.length;
+        setVolume(averageVolume);
+
+        animationRef.current = requestAnimationFrame(processAudio);
+      };
+
+      processAudio();
+    }
+
+    mediaRecorderRef.current = new MediaRecorder(stream);
+    mediaRecorderRef.current.ondataavailable = (event) => {
+      audioChunksRef.current.push(event.data);
+    };
+    
+    mediaRecorderRef.current.onstop = () => {
+      const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
+      setRecordedAudio(audioBlob);
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioURL(audioUrl);
+      audioChunksRef.current = [];
+
+      // Save to localStorage
+      const reader = new FileReader();
+      reader.readAsDataURL(audioBlob);
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        localStorage.setItem('lastVoiceRecording', base64data);
+      };
+    };
+
+    audioChunksRef.current = [];
+    mediaRecorderRef.current.start();
+    setIsRecording(true);
+  } catch (err) {
+    console.error('Error accessing microphone:', err);
+    
+    // Show user-friendly error message
+    setMessages(prev => [...prev, {
+      sender: 'system',
+      text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
+    }]);
+    
+    // Reset recording state
+    setIsRecording(false);
+  }
 };
 
 
