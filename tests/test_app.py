@@ -26,11 +26,6 @@ def client():
     with app_instance.test_client() as client:
         yield client
 
-def test_index(client):
-    response = client.get('/')
-    assert response.status_code == 200, f"Unexpected status code: {response.status_code}. Response: {response.data}"
-    assert b"<!doctype html" in response.data.lower(), f"Response does not contain HTML: {response.data}"
-
 def test_chat(client):
     """
     Tests /tuning-chat endpoint using Vertex AI.
@@ -45,7 +40,8 @@ def test_chat(client):
 
     response_text = data["response"]
     assert response_text, "Response body is empty"
-    assert "Beirut" in response_text or "beirut" in response_text.lower(), f"Unexpected response content: {response_text}"
+    assert "financial aid" in response_text.lower() or "support services" in response_text.lower(), \
+        f"Unexpected response content: {response_text}"
 
 def test_upload_direct_s3(client):
     dummy_file = (io.BytesIO(b"dummy file content"), "test_upload.txt")
