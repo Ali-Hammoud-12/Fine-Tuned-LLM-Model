@@ -120,6 +120,18 @@ jobs:
     #       return 1
     #     fi
 
+    - name: Generate .env from template
+      run: |
+        sed \
+          -e "s|GEMINI_API_KEY=.*|GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}|" \
+          -e "s|AWS_ACCESS_KEY=.*|AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}|" \
+          -e "s|AWS_SECRET_ACCESS_KEY=.*|AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}|" \
+          backend/.env.template > backend/.env
+
+    - name: Verify .env was generated
+      run: cat backend/.env
+      shell: bash
+
     - name: Docker Build & Push
       run: |
           echo "🔨 Building and Pushing Backend"
