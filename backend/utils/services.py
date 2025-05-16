@@ -122,6 +122,9 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
 
     return f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{response.text}"
 
+generate_chat_response = generate_fine_tuned_chat_response
+
+# Old Code
 # def generate_fine_tuned_chat_response(user_text, conversation_history):
 #     """
 #     Generates a chat response using the fine-tuned Gemini model.
@@ -177,7 +180,3 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
 #     # Format the final response for display.
 #     formatted_response = f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{answer}"   
 #     return formatted_response
-    
-
-     
-generate_chat_response = generate_fine_tuned_chat_response
