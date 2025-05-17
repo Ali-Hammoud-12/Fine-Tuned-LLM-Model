@@ -145,6 +145,17 @@ export default function ChatbotPage() {
       audio.play();
     }
   };
+  const [chatHistory, setChatHistory] = useState<Message[][]>([]);
+  const [currentChat, setCurrentChat] = useState<Message[]>([]);
+
+  const handleBack = () => {
+    if (chatHistory.length > 0) {
+      const previousChat = [...chatHistory];
+      const lastChat = previousChat.pop();
+      setCurrentChat(lastChat || []);
+      setChatHistory(previousChat);
+    }
+  };
 
   // Close attachment menu when clicking outside
   useEffect(() => {
@@ -560,6 +571,15 @@ export default function ChatbotPage() {
   return (
     <div className="container">
       <div className="header">
+        <button
+          className="back-button"
+          onClick={handleBack}
+          aria-label="Back to previous conversation"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="#2D6ADE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
         <h2>Fine Tuned LLM Model</h2>
         <div className="gradient-bar"></div>
       </div>

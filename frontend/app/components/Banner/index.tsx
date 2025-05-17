@@ -1,5 +1,6 @@
 "use client"
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 
@@ -20,12 +21,13 @@ const Banner = () => {
                         <div className='arrowTwo'></div>
                         <div className='col-span-7'>
                             <h1 className="text-4xl lg:text-7xl font-bold mb-5 text-white md:4px md:text-start text-center">
-                            Personalized Academic Assistance <br />for LIU Students
+                                Personalized Academic Assistance <br />for LIU Students
                             </h1>
                             <p className='text-white md:text-lg font-normal mb-10 md:text-start text-center'>This project aims to develop a customized, fine-tuned generative AI model capable of processing diverse multimedia inputs, ensuring seamless assistance for students.</p>
                             <div className='flex align-middle justify-center md:justify-start'>
-                                <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>Get Started</button>
-                                <button onClick={() => setOpen(true)} className='bg-transparent flex justify-center items-center text-white'><Image src={'/images/Banner/playbutton.svg'} alt="button-image" className='mr-3' width={47} height={47} />How it work</button>
+                                <Link href="/chatbot">
+                                    <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>Get Started</button>
+                                </Link>    <button onClick={() => setOpen(true)} className='bg-transparent flex justify-center items-center text-white'><Image src={'/images/Banner/playbutton.svg'} alt="button-image" className='mr-3' width={47} height={47} />How it work</button>
                             </div>
                         </div>
 
