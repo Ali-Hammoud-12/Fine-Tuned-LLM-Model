@@ -258,8 +258,106 @@ export default function ChatbotPage() {
   const handleSubmit = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    // Handle audio submission
+    if (recordedAudio) {
+      const audioFileName = `recording-${Date.now()}.mp3`;
+      const audioFile = new File([recordedAudio], audioFileName, { type: 'audio/mp3' });
 
-    if (userInput.trim() !== '') {
+      setMessages(prev => [...prev, {
+        sender: 'user',
+        text: '', // Start with empty text for transcription
+        audioUrl: audioURL || '',
+        fileName: audioFileName,
+        loading: true // Add loading state
+      }]);
+
+      try {
+        // Get presigned URL for audio upload
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
+          filename: audioFileName,
+          content_type: 'audio/mp3',
+        });
+
+        // Upload audio to S3
+        await axios.put(presignedRes.data.url, audioFile, {
+          headers: {
+            'Content-Type': 'audio/mp3',
+          },
+        });
+
+        // Don't set loading to false here - wait for websocket transcription
+        setRecordedAudio(null);
+        setAudioURL(null);
+      } catch (error) {
+        console.error('Audio upload error:', error);
+        setMessages(prev => {
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = 'Error uploading voice message';
+          }
+          return updated;
+        });
+      }
+    }
+    // Handle image/file submission
+    else if (file) {
+      const fileName = file.name;
+      setMessages(prev => [...prev, {
+        sender: 'user',
+        text: '', // Start with empty text for transcription
+        image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
+        fileName: fileName,
+        loading: true // Add loading state
+      }]);
+
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        // Get presigned URL from backend
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
+          filename: fileName,
+          content_type: file.type || 'application/octet-stream',
+        });
+
+        // Upload file to S3
+        await axios.put(presignedRes.data.url, file, {
+          headers: {
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / (progressEvent.total || 1)
+            );
+            setMessages(prev => {
+              const updated = [...prev];
+              const lastIndex = updated.length - 1;
+              if (updated[lastIndex]) {
+                updated[lastIndex].text = `Uploading ${percentCompleted}%`;
+              }
+              return updated;
+            });
+          }
+        });
+
+        // Don't set loading to false here - wait for websocket transcription
+        setFile(null);
+      } catch (error) {
+        console.error('Upload error:', error);
+        setMessages(prev => {
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = `Error uploading ${fileName}`;
+          }
+          return updated;
+        });
+      }
+    }
+    // Rest of your existing handleSubmit logic for text messages...
+    else if (userInput.trim() !== '') {
       const userMessageIndex = messages.length;
       setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
 
