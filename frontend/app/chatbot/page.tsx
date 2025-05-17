@@ -896,6 +896,7 @@ export default function ChatbotPage() {
         </button>
       </div>
 
+
       <style jsx>
         {`
         .container {
@@ -1147,7 +1148,7 @@ export default function ChatbotPage() {
           z-index: 2;
         }
 .back-btn{
-width:20%
+width:20%;
 }
         .upload-loader {
           position: absolute;
