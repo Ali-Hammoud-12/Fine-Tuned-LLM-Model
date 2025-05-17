@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import AudioPlayer from './../components/audioPlayer';
 import axios from 'axios';
 interface Message {
@@ -31,7 +31,8 @@ export default function ChatbotPage() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const animationRef = useRef<number | null>(null);
-
+  const [filePreview, setFilePreview] = useState<{ url: string, type: 'image' | 'video' | 'audio' } | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const socketRef = useRef<any>(null);
 
   // Initialize audio context and analyser
@@ -45,6 +46,16 @@ export default function ChatbotPage() {
   const startRecording = async (): Promise<void> => {
     return new Promise(async (resolve, reject) => {
       try {
+        // Check if MediaDevices API is available
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('MediaDevices API or getUserMedia method not available');
+        }
+
+        // Check if we're in a secure context (required for microphone access)
+        if (window.isSecureContext === false) {
+          throw new Error('Microphone access requires a secure context (HTTPS or localhost)');
+        }
+
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         initAudioContext();
 
@@ -97,12 +108,22 @@ export default function ChatbotPage() {
         resolve();
       } catch (err) {
         console.error('Error accessing microphone:', err);
+        // Show user-friendly error message
+        setMessages(prev => [...prev, {
+          sender: 'system',
+          text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
+        }]);
         reject(err);
+
       }
     });
   };
 
-
+  const [streamingMessage, setStreamingMessage] = useState<{
+    index: number;
+    content: string;
+    isStreaming: boolean;
+  } | null>(null);
   // Stop recording
   const stopRecording = () => {
     if (mediaRecorderRef.current && isRecording) {
@@ -137,7 +158,7 @@ export default function ChatbotPage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
+  // Update the socket event handler
   useEffect(() => {
     const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
       transports: ['websocket'],
@@ -147,19 +168,83 @@ export default function ChatbotPage() {
       console.log('✅ WebSocket connected');
     });
 
-    socket.on('connect_error', (err) => {
+    socket.on('connect_error', (err: Error) => {
       console.error('❌ WebSocket connection error:', err.message);
     });
 
-    socket.on('transcription_update', (data) => {
+    socket.on('transcription_update', async (data: { text: string }) => {
       console.log('📝 Transcription update:', data.text);
-      if (loadingMsgIndex !== null) {
-        const updatedMessages = [...messages];
-        updatedMessages[loadingMsgIndex] = { sender: 'system', text: `Transcription: ${data.text}` };
-        setMessages(updatedMessages);
-        setLoadingMsgIndex(null);
+
+      // 1. Find and update the loading message
+      setMessages(prev => {
+        const newMessages = [...prev];
+        const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
+        if (loadingIndex !== -1) {
+          // Keep the media but mark as not loading
+          newMessages[loadingIndex] = {
+            ...newMessages[loadingIndex],
+            loading: false
+          };
+        }
+        return newMessages;
+      });
+
+      // 2. Automatically submit the transcription as a text message
+      const transcription = data.text;
+      if (transcription.trim()) {
+        // Add user message
+        setMessages(prev => [...prev, {
+          sender: 'user',
+          text: transcription
+        }]);
+
+        // Add loading bot message
+        setMessages(prev => [...prev, {
+          sender: 'bot',
+          text: '',
+          loading: true
+        }]);
+
+        const botMessageIndex = messages.length + 1; // +1 because we added two messages
+
+        try {
+          // Call your API with the transcription
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+          const response = await axios.post(
+            `${apiUrl}/tuning-chat?msg=${encodeURIComponent(transcription)}`
+          );
+
+          // Update bot message with response
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                sender: 'bot',
+                text: cleanBotResponse(response.data.response),
+                loading: false
+              };
+            }
+            return newMessages;
+          });
+        } catch (error: any) {
+          console.error('❌ Chat error:', error);
+          const errorMessage = error.response?.data?.error ||
+            error.message ||
+            'Sorry, I encountered an error. Please try again.';
+
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                sender: 'bot',
+                text: errorMessage,
+                loading: false
+              };
+            }
+            return newMessages;
+          });
+        }
       }
-      setUserInput(data.text);
     });
 
     socketRef.current = socket;
@@ -167,31 +252,84 @@ export default function ChatbotPage() {
     return () => {
       socket.disconnect();
     };
-  }, [messages, loadingMsgIndex]);
-  // useEffect(() => {
-  //   const socket = io('https://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com', {
-  //     transports: ['websocket'],
-  //     path: '/socket.io', // Ensure this matches your server path
-  //     secure: true,
-  //     reconnection: true,
-  //     reconnectionAttempts: 5,
-  //     rejectUnauthorized: false // Only for development/testing
-  //   });
+  }, [messages.length]); // Only depend on messages.length to avoid infinite loops
 
-  //   socket.on('connect', () => {
-  //     console.log('✅ WebSocket connected');
-  //   });
+  // Modify the handleSubmit function for file uploads
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
 
-  //   socket.on('connect_error', (err) => {
-  //     console.error('❌ WebSocket connection error:', err.message);
-  //   });
+    if (userInput.trim() !== '') {
+      const userMessageIndex = messages.length;
+      setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
 
-  //   socketRef.current = socket;
+      // Add empty bot message (will be updated)
+      setMessages(prev => [...prev, { sender: 'bot', text: '' }]);
+      const botMessageIndex = userMessageIndex + 1;
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const response = await axios.post(
+          `${apiUrl}/tuning-chat?msg=${encodeURIComponent(userInput)}`
+        );
+
+        const fullResponse = cleanBotResponse(response.data.response);
+
+        // Start streaming effect
+        setStreamingMessage({
+          index: botMessageIndex,
+          content: '',
+          isStreaming: true
+        });
+
+        // Simulate streaming
+        for (let i = 0; i < fullResponse.length; i++) {
+          await new Promise(resolve => setTimeout(resolve, 20)); // 20ms delay
+          setStreamingMessage(prev => ({
+            index: botMessageIndex,
+            content: fullResponse.substring(0, i + 1),
+            isStreaming: i < fullResponse.length - 1
+          }));
+
+          // Update messages array
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                ...newMessages[botMessageIndex],
+                text: fullResponse.substring(0, i + 1)
+              };
+            }
+            return newMessages;
+          });
+        }
+
+        setUserInput('');
+      } catch (error: any) {
+        console.error('❌ Chat error:', error);
+        const errorMessage = error.response?.data?.error ||
+          error.message ||
+          'Sorry, I encountered an error. Please try again.';
+
+        setMessages(prev => {
+          const newMessages = [...prev];
+          if (newMessages[botMessageIndex]) {
+            newMessages[botMessageIndex] = {
+              sender: 'bot',
+              text: errorMessage
+            };
+          }
+          return newMessages;
+        });
+      } finally {
+        setStreamingMessage(null);
+      }
+    }
+
+
+    setIsSubmitting(false);
+  };
+
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
@@ -217,173 +355,7 @@ export default function ChatbotPage() {
     // Remove "Fine-Tuned LIU ChatBot:" prefix if present
     return withoutTags.replace(/^Fine-Tuned LIU ChatBot:\s*/i, '');
   };
-  const handleSubmit = async () => {
-    if (isSubmitting) return;
-    setIsSubmitting(true);
 
-    // Handle audio submission
-    if (recordedAudio) {
-      const audioFileName = `recording-${Date.now()}.mp3`;
-      const audioFile = new File([recordedAudio], audioFileName, { type: 'audio/mp3' });
-
-      setMessages(prev => [...prev, {
-        sender: 'user',
-        text: 'Voice message',
-        audioUrl: audioURL || '',
-        fileName: audioFileName,
-        loading: true
-      }]);
-
-      const loadingMsgIndex = messages.length;
-
-      try {
-        // Get presigned URL for audio upload
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
-          filename: audioFileName,
-          content_type: 'audio/mp3',
-        });
-
-        // Upload audio to S3
-        await axios.put(presignedRes.data.url, audioFile, {
-          headers: {
-            'Content-Type': 'audio/mp3',
-          },
-        });
-
-        // Update message to show completion
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-          }
-          return updated;
-        });
-
-        setRecordedAudio(null);
-        setAudioURL(null);
-      } catch (error) {
-        console.error('Audio upload error:', error);
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = 'Error uploading voice message';
-          }
-          return updated;
-        });
-      }
-    }
-    // Rest of your existing handleSubmit logic...
-    else if (file) {
-  const fileName = file.name;
-      setMessages(prev => [...prev, {
-        sender: 'user',
-        text: '',
-        image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
-        fileName: fileName,
-        loading: true
-      }]);
-
-      const loadingMsgIndex = messages.length;
-
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        // Get presigned URL from backend
-        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
-          filename: fileName,
-          content_type: file.type || 'application/octet-stream',
-        });
-
-        // Upload file to S3
-        await axios.put(presignedRes.data.url, file, {
-          headers: {
-            'Content-Type': file.type || 'application/octet-stream',
-          },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / (progressEvent.total || 1)
-            );
-            setMessages(prev => {
-              const updated = [...prev];
-              if (updated[loadingMsgIndex]) {
-                updated[loadingMsgIndex].text = `Uploading ${percentCompleted}%`;
-              }
-              return updated;
-            });
-          }
-        });
-
-        // Update message to show completion
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = `Uploaded to S3: ${fileName}`;
-          }
-          return updated;
-        });
-
-        setFile(null);
-      } catch (error) {
-        console.error('Upload error:', error);
-        setMessages(prev => {
-          const updated = [...prev];
-          if (updated[loadingMsgIndex]) {
-            updated[loadingMsgIndex].loading = false;
-            updated[loadingMsgIndex].text = `Error uploading ${fileName}`;
-          }
-          return updated;
-        });
-      }
-    } else if (userInput.trim() !== '') {
-      const userMessageIndex = messages.length;
-      setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
-      setMessages(prev => [...prev, { sender: 'bot', text: '', loading: true }]);
-      const botMessageIndex = userMessageIndex + 1;
-
-      try {
-        // Using GET with query parameters
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await axios.post(
-          `${apiUrl}/tuning-chat?msg=${encodeURIComponent(userInput)}`
-        );
-
-        setMessages(prev => {
-          const newMessages = [...prev];
-          if (newMessages[botMessageIndex]) {
-            newMessages[botMessageIndex] = {
-              sender: 'bot',
-              text: cleanBotResponse(response.data.response),
-              loading: false
-            };
-          }
-          return newMessages;
-        });
-
-        setUserInput('');
-      } catch (error: any) {
-        console.error('❌ Chat error:', error);
-        const errorMessage = error.response?.data?.error ||
-          error.message ||
-          'Sorry, I encountered an error. Please try again.';
-
-        setMessages(prev => {
-          const newMessages = [...prev];
-          if (newMessages[botMessageIndex]) {
-            newMessages[botMessageIndex] = {
-              sender: 'bot',
-              text: errorMessage,
-              loading: false
-            };
-          }
-          return newMessages;
-        });
-      }
-    }
-
-    setIsSubmitting(false);
-  }
   const formatFileSize = (bytes: number): any => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -405,10 +377,9 @@ export default function ChatbotPage() {
   const handleAttachmentClick = async (type: string) => {
     if (type === 'voice') {
       setShowAttachmentMenu(false);
-      setShowVoiceSubMenu(true); // Show the voice submenu
+      setShowVoiceSubMenu(true);
       return;
     }
-
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -418,8 +389,8 @@ export default function ChatbotPage() {
         input.accept = 'video/*';
         break;
       case 'image':
-        input.accept = 'image/*';  // Changed to accept all image types
-        input.capture = 'environment'; // Optional: use camera by default on mobile
+        input.accept = 'image/*';
+        input.capture = 'environment';
         break;
       case 'file':
         input.accept = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
@@ -429,33 +400,36 @@ export default function ChatbotPage() {
     }
 
     input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (file) {
-        console.log('📎 File selected:', file.name);
+      const selectedFile = (e.target as HTMLInputElement).files?.[0];
+      if (selectedFile) {
+        setFile(selectedFile);
 
-        // For images, create a preview
-        if (type === 'image' && file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const imageUrl = event.target?.result as string;
-            // Add image preview to messages
-            setMessages(prev => [...prev, {
-              sender: 'user',
-              text: '',
-              image: imageUrl,
-              fileName: file.name
-            }]);
-          };
-          reader.readAsDataURL(file);
+        // Create preview based on file type
+        if (selectedFile.type.startsWith('image/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'image' });
+        } else if (selectedFile.type.startsWith('video/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'video' });
+        } else if (selectedFile.type.startsWith('audio/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'audio' });
         }
-
-        setFile(file);
       }
     };
 
     input.click();
     setShowAttachmentMenu(false);
   };
+
+  const clearFilePreview = () => {
+    if (filePreview?.url) {
+      URL.revokeObjectURL(filePreview.url);
+    }
+    setFile(null);
+    setFilePreview(null);
+  };
+
   // Add these new functions for voice file handling
   const handleVoiceFileSelect = () => {
     const input = document.createElement('input');
@@ -484,6 +458,7 @@ export default function ChatbotPage() {
     input.click();
     setShowVoiceSubMenu(false);
   };
+
   return (
     <div className="container">
       <div className="header">
@@ -505,6 +480,7 @@ export default function ChatbotPage() {
                 {msg.loading ? (
                   <div className="loading-indicator">
                     <div className="dot-flashing"></div>
+                    <span className="loading-text">Processing media...</span>
                   </div>
                 ) : (
                   <>
@@ -524,6 +500,7 @@ export default function ChatbotPage() {
                         {msg.text && <div className="image-caption">{msg.text}</div>}
                       </div>
                     )}
+
                     {/* Audio Message */}
                     {msg.audioUrl && (
                       <div className="audio-message">
@@ -531,8 +508,10 @@ export default function ChatbotPage() {
                           src={msg.audioUrl}
                           fileName={msg.fileName || 'Audio message'}
                         />
+                        {msg.text && <div className="audio-caption">{msg.text}</div>}
                       </div>
                     )}
+
                     {/* File Message (non-image) */}
                     {msg.file && !msg.image && (
                       <div className="file-message">
@@ -549,9 +528,15 @@ export default function ChatbotPage() {
                       </div>
                     )}
 
-                    {/* Text Message (only if no media) */}
+                    {/* Text Message (with streaming effect for bot messages) */}
                     {!msg.image && !msg.file && msg.text && (
-                      <div className="message-text">{msg.text}</div>
+                      <div className="message-text">
+                        {msg.text}
+                        {/* Show cursor only for bot messages that are currently streaming */}
+                        {msg.sender === 'bot' && streamingMessage?.index === idx && streamingMessage.isStreaming && (
+                          <span className="streaming-cursor">|</span>
+                        )}
+                      </div>
                     )}
                   </>
                 )}
@@ -640,7 +625,6 @@ export default function ChatbotPage() {
           </div>
         ) : null}
       </div>
-
       <div className="input-container">
         <div className="attachment-wrapper" ref={attachmentMenuRef}>
           <button
@@ -710,7 +694,7 @@ export default function ChatbotPage() {
 
 
         </div>
-
+        {/* 
         <input
           type="text"
           className="chat-input"
@@ -719,8 +703,66 @@ export default function ChatbotPage() {
           onChange={(e) => setUserInput(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={isSubmitting || isRecording}
-        />
+        /> */}
+        {/* File preview area */}
+        {filePreview && (
+          <div className="file-preview-container">
+            {filePreview.type === 'image' && (
+              <div className="image-preview">
+                <img src={filePreview.url} alt="Preview" className="preview-image" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
 
+            {filePreview.type === 'video' && (
+              <div className="video-preview">
+                <video src={filePreview.url} controls className="preview-video" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {filePreview.type === 'audio' && (
+              <div className="audio-preview">
+                <audio src={filePreview.url} controls className="preview-audio" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Only show input when no file is selected */}
+        {!filePreview && (
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="Type your message here..."
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isSubmitting || isRecording}
+          />
+        )}
         <button
           className="submit-button"
           onClick={handleSubmit}
@@ -738,7 +780,7 @@ export default function ChatbotPage() {
       </div>
 
       <style jsx>
-      {`
+        {`
         .container {
           display: flex;
           flex-direction: column;
@@ -822,7 +864,16 @@ export default function ChatbotPage() {
           position: relative;
           word-wrap: break-word;
         }
-        
+        .streaming-cursor {
+  animation: blink 1s infinite;
+  color: #2D6ADE;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
         .message.user .message-bubble {
           background: linear-gradient(135deg, #BD24DF 0%, #2D6ADE 100%);
           color: white;
@@ -924,7 +975,83 @@ export default function ChatbotPage() {
           gap: 4px;
           min-width: 120px;
         }
-        
+         .file-preview-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-right: 8px;
+          position: relative;
+        }
+
+        .image-preview, .video-preview, .audio-preview {
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #f5f7fa;
+        }
+
+        .preview-image {
+          max-width: 100%;
+          max-height: 150px;
+          display: block;
+          object-fit: contain;
+        }
+
+        .preview-video {
+          max-width: 100%;
+          max-height: 150px;
+          display: block;
+        }
+
+        .preview-audio {
+          width: 100%;
+          outline: none;
+        }
+
+        .remove-preview-button {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background: rgba(0, 0, 0, 0.6);
+          color: white;
+          border: none;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 14px;
+          z-index: 2;
+        }
+
+        .upload-loader {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.7);
+          z-index: 1;
+        }
+
+        .circle-loader {
+          width: 24px;
+          height: 24px;
+          border: 3px solid rgba(45, 106, 222, 0.2);
+          border-top-color: #2D6ADE;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
         .attachment-menu button {
           display: flex;
           align-items: center;
@@ -1117,6 +1244,24 @@ export default function ChatbotPage() {
           border-radius: 5px;
           background-color: #2D6ADE;
           color: #2D6ADE;
+        }
+           .loading-indicator {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px;
+        }
+
+        .loading-text {
+          font-size: 0.9rem;
+          color: #666;
+        }
+
+        .audio-caption {
+          font-size: 0.8rem;
+          color: #666;
+          margin-top: 4px;
+          padding: 0 4px;
         }
         
         .dot-flashing::before {
