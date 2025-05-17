@@ -31,7 +31,8 @@ export default function ChatbotPage() {
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const animationRef = useRef<number | null>(null);
-
+  const [filePreview, setFilePreview] = useState<{ url: string, type: 'image' | 'video' | 'audio' } | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const socketRef = useRef<any>(null);
 
   // Initialize audio context and analyser
@@ -42,81 +43,81 @@ export default function ChatbotPage() {
   };
 
   // Start recording
-const startRecording = async (): Promise<void> => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // Check if MediaDevices API is available
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('MediaDevices API or getUserMedia method not available');
-      }
+  const startRecording = async (): Promise<void> => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // Check if MediaDevices API is available
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('MediaDevices API or getUserMedia method not available');
+        }
 
-      // Check if we're in a secure context (required for microphone access)
-      if (window.isSecureContext === false) {
-        throw new Error('Microphone access requires a secure context (HTTPS or localhost)');
-      }
+        // Check if we're in a secure context (required for microphone access)
+        if (window.isSecureContext === false) {
+          throw new Error('Microphone access requires a secure context (HTTPS or localhost)');
+        }
 
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      initAudioContext();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        initAudioContext();
 
-      if (audioContextRef.current && analyserRef.current) {
-        const source = audioContextRef.current.createMediaStreamSource(stream);
-        source.connect(analyserRef.current);
+        if (audioContextRef.current && analyserRef.current) {
+          const source = audioContextRef.current.createMediaStreamSource(stream);
+          source.connect(analyserRef.current);
 
-        const processAudio = () => {
-          if (!analyserRef.current) return;
+          const processAudio = () => {
+            if (!analyserRef.current) return;
 
-          const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
-          analyserRef.current.getByteFrequencyData(dataArray);
+            const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+            analyserRef.current.getByteFrequencyData(dataArray);
 
-          let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) {
-            sum += dataArray[i];
-          }
-          const averageVolume = sum / dataArray.length;
-          setVolume(averageVolume);
+            let sum = 0;
+            for (let i = 0; i < dataArray.length; i++) {
+              sum += dataArray[i];
+            }
+            const averageVolume = sum / dataArray.length;
+            setVolume(averageVolume);
 
-          animationRef.current = requestAnimationFrame(processAudio);
+            animationRef.current = requestAnimationFrame(processAudio);
+          };
+
+          processAudio();
+        }
+
+        mediaRecorderRef.current = new MediaRecorder(stream);
+        mediaRecorderRef.current.ondataavailable = (event) => {
+          audioChunksRef.current.push(event.data);
+        };
+        mediaRecorderRef.current.onstop = () => {
+          const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
+          setRecordedAudio(audioBlob);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          setAudioURL(audioUrl);
+          audioChunksRef.current = [];
+
+          // Save to localStorage
+          const reader = new FileReader();
+          reader.readAsDataURL(audioBlob);
+          reader.onloadend = () => {
+            const base64data = reader.result as string;
+            localStorage.setItem('lastVoiceRecording', base64data);
+          };
         };
 
-        processAudio();
-      }
-
-      mediaRecorderRef.current = new MediaRecorder(stream);
-      mediaRecorderRef.current.ondataavailable = (event) => {
-        audioChunksRef.current.push(event.data);
-      };
-      mediaRecorderRef.current.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/mp3' });
-        setRecordedAudio(audioBlob);
-        const audioUrl = URL.createObjectURL(audioBlob);
-        setAudioURL(audioUrl);
         audioChunksRef.current = [];
+        mediaRecorderRef.current.start();
+        setIsRecording(true);
+        resolve();
+      } catch (err) {
+        console.error('Error accessing microphone:', err);
+        // Show user-friendly error message
+        setMessages(prev => [...prev, {
+          sender: 'system',
+          text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
+        }]);
+        reject(err);
 
-        // Save to localStorage
-        const reader = new FileReader();
-        reader.readAsDataURL(audioBlob);
-        reader.onloadend = () => {
-          const base64data = reader.result as string;
-          localStorage.setItem('lastVoiceRecording', base64data);
-        };
-      };
-
-      audioChunksRef.current = [];
-      mediaRecorderRef.current.start();
-      setIsRecording(true);
-      resolve();
-    } catch (err) {
-      console.error('Error accessing microphone:', err);
-      // Show user-friendly error message
-      setMessages(prev => [...prev, {
-        sender: 'system',
-        text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
-      }]);
-      reject(err);
-      
-    }
-  });
-};
+      }
+    });
+  };
 
 
   // Stop recording
@@ -153,101 +154,101 @@ const startRecording = async (): Promise<void> => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-// Update the socket event handler
-useEffect(() => {
-  const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
-    transports: ['websocket'],
-  });
-
-  socket.on('connect', () => {
-    console.log('✅ WebSocket connected');
-  });
-
-  socket.on('connect_error', (err: Error) => {
-    console.error('❌ WebSocket connection error:', err.message);
-  });
-
-  socket.on('transcription_update', async (data: { text: string }) => {
-    console.log('📝 Transcription update:', data.text);
-    
-    // 1. Find and update the loading message
-    setMessages(prev => {
-      const newMessages = [...prev];
-      const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
-      if (loadingIndex !== -1) {
-        // Keep the media but mark as not loading
-        newMessages[loadingIndex] = {
-          ...newMessages[loadingIndex],
-          loading: false
-        };
-      }
-      return newMessages;
+  // Update the socket event handler
+  useEffect(() => {
+    const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
+      transports: ['websocket'],
     });
 
-    // 2. Automatically submit the transcription as a text message
-    const transcription = data.text;
-    if (transcription.trim()) {
-      // Add user message
-      setMessages(prev => [...prev, { 
-        sender: 'user', 
-        text: transcription 
-      }]);
-      
-      // Add loading bot message
-      setMessages(prev => [...prev, { 
-        sender: 'bot', 
-        text: '', 
-        loading: true 
-      }]);
-      
-      const botMessageIndex = messages.length + 1; // +1 because we added two messages
+    socket.on('connect', () => {
+      console.log('✅ WebSocket connected');
+    });
 
-      try {
-        // Call your API with the transcription
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const response = await axios.post(
-          `${apiUrl}/tuning-chat?msg=${encodeURIComponent(transcription)}`
-        );
+    socket.on('connect_error', (err: Error) => {
+      console.error('❌ WebSocket connection error:', err.message);
+    });
 
-        // Update bot message with response
-        setMessages(prev => {
-          const newMessages = [...prev];
-          if (newMessages[botMessageIndex]) {
-            newMessages[botMessageIndex] = {
-              sender: 'bot',
-              text: cleanBotResponse(response.data.response),
-              loading: false
-            };
-          }
-          return newMessages;
-        });
-      } catch (error: any) {
-        console.error('❌ Chat error:', error);
-        const errorMessage = error.response?.data?.error ||
-          error.message ||
-          'Sorry, I encountered an error. Please try again.';
+    socket.on('transcription_update', async (data: { text: string }) => {
+      console.log('📝 Transcription update:', data.text);
 
-        setMessages(prev => {
-          const newMessages = [...prev];
-          if (newMessages[botMessageIndex]) {
-            newMessages[botMessageIndex] = {
-              sender: 'bot',
-              text: errorMessage,
-              loading: false
-            };
-          }
-          return newMessages;
-        });
+      // 1. Find and update the loading message
+      setMessages(prev => {
+        const newMessages = [...prev];
+        const loadingIndex = newMessages.findLastIndex(msg => msg.loading);
+        if (loadingIndex !== -1) {
+          // Keep the media but mark as not loading
+          newMessages[loadingIndex] = {
+            ...newMessages[loadingIndex],
+            loading: false
+          };
+        }
+        return newMessages;
+      });
+
+      // 2. Automatically submit the transcription as a text message
+      const transcription = data.text;
+      if (transcription.trim()) {
+        // Add user message
+        setMessages(prev => [...prev, {
+          sender: 'user',
+          text: transcription
+        }]);
+
+        // Add loading bot message
+        setMessages(prev => [...prev, {
+          sender: 'bot',
+          text: '',
+          loading: true
+        }]);
+
+        const botMessageIndex = messages.length + 1; // +1 because we added two messages
+
+        try {
+          // Call your API with the transcription
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+          const response = await axios.post(
+            `${apiUrl}/tuning-chat?msg=${encodeURIComponent(transcription)}`
+          );
+
+          // Update bot message with response
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                sender: 'bot',
+                text: cleanBotResponse(response.data.response),
+                loading: false
+              };
+            }
+            return newMessages;
+          });
+        } catch (error: any) {
+          console.error('❌ Chat error:', error);
+          const errorMessage = error.response?.data?.error ||
+            error.message ||
+            'Sorry, I encountered an error. Please try again.';
+
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                sender: 'bot',
+                text: errorMessage,
+                loading: false
+              };
+            }
+            return newMessages;
+          });
+        }
       }
-    }
-  });
+    });
 
-  socketRef.current = socket;
+    socketRef.current = socket;
 
-  return () => {
-    socket.disconnect();
-  };
-}, [messages.length]); // Only depend on messages.length to avoid infinite loops
+    return () => {
+      socket.disconnect();
+    };
+  }, [messages.length]); // Only depend on messages.length to avoid infinite loops
 
   // Modify the handleSubmit function for file uploads
   const handleSubmit = async () => {
@@ -351,7 +352,7 @@ useEffect(() => {
           return updated;
         });
       }
-    } 
+    }
     // Rest of your existing handleSubmit logic for text messages...
     else if (userInput.trim() !== '') {
       const userMessageIndex = messages.length;
@@ -449,10 +450,9 @@ useEffect(() => {
   const handleAttachmentClick = async (type: string) => {
     if (type === 'voice') {
       setShowAttachmentMenu(false);
-      setShowVoiceSubMenu(true); // Show the voice submenu
+      setShowVoiceSubMenu(true);
       return;
     }
-
 
     const input = document.createElement('input');
     input.type = 'file';
@@ -462,8 +462,8 @@ useEffect(() => {
         input.accept = 'video/*';
         break;
       case 'image':
-        input.accept = 'image/*';  // Changed to accept all image types
-        input.capture = 'environment'; // Optional: use camera by default on mobile
+        input.accept = 'image/*';
+        input.capture = 'environment';
         break;
       case 'file':
         input.accept = 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
@@ -473,33 +473,36 @@ useEffect(() => {
     }
 
     input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (file) {
-        console.log('📎 File selected:', file.name);
+      const selectedFile = (e.target as HTMLInputElement).files?.[0];
+      if (selectedFile) {
+        setFile(selectedFile);
 
-        // For images, create a preview
-        if (type === 'image' && file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            const imageUrl = event.target?.result as string;
-            // Add image preview to messages
-            setMessages(prev => [...prev, {
-              sender: 'user',
-              text: '',
-              image: imageUrl,
-              fileName: file.name
-            }]);
-          };
-          reader.readAsDataURL(file);
+        // Create preview based on file type
+        if (selectedFile.type.startsWith('image/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'image' });
+        } else if (selectedFile.type.startsWith('video/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'video' });
+        } else if (selectedFile.type.startsWith('audio/')) {
+          const url = URL.createObjectURL(selectedFile);
+          setFilePreview({ url, type: 'audio' });
         }
-
-        setFile(file);
       }
     };
 
     input.click();
     setShowAttachmentMenu(false);
   };
+
+  const clearFilePreview = () => {
+    if (filePreview?.url) {
+      URL.revokeObjectURL(filePreview.url);
+    }
+    setFile(null);
+    setFilePreview(null);
+  };
+
   // Add these new functions for voice file handling
   const handleVoiceFileSelect = () => {
     const input = document.createElement('input');
@@ -535,7 +538,7 @@ useEffect(() => {
         <div className="gradient-bar"></div>
       </div>
 
-        <div className="chat-container" ref={chatRef}>
+      <div className="chat-container" ref={chatRef}>
         {messages.length === 0 ? (
           <div className="welcome-message">
             <div className="welcome-icon">🤖</div>
@@ -557,7 +560,7 @@ useEffect(() => {
                       {msg.sender === 'user' ? 'You' : msg.sender === 'bot' ? 'AI Assistant' : 'System'}
                     </div>
 
-                 {/* Image Message */}
+                    {/* Image Message */}
                     {msg.image && (
                       <div className="media-container">
                         <img
@@ -570,7 +573,7 @@ useEffect(() => {
                       </div>
                     )}
                     {/* Audio Message */}
-                  {/* Audio Message */}
+                    {/* Audio Message */}
                     {msg.audioUrl && (
                       <div className="audio-message">
                         <AudioPlayer
@@ -580,7 +583,7 @@ useEffect(() => {
                         {msg.text && <div className="audio-caption">{msg.text}</div>}
                       </div>
                     )}
-                 
+
                     {/* File Message (non-image) */}
                     {msg.file && !msg.image && (
                       <div className="file-message">
@@ -768,7 +771,65 @@ useEffect(() => {
           onKeyPress={handleKeyPress}
           disabled={isSubmitting || isRecording}
         />
+        {/* File preview area */}
+        {filePreview && (
+          <div className="file-preview-container">
+            {filePreview.type === 'image' && (
+              <div className="image-preview">
+                <img src={filePreview.url} alt="Preview" className="preview-image" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
 
+            {filePreview.type === 'video' && (
+              <div className="video-preview">
+                <video src={filePreview.url} controls className="preview-video" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {filePreview.type === 'audio' && (
+              <div className="audio-preview">
+                <audio src={filePreview.url} controls className="preview-audio" />
+                <button onClick={clearFilePreview} className="remove-preview-button">
+                  ×
+                </button>
+                {isUploading && (
+                  <div className="upload-loader">
+                    <div className="circle-loader"></div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Only show input when no file is selected */}
+        {!filePreview && (
+          <input
+            type="text"
+            className="chat-input"
+            placeholder="Type your message here..."
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            disabled={isSubmitting || isRecording}
+          />
+        )}
         <button
           className="submit-button"
           onClick={handleSubmit}
@@ -786,7 +847,7 @@ useEffect(() => {
       </div>
 
       <style jsx>
-      {`
+        {`
         .container {
           display: flex;
           flex-direction: column;
@@ -972,7 +1033,83 @@ useEffect(() => {
           gap: 4px;
           min-width: 120px;
         }
-        
+         .file-preview-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-right: 8px;
+          position: relative;
+        }
+
+        .image-preview, .video-preview, .audio-preview {
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #f5f7fa;
+        }
+
+        .preview-image {
+          max-width: 100%;
+          max-height: 150px;
+          display: block;
+          object-fit: contain;
+        }
+
+        .preview-video {
+          max-width: 100%;
+          max-height: 150px;
+          display: block;
+        }
+
+        .preview-audio {
+          width: 100%;
+          outline: none;
+        }
+
+        .remove-preview-button {
+          position: absolute;
+          top: 8px;
+          right: 8px;
+          background: rgba(0, 0, 0, 0.6);
+          color: white;
+          border: none;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 14px;
+          z-index: 2;
+        }
+
+        .upload-loader {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.7);
+          z-index: 1;
+        }
+
+        .circle-loader {
+          width: 24px;
+          height: 24px;
+          border: 3px solid rgba(45, 106, 222, 0.2);
+          border-top-color: #2D6ADE;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
         .attachment-menu button {
           display: flex;
           align-items: center;
