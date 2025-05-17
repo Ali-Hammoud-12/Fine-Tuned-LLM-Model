@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import AudioPlayer from './../components/audioPlayer';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 interface Message {
   sender: string;
   text: string;
@@ -148,14 +149,6 @@ export default function ChatbotPage() {
   const [chatHistory, setChatHistory] = useState<Message[][]>([]);
   const [currentChat, setCurrentChat] = useState<Message[]>([]);
 
-  const handleBack = () => {
-    if (chatHistory.length > 0) {
-      const previousChat = [...chatHistory];
-      const lastChat = previousChat.pop();
-      setCurrentChat(lastChat || []);
-      setChatHistory(previousChat);
-    }
-  };
 
   // Close attachment menu when clicking outside
   useEffect(() => {
@@ -567,19 +560,25 @@ export default function ChatbotPage() {
     input.click();
     setShowVoiceSubMenu(false);
   };
-
+  const router = useRouter();
+  const handleBack = () => {
+    router.back(); // This will navigate to the previous page in the history stack
+  };
   return (
     <div className="container">
-      <div className="header">
-        <button
-          className="back-button"
-          onClick={handleBack}
-          aria-label="Back to previous conversation"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="#2D6ADE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
+      <div className="header ">
+        <div className="back-btn">
+          <button
+            className="back-button"
+            onClick={handleBack}
+            aria-label="Back to previous conversation"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="#2D6ADE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+
         <h2>Fine Tuned LLM Model</h2>
         <div className="gradient-bar"></div>
       </div>
@@ -913,15 +912,18 @@ export default function ChatbotPage() {
         }
         
         .header {
-          text-align: center;
           margin-bottom: 20px;
           position: relative;
+          display:flex;
+          align-items:center ;
+          width:100%;
         }
         
         .header h2 {
           color: #2D6ADE;
           margin-bottom: 8px;
           font-weight: 600;
+          width:80%;
         }
         
         .gradient-bar {
@@ -1144,7 +1146,9 @@ export default function ChatbotPage() {
           font-size: 14px;
           z-index: 2;
         }
-
+.back-btn{
+width:20%
+}
         .upload-loader {
           position: absolute;
           top: 0;
