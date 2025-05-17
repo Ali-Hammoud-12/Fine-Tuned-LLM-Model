@@ -119,7 +119,11 @@ export default function ChatbotPage() {
     });
   };
 
-
+  const [streamingMessage, setStreamingMessage] = useState<{
+    index: number;
+    content: string;
+    isStreaming: boolean;
+  } | null>(null);
   // Stop recording
   const stopRecording = () => {
     if (mediaRecorderRef.current && isRecording) {
@@ -255,109 +259,12 @@ export default function ChatbotPage() {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    // Handle audio submission
-    if (recordedAudio) {
-      const audioFileName = `recording-${Date.now()}.mp3`;
-      const audioFile = new File([recordedAudio], audioFileName, { type: 'audio/mp3' });
-
-      setMessages(prev => [...prev, {
-        sender: 'user',
-        text: '', // Start with empty text for transcription
-        audioUrl: audioURL || '',
-        fileName: audioFileName,
-        loading: true // Add loading state
-      }]);
-
-      try {
-        // Get presigned URL for audio upload
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
-          filename: audioFileName,
-          content_type: 'audio/mp3',
-        });
-
-        // Upload audio to S3
-        await axios.put(presignedRes.data.url, audioFile, {
-          headers: {
-            'Content-Type': 'audio/mp3',
-          },
-        });
-
-        // Don't set loading to false here - wait for websocket transcription
-        setRecordedAudio(null);
-        setAudioURL(null);
-      } catch (error) {
-        console.error('Audio upload error:', error);
-        setMessages(prev => {
-          const updated = [...prev];
-          const lastIndex = updated.length - 1;
-          if (updated[lastIndex]) {
-            updated[lastIndex].loading = false;
-            updated[lastIndex].text = 'Error uploading voice message';
-          }
-          return updated;
-        });
-      }
-    }
-    // Handle image/file submission
-    else if (file) {
-      const fileName = file.name;
-      setMessages(prev => [...prev, {
-        sender: 'user',
-        text: '', // Start with empty text for transcription
-        image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
-        fileName: fileName,
-        loading: true // Add loading state
-      }]);
-
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        // Get presigned URL from backend
-        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
-          filename: fileName,
-          content_type: file.type || 'application/octet-stream',
-        });
-
-        // Upload file to S3
-        await axios.put(presignedRes.data.url, file, {
-          headers: {
-            'Content-Type': file.type || 'application/octet-stream',
-          },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / (progressEvent.total || 1)
-            );
-            setMessages(prev => {
-              const updated = [...prev];
-              const lastIndex = updated.length - 1;
-              if (updated[lastIndex]) {
-                updated[lastIndex].text = `Uploading ${percentCompleted}%`;
-              }
-              return updated;
-            });
-          }
-        });
-
-        // Don't set loading to false here - wait for websocket transcription
-        setFile(null);
-      } catch (error) {
-        console.error('Upload error:', error);
-        setMessages(prev => {
-          const updated = [...prev];
-          const lastIndex = updated.length - 1;
-          if (updated[lastIndex]) {
-            updated[lastIndex].loading = false;
-            updated[lastIndex].text = `Error uploading ${fileName}`;
-          }
-          return updated;
-        });
-      }
-    }
-    // Rest of your existing handleSubmit logic for text messages...
-    else if (userInput.trim() !== '') {
+    if (userInput.trim() !== '') {
       const userMessageIndex = messages.length;
       setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
-      setMessages(prev => [...prev, { sender: 'bot', text: '', loading: true }]);
+
+      // Add empty bot message (will be updated)
+      setMessages(prev => [...prev, { sender: 'bot', text: '' }]);
       const botMessageIndex = userMessageIndex + 1;
 
       try {
@@ -366,17 +273,36 @@ export default function ChatbotPage() {
           `${apiUrl}/tuning-chat?msg=${encodeURIComponent(userInput)}`
         );
 
-        setMessages(prev => {
-          const newMessages = [...prev];
-          if (newMessages[botMessageIndex]) {
-            newMessages[botMessageIndex] = {
-              sender: 'bot',
-              text: cleanBotResponse(response.data.response),
-              loading: false
-            };
-          }
-          return newMessages;
+        const fullResponse = cleanBotResponse(response.data.response);
+
+        // Start streaming effect
+        setStreamingMessage({
+          index: botMessageIndex,
+          content: '',
+          isStreaming: true
         });
+
+        // Simulate streaming
+        for (let i = 0; i < fullResponse.length; i++) {
+          await new Promise(resolve => setTimeout(resolve, 20)); // 20ms delay
+          setStreamingMessage(prev => ({
+            index: botMessageIndex,
+            content: fullResponse.substring(0, i + 1),
+            isStreaming: i < fullResponse.length - 1
+          }));
+
+          // Update messages array
+          setMessages(prev => {
+            const newMessages = [...prev];
+            if (newMessages[botMessageIndex]) {
+              newMessages[botMessageIndex] = {
+                ...newMessages[botMessageIndex],
+                text: fullResponse.substring(0, i + 1)
+              };
+            }
+            return newMessages;
+          });
+        }
 
         setUserInput('');
       } catch (error: any) {
@@ -390,18 +316,19 @@ export default function ChatbotPage() {
           if (newMessages[botMessageIndex]) {
             newMessages[botMessageIndex] = {
               sender: 'bot',
-              text: errorMessage,
-              loading: false
+              text: errorMessage
             };
           }
           return newMessages;
         });
+      } finally {
+        setStreamingMessage(null);
       }
     }
 
-    setIsSubmitting(false);
-  }
 
+    setIsSubmitting(false);
+  };
 
   useEffect(() => {
     if (chatRef.current) {
@@ -531,6 +458,7 @@ export default function ChatbotPage() {
     input.click();
     setShowVoiceSubMenu(false);
   };
+
   return (
     <div className="container">
       <div className="header">
@@ -572,7 +500,7 @@ export default function ChatbotPage() {
                         {msg.text && <div className="image-caption">{msg.text}</div>}
                       </div>
                     )}
-                    {/* Audio Message */}
+
                     {/* Audio Message */}
                     {msg.audioUrl && (
                       <div className="audio-message">
@@ -600,9 +528,15 @@ export default function ChatbotPage() {
                       </div>
                     )}
 
-                    {/* Text Message (only if no media) */}
+                    {/* Text Message (with streaming effect for bot messages) */}
                     {!msg.image && !msg.file && msg.text && (
-                      <div className="message-text">{msg.text}</div>
+                      <div className="message-text">
+                        {msg.text}
+                        {/* Show cursor only for bot messages that are currently streaming */}
+                        {msg.sender === 'bot' && streamingMessage?.index === idx && streamingMessage.isStreaming && (
+                          <span className="streaming-cursor">|</span>
+                        )}
+                      </div>
                     )}
                   </>
                 )}
@@ -691,7 +625,6 @@ export default function ChatbotPage() {
           </div>
         ) : null}
       </div>
-
       <div className="input-container">
         <div className="attachment-wrapper" ref={attachmentMenuRef}>
           <button
@@ -761,7 +694,7 @@ export default function ChatbotPage() {
 
 
         </div>
-
+        {/* 
         <input
           type="text"
           className="chat-input"
@@ -770,7 +703,7 @@ export default function ChatbotPage() {
           onChange={(e) => setUserInput(e.target.value)}
           onKeyPress={handleKeyPress}
           disabled={isSubmitting || isRecording}
-        />
+        /> */}
         {/* File preview area */}
         {filePreview && (
           <div className="file-preview-container">
@@ -931,7 +864,16 @@ export default function ChatbotPage() {
           position: relative;
           word-wrap: break-word;
         }
-        
+        .streaming-cursor {
+  animation: blink 1s infinite;
+  color: #2D6ADE;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
         .message.user .message-bubble {
           background: linear-gradient(135deg, #BD24DF 0%, #2D6ADE 100%);
           color: white;
