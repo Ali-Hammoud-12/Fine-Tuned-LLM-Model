@@ -93,6 +93,50 @@ docker run -p 3000:3000 --name chatbot-frontend --env-file frontend/.env.product
 
 ---
 
+### 🐳 Run Full Stack with Docker Compose
+
+> If you want to run both the backend and frontend services together, Docker Compose makes it easy.
+
+#### Step 5: Run the App with Docker Compose
+
+```bash
+cd docker
+docker-compose up --build
+```
+
+This will:
+
+- Build and start both `chatbot-backend` and `chatbot-frontend` containers
+- Load environment variables from:
+  - `backend/.env` and `backend/.env.production`
+  - `frontend/.env.production`
+- Expose:
+  - Backend on [http://localhost:5000](http://localhost:5000)
+  - Frontend on [http://localhost:3000](http://localhost:3000)
+
+To stop the services:
+
+```bash
+docker-compose down
+```
+
+📄 Make sure your directory structure matches the following:
+
+```
+FINE-TUNED-LLM-MODEL/
+├── backend/
+│   ├── Dockerfile
+│   ├── .env
+│   └── .env.production
+├── frontend/
+│   ├── Dockerfile
+│   └── .env.production
+├── docker/
+│   └── docker-compose.yml
+```
+
+---
+
 ### ☁️ Run Remotely (AWS ECS)
 
 #### Step 1: Trigger CI/CD Pipeline
