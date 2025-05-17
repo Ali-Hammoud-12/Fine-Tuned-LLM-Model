@@ -61,7 +61,7 @@ python main.py
 
 ```bash
 docker build -t chatbot-app -f Dockerfile .
-docker run -p 5000:5000 --name chatbot-app chatbot-app
+docker run -p 5000:5000 --name chatbot-backend --env-file backend/.env chatbot-backend
 ```
 
 #### Step 4: Run Frontend (Next.js)
@@ -88,7 +88,7 @@ The page auto-updates as you edit the file. This project uses `next/font` to aut
 
 ```bash
 docker build -t chatbot-app -f Dockerfile .
-docker run -p 3000:3000 --name chatbot-app chatbot-app
+docker run -p 3000:3000 --name chatbot-frontend --env-file frontend/.env.production -e NODE_ENV=production chatbot-frontend
 ```
 
 ---
