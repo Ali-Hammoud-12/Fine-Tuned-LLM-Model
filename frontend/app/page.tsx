@@ -6,11 +6,14 @@ import Features from './components/Features/index';
 import Simple from './components/Simple/index';
 import Trade from './components/Trade/index';
 import Faq from './components/Faq/index';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 export default function Home() {
   return (
     <main>
+      <Navbar />
       <Banner />
       <Companies />
       <Work />
@@ -19,6 +22,7 @@ export default function Home() {
       <Simple />
       {/* <Trade /> */}
       <Faq />
+      <Footer />
     </main>
   )
 }
