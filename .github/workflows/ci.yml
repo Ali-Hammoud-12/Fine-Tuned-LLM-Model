@@ -13,7 +13,7 @@ jobs:
     name: Test the Application
     environment: production
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
@@ -48,7 +48,7 @@ jobs:
       run: |
         export PYTHONPATH=$GITHUB_WORKSPACE/backend
         pytest --maxfail=1 --disable-warnings -q
-      # Ensure workflow stops on test failure
+      # Ensure workflow stops on test failures
       continue-on-error: false
 
   build-app:
@@ -59,6 +59,7 @@ jobs:
     # if: github.ref == 'refs/heads/master' && success()
     if: success()
     env:
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: 'eu-west-3'
@@ -82,55 +83,15 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
-    # - name: Determine Changed Directory
-    #   id: changes
-    #   run: |
-    #     CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
-
-    #     BACKEND_CHANGED=$(echo "$CHANGED_FILES" | grep '^backend/' || true)
-    #     FRONTEND_CHANGED=$(echo "$CHANGED_FILES" | grep '^frontend/' || true)
-
-    #     # !!! For debugging purposes only !!!!
-    #     echo "Changed files:"
-    #     echo "$CHANGED_FILES"
-    #     # !!! For debugging purposes only !!!!
-
-    #     echo "backend_changed=$BACKEND_CHANGED" >> $GITHUB_OUTPUT
-    #     echo "frontend_changed=$FRONTEND_CHANGED" >> $GITHUB_OUTPUT
-
-    # - name: Docker Build & Push
-    #   run: |
-    #     if [ -n "${{ steps.changes.outputs.backend_changed }}" ]; then
-    #       echo "🔨 Building and Pushing Backend"
-    #       docker compose -f docker/docker-compose.yml build backend
-    #       docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
-    #       docker tag chatbot-backend:latest $ECR_REGISTRY/chatbot-backend:latest
-    #       docker push $ECR_REGISTRY/chatbot-backend:${{ github.sha }}
-    #       docker push $ECR_REGISTRY/chatbot-backend:latest
-    #     elif [ -n "${{ steps.changes.outputs.frontend_changed }}" ]; then
-    #       echo "🔨 Building and Pushing Frontend"
-    #       docker compose -f docker/docker-compose.yml build frontend
-    #       docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
-    #       docker tag chatbot-frontend:latest $ECR_REGISTRY/chatbot-frontend:latest
-    #       docker push $ECR_REGISTRY/chatbot-frontend:${{ github.sha }}
-    #     docker push $ECR_REGISTRY/chatbot-frontend:latest
-    #     elif [ -n "" ]; then
-    #       echo "No changes detected in backend or frontend directories. Skipping Docker build and push."
-    #     else
-    #       return 1
-    #     fi
-
-    - name: Generate .env from template
+    - name: Generate .env from template and inject secrets
       run: |
-        sed \
-          -e "s|GEMINI_API_KEY=.*|GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}|" \
-          -e "s|AWS_ACCESS_KEY=.*|AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}|" \
-          -e "s|AWS_SECRET_ACCESS_KEY=.*|AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}|" \
-          backend/.env.template > backend/.env
+        cp backend/.env.template backend/.env
 
-    - name: Verify .env was generated
-      run: cat backend/.env
-      shell: bash
+        echo "${GOOGLE_APPLICATION_CREDENTIALS}" | jq '.' > backend/google-sa.json
+
+        echo "GOOGLE_APPLICATION_CREDENTIALS=./google-sa.json" >> backend/.env
+        echo "AWS_ACCESS_KEY=${AWS_ACCESS_KEY}" >> backend/.env
+        echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> backend/.env
 
     - name: Docker Build & Push
       run: |
