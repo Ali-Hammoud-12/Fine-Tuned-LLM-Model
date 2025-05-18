@@ -164,7 +164,7 @@ export default function ChatbotPage() {
   }, []);
   // Update the socket event handler
   useEffect(() => {
-    const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
+    const socket = io('https://talk2liu.click', {
       transports: ['websocket'],
     });
 
