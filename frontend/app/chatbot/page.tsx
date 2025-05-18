@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import AudioPlayer from './../components/audioPlayer';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/router';
 interface Message {
   sender: string;
   text: string;
