@@ -317,7 +317,7 @@ export default function ChatbotPage() {
         fileName: fileName,
         loading: true // Add loading state
       }]);
-   
+
 
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -488,6 +488,7 @@ export default function ChatbotPage() {
 
     const input = document.createElement('input');
     input.type = 'file';
+    clearFilePreview();
 
     switch (type) {
       case 'video':
