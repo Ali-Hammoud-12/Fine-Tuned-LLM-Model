@@ -317,6 +317,7 @@ export default function ChatbotPage() {
         fileName: fileName,
         loading: true // Add loading state
       }]);
+   
 
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -348,6 +349,7 @@ export default function ChatbotPage() {
 
         // Don't set loading to false here - wait for websocket transcription
         setFile(null);
+        clearFilePreview(); // Add this line
       } catch (error) {
         console.error('Upload error:', error);
         setMessages(prev => {
