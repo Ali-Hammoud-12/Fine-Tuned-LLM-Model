@@ -10,7 +10,7 @@ interface workdata {
 
 const workdata: workdata[] = [
     {
-        imgSrc: '/images/Work/icon-One.svg',
+        imgSrc: '/images/Work/icon-one.svg',
         heading: 'Ask Questions',
         subheading: 'Easily ask questions related to university life, academics, and student resources at the Lebanese International University.',
         hiddenpara: 'Our AI model is designed to understand your academic queries and provide clear, personalized answers to help you navigate university life.',

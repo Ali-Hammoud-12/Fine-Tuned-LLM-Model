@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import AudioPlayer from './../components/audioPlayer';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/router';
 interface Message {
   sender: string;
   text: string;
@@ -145,6 +147,9 @@ export default function ChatbotPage() {
       audio.play();
     }
   };
+  const [chatHistory, setChatHistory] = useState<Message[][]>([]);
+  const [currentChat, setCurrentChat] = useState<Message[]>([]);
+
 
   // Close attachment menu when clicking outside
   useEffect(() => {
@@ -160,7 +165,7 @@ export default function ChatbotPage() {
   }, []);
   // Update the socket event handler
   useEffect(() => {
-    const socket = io('http://chatbot-load-balancer-14059421.eu-west-3.elb.amazonaws.com', {
+    const socket = io('https://talk2liu.click', {
       transports: ['websocket'],
     });
 
@@ -258,8 +263,108 @@ export default function ChatbotPage() {
   const handleSubmit = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    // Handle audio submission
+    if (recordedAudio) {
+      const audioFileName = `recording-${Date.now()}.mp3`;
+      const audioFile = new File([recordedAudio], audioFileName, { type: 'audio/mp3' });
 
-    if (userInput.trim() !== '') {
+      setMessages(prev => [...prev, {
+        sender: 'user',
+        text: '', // Start with empty text for transcription
+        audioUrl: audioURL || '',
+        fileName: audioFileName,
+        loading: true // Add loading state
+      }]);
+
+      try {
+        // Get presigned URL for audio upload
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
+          filename: audioFileName,
+          content_type: 'audio/mp3',
+        });
+
+        // Upload audio to S3
+        await axios.put(presignedRes.data.url, audioFile, {
+          headers: {
+            'Content-Type': 'audio/mp3',
+          },
+        });
+
+        // Don't set loading to false here - wait for websocket transcription
+        setRecordedAudio(null);
+        setAudioURL(null);
+      } catch (error) {
+        console.error('Audio upload error:', error);
+        setMessages(prev => {
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = 'Error uploading voice message';
+          }
+          return updated;
+        });
+      }
+    }
+    // Handle image/file submission
+    else if (file) {
+      const fileName = file.name;
+      setMessages(prev => [...prev, {
+        sender: 'user',
+        text: '', // Start with empty text for transcription
+        image: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
+        fileName: fileName,
+        loading: true // Add loading state
+      }]);
+
+
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        // Get presigned URL from backend
+        const presignedRes = await axios.post(`${apiUrl}/get_presigned_url`, {
+          filename: fileName,
+          content_type: file.type || 'application/octet-stream',
+        });
+
+        // Upload file to S3
+        await axios.put(presignedRes.data.url, file, {
+          headers: {
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / (progressEvent.total || 1)
+            );
+            setMessages(prev => {
+              const updated = [...prev];
+              const lastIndex = updated.length - 1;
+              if (updated[lastIndex]) {
+                updated[lastIndex].text = `Uploading ${percentCompleted}%`;
+              }
+              return updated;
+            });
+          }
+        });
+
+        // Don't set loading to false here - wait for websocket transcription
+        setFile(null);
+        clearFilePreview(); // Add this line
+      } catch (error) {
+        console.error('Upload error:', error);
+        setMessages(prev => {
+          const updated = [...prev];
+          const lastIndex = updated.length - 1;
+          if (updated[lastIndex]) {
+            updated[lastIndex].loading = false;
+            updated[lastIndex].text = `Error uploading ${fileName}`;
+          }
+          return updated;
+        });
+      }
+    }
+    // Rest of your existing handleSubmit logic for text messages...
+    else if (userInput.trim() !== '') {
       const userMessageIndex = messages.length;
       setMessages(prev => [...prev, { sender: 'user', text: userInput }]);
 
@@ -383,6 +488,7 @@ export default function ChatbotPage() {
 
     const input = document.createElement('input');
     input.type = 'file';
+    clearFilePreview();
 
     switch (type) {
       case 'video':
@@ -458,10 +564,25 @@ export default function ChatbotPage() {
     input.click();
     setShowVoiceSubMenu(false);
   };
-
+  const router = useRouter();
+  const handleBack = () => {
+    router.back(); // This will navigate to the previous page in the history stack
+  };
   return (
     <div className="container">
-      <div className="header">
+      <div className="header ">
+        <div className="back-btn">
+          <button
+            className="back-button"
+            onClick={handleBack}
+            aria-label="Back to previous conversation"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="#2D6ADE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+
         <h2>Fine Tuned LLM Model</h2>
         <div className="gradient-bar"></div>
       </div>
@@ -779,6 +900,7 @@ export default function ChatbotPage() {
         </button>
       </div>
 
+
       <style jsx>
         {`
         .container {
@@ -795,15 +917,18 @@ export default function ChatbotPage() {
         }
         
         .header {
-          text-align: center;
           margin-bottom: 20px;
           position: relative;
+          display:flex;
+          align-items:center ;
+          width:100%;
         }
         
         .header h2 {
           color: #2D6ADE;
           margin-bottom: 8px;
           font-weight: 600;
+          width:80%;
         }
         
         .gradient-bar {
@@ -1026,7 +1151,9 @@ export default function ChatbotPage() {
           font-size: 14px;
           z-index: 2;
         }
-
+.back-btn{
+width:20%;
+}
         .upload-loader {
           position: absolute;
           top: 0;

@@ -4,8 +4,6 @@
 
 This project implements a chatbot application powered by **Google's Gemini 1.5 Flash** model. It’s fine-tuned for educational and conversational use cases, integrates seamlessly with AWS services, and is optimized for both cost and performance.
 
----
-
 ## 📁 Project Structure
 
 ```
@@ -22,13 +20,9 @@ FINE-TUNED-LLM-MODEL/
 ├── README.md
 ```
 
----
-
 ## 🚀 Getting Started
 
 You can run the application either **locally** or **remotely on AWS ECS**.
-
----
 
 ### 🖥️ Run Locally
 
@@ -91,8 +85,6 @@ docker build -t chatbot-app -f Dockerfile .
 docker run -p 3000:3000 --name chatbot-frontend --env-file frontend/.env.production -e NODE_ENV=production chatbot-frontend
 ```
 
----
-
 ### 🐳 Run Full Stack with Docker Compose
 
 > If you want to run both the backend and frontend services together, Docker Compose makes it easy.
@@ -135,8 +127,6 @@ FINE-TUNED-LLM-MODEL/
 │   └── docker-compose.yml
 ```
 
----
-
 ### ☁️ Run Remotely (AWS ECS)
 
 #### Step 1: Trigger CI/CD Pipeline
@@ -164,8 +154,6 @@ Visit the chatbot using the DNS endpoint:
 ```
 http://chatbot-load-balancer-1450166938.eu-west-3.elb.amazonaws.com/
 ```
-
----
 
 ## 💡 Cost Optimization with Gemini API
 
@@ -200,7 +188,6 @@ response = gemini.image.generate(
 
 ⚠️ *Be aware that higher-quality outputs will incur additional costs.*
 
----
 
 ## 💰 Gemini API Pricing Overview (as of 01-12-2024)
 
@@ -226,8 +213,6 @@ response = gemini.image.generate(
 
 *Refer to the [Gemini API Pricing](https://ai.google.dev/gemini-api/docs/pricing) for up-to-date details.*
 
----
-
 ## 🧠 Troubleshooting Tips
 
 ### Issues with Fine-Tuned Models
@@ -242,5 +227,3 @@ response = gemini.image.generate(
 - **Dataset Collection ID:** Ensure correctness and existence of the ID.
 - **Check JSONL Format:** Validate proper syntax and structure.
 - **Improve Sources:** Use structured data from LIU and official academic portals.
-
----

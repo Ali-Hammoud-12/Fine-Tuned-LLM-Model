@@ -1,3 +1,5 @@
+'use client';
+
 import { Disclosure } from "@headlessui/react";
 import Link from "next/link";
 import React from "react";
@@ -69,7 +71,6 @@ const Navbar = () => {
                 </div>
               </div>
               <Link href="/chatbot">      
-
               <button className="hidden lg:flex justify-end text-xl font-semibold py-4 px-6 lg:px-12 navbutton text-white">
                 Get started
               </button>
