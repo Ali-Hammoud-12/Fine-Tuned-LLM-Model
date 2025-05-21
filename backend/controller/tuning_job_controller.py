@@ -57,7 +57,7 @@ def tuning_chat():
         response.headers.add('Access-Control-Allow-Methods', 'POST')
         return response
     
-    userText = request.args.get('msg')
+    userText = request.args.get('msg') or request.json.get('msg')
     prompt_construction = (latest_transcription + "\n" + userText).strip()
     if userText:
         try:
