@@ -10,7 +10,6 @@ This project implements a chatbot application powered by **Google's Gemini 1.5 F
 FINE-TUNED-LLM-MODEL/
 ├── .aws/               # AWS configuration
 ├── .github/            # GitHub Actions workflows
-├── .vscode/            # VS Code settings
 ├── backend/            # Flask-based API for chatbot
 ├── docker/             # Dockerfiles and configurations
 ├── frontend/           # Next.js frontend (chat UI)
