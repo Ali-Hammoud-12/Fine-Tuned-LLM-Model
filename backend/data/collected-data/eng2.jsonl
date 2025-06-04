@@ -1,0 +1,2011 @@
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the total number of credits required for the Bachelor of Science in Computer Engineering?"}]}, {"role": "model", "parts": [{"text": "The Bachelor of Science in Computer Engineering requires 108 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the course code for the Senior Project in Computer Engineering, and how many credits is it worth?"}]}, {"role": "model", "parts": [{"text": "The course code for the Senior Project is CENG495, and it is worth 3 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Which prerequisite courses are needed for \"Digital Logic I\" (CENG250) in Computer Engineering?"}]}, {"role": "model", "parts": [{"text": "The prerequisite for \"Digital Logic I\" (CENG250) is EENG250."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Describe the focus of the \"Mobile Application Development\" (CENG435) course."}]}, {"role": "model", "parts": [{"text": "This course focuses on the development of advanced mobile applications using the Android platform, covering topics like Android environment, creating, simulating, and deploying applications, user interfaces, data persistency, geo-locations, media handling, networking, services, and deployment. It also exposes students to business models and current trends in mobile application development."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What topics are covered in the \"Communication Networks\" (CENG415) course?"}]}, {"role": "model", "parts": [{"text": "This course introduces fundamental concepts in the design and implementation of computer communication networks, their protocols and applications (FTP, SMTP, HTTP, etc.). Topics include: network architectures and topologies, applications, reliable data transfer, transport, congestion and flow control, routing, addressing, and local area networks. It covers materials required in the CCNA1 CISCO exam."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the total number of credits required for the Bachelor of Science in Electrical Engineering?"}]}, {"role": "model", "parts": [{"text": "The Bachelor of Science in Electrical Engineering requires 108 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Which course is a prerequisite for \"Electric Machines II\" (EENG491)?"}]}, {"role": "model", "parts": [{"text": "The prerequisite for \"Electric Machines II\" (EENG491) is EENG440."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the purpose of the \"Control Systems Lab\" (EENG435L)?"}]}, {"role": "model", "parts": [{"text": "The Control Systems Lab introduces experiments concerning designing, building, and testing control systems using analog controller circuits, electronics and technical lines circuits, speed, light, and temperature control circuits. It also familiarizes students with open and closed-loop control systems and reinforces the material covered in the Control Systems course."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What topics are covered in the \"Electromagnetic Fields and Waves\" (EENG388) course?"}]}, {"role": "model", "parts": [{"text": "This course covers general Electro-magnetic Theory, including vector analysis (Divergence, Gradient, Curl), Electrostatic topics (Coulomb's Law, Gauss's Law, Joule's Law, Electric Forces and Electric Potential), Magneto-statics (Biot-Savart's Law, Ampere's Law, Magnetic Forces and Torques), and Dynamic fields (Maxwell's equations, Faraday's Law, and Plane Wave Propagation)."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the main objectives of the \"Electrical Wiring and Installation\" (EENG365) course?"}]}, {"role": "model", "parts": [{"text": "The document states that EENG365 is \"Electrical Wiring and Installation\" and is worth 3 credits with EENG300 as a prerequisite and MENG225 as a corequisite. A detailed description of the course's objectives is not explicitly provided in the fetched content."}]}]}
+
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the lab requirements for 'Electric Circuits I'?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many credits are needed to complete the Bachelor of Science in Computer Engineering?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the course code for Calculus II and how many credits is it worth?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is covered in the 'Control Systems' course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the prerequisites for the Digital Logic II course?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Is the 'Microcontroller Applications Lab' part of the Electronics Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which semester includes the 'Composition and Research Skills' course in the Electrical Engineering program?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Can you explain what the course 'Engineering Ethics and Professional Practice' covers?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How does the course 'Web Programming and Technologies' integrate database use?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What topics are taught in the Signals and Systems course?"
+          }
+        ]
+      }
+    ]
+  }

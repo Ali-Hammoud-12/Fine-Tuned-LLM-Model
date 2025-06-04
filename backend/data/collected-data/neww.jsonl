@@ -1,0 +1,699 @@
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"Where is LIU's Bekaa campus located?"}]},{"role":"model","parts":[{"text":"The Bekaa Campus is located in Al-Khyara, in the western Bekaa Valley, and it spans 400,000 square meters."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"What is the mission of LIU?"}]},{"role":"model","parts":[{"text":"LIU's mission is to provide affordable and accessible quality higher education and cultivate students' knowledge and skills to become independent learners and responsible citizens."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"How many campuses does LIU have in Lebanon?"}]},{"role":"model","parts":[{"text":"LIU has nine campuses across Lebanon, including in Beirut, Bekaa, Saida, Nabatieh, Tripoli, Mount Lebanon, Tyre, Rayak, and Akkar."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"What degrees does the School of Engineering offer?"}]},{"role":"model","parts":[{"text":"The School of Engineering at LIU offers both undergraduate and graduate programs in fields such as Electrical, Computer, Mechanical, and Industrial Engineering."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"What GPA do I need to graduate from a bachelor's program at LIU?"}]},{"role":"model","parts":[{"text":"To graduate from a bachelor's program, you must have a minimum cumulative GPA of 2.0 at LIU."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"Can I transfer to LIU from another university?"}]},{"role":"model","parts":[{"text":"Yes, LIU accepts transfer students and evaluates your transcripts to determine transferable credits."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"Is English the language of instruction at LIU?"}]},{"role":"model","parts":[{"text":"Yes, English is the primary language of teaching and communication at LIU."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"What is the tuition based on at LIU?"}]},{"role":"model","parts":[{"text":"LIU's tuition is calculated based on the number of registered credit hours. Other costs like books and fees are additional."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"What clubs can I join at LIU?"}]},{"role":"model","parts":[{"text":"LIU offers a variety of clubs, such as the Dance Club, Math and Physics Club, Book Club, Theater Club, and Social Act Club."}]}]}
+{"systemInstruction":{"role":"system","parts":[{"text":"You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]},"contents":[{"role":"user","parts":[{"text":"Are there graduate programs in Business at LIU?"}]},{"role":"model","parts":[{"text":"Yes, LIU offers an MBA program with several specializations, including Marketing, Finance, and International Business."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the maximum credit hours allowed per semester?"}]}, {"role": "model", "parts": [{"text": "The maximum allowed credit hours vary between 18-20, with exceptions up to 21 credits if CGPA is ≥2.0 or for graduating students."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many campuses does LIU have?"}]}, {"role": "model", "parts": [{"text": "LIU has nine campuses in Lebanon (Beirut, Bekaa, etc.) and three international campuses in Yemen, Senegal, and Mauritania."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the tuition fee for Pharmacy?"}]}, {"role": "model", "parts": [{"text": "Undergraduate Pharmacy costs $299 per credit. Note: Pharmacy students are not eligible for financial aid."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I transfer courses from another university?"}]}, {"role": "model", "parts": [{"text": "Yes, submit certified transcripts + course descriptions for evaluation. Transfer applications require a $30 fee and entrance exam."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What are LIU's core values?"}]}, {"role": "model", "parts": [{"text": "Integrity, Excellence, Diversity & Inclusion, Collaboration, Innovation, Compassion, and Stewardship."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I apply for financial aid?"}]}, {"role": "model", "parts": [{"text": "Submit a Financial Aid Form to Student Affairs Office before the 5th week of semester. Maintain ≥70% GPA to renew."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are offered in Engineering?"}]}, {"role": "model", "parts": [{"text": "Options include Computer, Electrical, Mechanical, Industrial, and Surveying Engineering (108 credits for BSc)."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a make-up exam policy?"}]}, {"role": "model", "parts": [{"text": "Yes, for hospitalization/death/accidents. Submit petitions by the Monday after finals; approved make-ups occur before next semester."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the language of instruction?"}]}, {"role": "model", "parts": [{"text": "English is the primary language of teaching and communication across all LIU programs."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many credits to graduate from Business School?"}]}, {"role": "model", "parts": [{"text": "99 credits: 24 GER, 42 Core Business, and 33 Major credits, with ≥2.0 GPA in major and cumulative."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the refund policy for dropped courses?"}]}, {"role": "model", "parts": [{"text": "100% refund during add/drop period. No refunds afterward, though petitions may be considered."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there student clubs at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes! Options include Music Club, Theater Club, Biology/Chemistry Club, and Animal Rescue Club across campuses."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the vision of the School of Engineering?"}]}, {"role": "model", "parts": [{"text": "To be a nationally leading engineering school empowering graduates to address contemporary issues innovatively."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I change my major?"}]}, {"role": "model", "parts": [{"text": "Submit a Change of Major form to Registrar's Office. Approval depends on meeting new major's admission requirements."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the attendance policy?"}]}, {"role": "model", "parts": [{"text": "Students cannot miss >33.33% of a course. Exceeding this results in automatic AW (Academic Withdrawal)."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer study abroad programs?"}]}, {"role": "model", "parts": [{"text": "Yes, transfer programs allow exposure to international campuses in Yemen, Senegal, and Mauritania."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's unique about Nabatieh Campus?"}]}, {"role": "model", "parts": [{"text": "Known for arts/design studios and sports facilities. Hosts the 60 Sec Film Festival and has strong regional academic rankings."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many schools does LIU have?"}]}, {"role": "model", "parts": [{"text": "Five schools: Business, Engineering, Arts & Sciences, Education, Pharmacy, plus a Freshman Program."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the grading scale at LIU?"}]}, {"role": "model", "parts": [{"text": "Undergraduate: 90-100%=4.0 (Excellent), 60%=1.0. Graduate: 3.91-4.0=Excellent, <3.0=Unsatisfactory."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register at multiple campuses?"}]}, {"role": "model", "parts": [{"text": "Yes, but courses at different campuses must have ≥1 hour gap between them. Consult your registrar."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's LIU's mission?"}]}, {"role": "model", "parts": [{"text": "To provide affordable, accessible quality education fostering independent learners who positively impact global communities."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there dormitories at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, Bekaa and Beirut campuses offer dormitories (separate for males/females) and adjacent university housing."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the Freshman Program?"}]}, {"role": "model", "parts": [{"text": "A 30-credit foundation year requiring SAT I/II (Arts: 2600+, Sciences: 2750+). Completers advance to sophomore majors."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I contact the Pharmacy School?"}]}, {"role": "model", "parts": [{"text": "Email sop@liu.edu.lb. Note: Pharmacy applications are accepted only May-mid-August annually."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What's the MBA duration?"}]}, {"role": "model", "parts": [{"text": "Typically 2 years (39 credits). LIU-Worms MBA requires 56 credits."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have research labs?"}]}, {"role": "model", "parts": [{"text": "Yes, e.g., HPLC/GC labs in Pharmacy, engineering labs, and specialized computer labs across campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the vision of LIU?"}]}, {"role": "model", "parts": [{"text": "LIU's vision is to be a leading transnational university known for outstanding student-centered learning and academic research excellence."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer scholarships or financial aid?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU provides financial aid. Students can apply through the Public Relations Office for assistance."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the requirements to apply to LIU as an undergraduate?"}]}, {"role": "model", "parts": [{"text": "Applicants must provide a certified copy of the Baccalaureate degree, identification documents, photos, and application fees."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Where are the LIU campuses located?"}]}, {"role": "model", "parts": [{"text": "LIU has campuses in Beirut, Bekaa, Saida, Nabatieh, Tripoli, Mount Lebanon, Tyre, Rayak, Akkar, and abroad in Yemen, Senegal, and Mauritania."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How many credits are required to graduate with a bachelor's degree in Business?"}]}, {"role": "model", "parts": [{"text": "A minimum of 99 credits is required, including general education, core business, and major courses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I study pharmacy at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, the School of Pharmacy at LIU offers both BS and PharmD programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a dress code for students at LIU?"}]}, {"role": "model", "parts": [{"text": "LIU encourages modest, respectful attire but does not enforce a strict dress code."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How does the grading system work at LIU?"}]}, {"role": "model", "parts": [{"text": "Grades are assigned based on percentage ranges and converted to quality points. A score below 60% earns 0 points."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are available in the School of Engineering?"}]}, {"role": "model", "parts": [{"text": "Majors include Computer Engineering, Electrical, Electronics, Mechanical, and Industrial Engineering among others."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there student housing available at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, several campuses including Beirut and Bekaa offer dormitories for male and female students."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I transfer to LIU from another university?"}]}, {"role": "model", "parts": [{"text": "You need to submit your transcript, course descriptions, and other documents to determine eligible transfer credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have international campuses?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU has international campuses in Yemen, Senegal, and Mauritania."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I apply for the English placement test?"}]}, {"role": "model", "parts": [{"text": "You must register for the English placement test at the admissions office or online during application."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the GPA requirement for graduate programs?"}]}, {"role": "model", "parts": [{"text": "A minimum GPA of 2.0 is required for LIU graduates, and 2.25 for non-LIU applicants."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there master's programs at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers master's programs in business, engineering, education, and pharmacy."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I study education at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, the School of Education offers undergraduate and graduate degrees in various fields."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What student clubs does LIU have?"}]}, {"role": "model", "parts": [{"text": "LIU has several clubs including Dance Club, Health Club, Book Club, and Cinematography Club."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the maximum number of credits I can register in a semester?"}]}, {"role": "model", "parts": [{"text": "Normally 18\u201320 credits, but students with GPA 2.0+ may register up to 21 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I get a make-up exam?"}]}, {"role": "model", "parts": [{"text": "You must submit a petition with valid documentation such as a medical or accident report."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens if I miss too many classes?"}]}, {"role": "model", "parts": [{"text": "Students missing over 33.33% of classes receive an Academic Withdrawal (AW) grade."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer Pharmacy degrees?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers BS and PharmD programs through the School of Pharmacy."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How long is the business undergraduate program?"}]}, {"role": "model", "parts": [{"text": "The business program usually lasts for 3 years and requires completion of 99 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I join a study abroad program at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU has several study abroad programs that expose students to international experiences."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the general education requirements for a BA in Education?"}]}, {"role": "model", "parts": [{"text": "Students must complete 24 credits in General Education Requirements."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many auditoriums are in Bekaa Campus?"}]}, {"role": "model", "parts": [{"text": "The Bekaa Campus has 10 auditoriums each with a capacity over 150 seats."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Where is the Tyre Campus located?"}]}, {"role": "model", "parts": [{"text": "It is located at the North Entrance of Sour\u2013Alabasiyeh Road Junction."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What types of labs are available at LIU campuses?"}]}, {"role": "model", "parts": [{"text": "Labs include computer, pharmacy, nutrition, biology, and engineering labs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I change my major at LIU?"}]}, {"role": "model", "parts": [{"text": "Submit a Change of Major form through the Registrar's Office and gain departmental approval."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is the English Language the medium of instruction?"}]}, {"role": "model", "parts": [{"text": "Yes, all courses are taught in English at LIU."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the tuition fee policy?"}]}, {"role": "model", "parts": [{"text": "Tuition is calculated per credit; other costs like books and social security are separate."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Who is the President of LIU?"}]}, {"role": "model", "parts": [{"text": "Mr. Abdul Rahim Mourad is the founder and current president of LIU."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register in different LIU campuses for different courses?"}]}, {"role": "model", "parts": [{"text": "Yes, but you must ensure a time gap between courses and get campus approval."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What kind of events are held at LIU?"}]}, {"role": "model", "parts": [{"text": "Events include seminars, film festivals, and campus-wide celebrations."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I contact the admissions office?"}]}, {"role": "model", "parts": [{"text": "You can email admissions@liu.edu.lb or call +961-1-706881."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the required GPA to graduate?"}]}, {"role": "model", "parts": [{"text": "A minimum cumulative GPA of 2.0 is required for both undergraduate and graduate programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU support innovation?"}]}, {"role": "model", "parts": [{"text": "Yes, innovation is one of LIU's core values alongside integrity and collaboration."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there sports facilities at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, campuses have basketball courts, football fields, and swimming pools."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What does SAS stand for at LIU?"}]}, {"role": "model", "parts": [{"text": "SAS refers to the School of Arts and Sciences."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is LIU's slogan?"}]}, {"role": "model", "parts": [{"text": "LIU\u2019s slogan is 'Education for All'."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I apply to Pharmacy anytime?"}]}, {"role": "model", "parts": [{"text": "No, Pharmacy applications are accepted once a year from May to mid-August."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is LIU accredited?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU is recognized by the Lebanese State and complies with higher education laws."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors does the School of Business offer?"}]}, {"role": "model", "parts": [{"text": "Majors include Accounting, Finance, Marketing, Management, and Hospitality."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I study engineering at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers multiple undergraduate and master's degrees in engineering fields."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have a theater?"}]}, {"role": "model", "parts": [{"text": "Yes, the Halba campus includes a theater that can host up to 500 visitors."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I join the LIU Music Club?"}]}, {"role": "model", "parts": [{"text": "You can register for clubs during orientation or through the Student Affairs Office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the School of Education's mission?"}]}, {"role": "model", "parts": [{"text": "To provide inclusive, learner-centered programs and promote educational excellence."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU support research?"}]}, {"role": "model", "parts": [{"text": "Yes, research is a core part of LIU\u2019s mission and is integrated in many programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What type of curriculum does LIU follow?"}]}, {"role": "model", "parts": [{"text": "LIU uses an American-style credit hour system with a focus on active learning."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a photography studio at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, especially in the Halba campus, supporting Radio & TV and design majors."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many years is the undergraduate pharmacy program?"}]}, {"role": "model", "parts": [{"text": "It typically lasts for 3 years and includes 179 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are course descriptions available online?"}]}, {"role": "model", "parts": [{"text": "Yes, course descriptions can be found in the plan of study for each major."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU organize seminars?"}]}, {"role": "model", "parts": [{"text": "Yes, campuses frequently host educational and professional development seminars."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the minimum GPA for LIU students to register more than 18 credits?"}]}, {"role": "model", "parts": [{"text": "A minimum cumulative GPA of 2.0 is required to exceed 18 credits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can non-LIU graduates apply to master's programs?"}]}, {"role": "model", "parts": [{"text": "Yes, if their previous institution is recognized and GPA is above 2.25."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the Freshman Program at LIU?"}]}, {"role": "model", "parts": [{"text": "It includes 30 credits in Arts, Sciences, or Engineering for students entering from secondary school."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What languages are used at LIU?"}]}, {"role": "model", "parts": [{"text": "English is the primary language of instruction and communication."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What are LIU\u2019s core values?"}]}, {"role": "model", "parts": [{"text": "LIU upholds Integrity, Excellence, Diversity, Innovation, Compassion, and Stewardship."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I get a refund if I drop a course early?"}]}, {"role": "model", "parts": [{"text": "Yes, if dropped during the add/drop period, a full tuition refund applies."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I register for courses?"}]}, {"role": "model", "parts": [{"text": "Use the student portal or meet with your advisor to register during open registration."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are available in the School of Engineering?"}]}, {"role": "model", "parts": [{"text": "The School of Engineering offers majors in Electronic Engineering (Biomedical emphasis), Computer Engineering, Electrical Engineering, Electronics Engineering, Mechanical Engineering, Surveying Engineering, Communication Engineering, and Industrial Engineering."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there student housing available at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, several campuses including Beirut and Bekaa offer dormitories for male and female students. The Bekaa campus has dormitories and the Beirut campus has university-owned apartment buildings adjacent to campus."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the tuition fee per credit for undergraduate business programs?"}]}, {"role": "model", "parts": [{"text": "The tuition fee for undergraduate programs in the School of Business is USD 179 per credit."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How many campuses does LIU have?"}]}, {"role": "model", "parts": [{"text": "LIU has nine campuses in Lebanon (Beirut, Bekaa, Saida, Nabatieh, Tripoli, Mount Lebanon, Tyre, Rayak, and Akkar) and three international campuses in Yemen, Senegal, and Mauritania."}]}]}
+
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the tuition fee per credit for the School of Engineering?"}]}, {"role": "model", "parts": [{"text": "The tuition fee per credit for the School of Engineering is USD 215 for undergraduates and USD 285 for graduate programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is LIU's mission statement?"}]}, {"role": "model", "parts": [{"text": "LIU's mission is to provide affordable and accessible quality higher education, guide students to be independent learners who can positively impact local, regional, and global communities, and promote student success through curricula renewal and research."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are available in the School of Pharmacy?"}]}, {"role": "model", "parts": [{"text": "The School of Pharmacy offers an undergraduate Pharmacy program (179 credits) and a graduate Doctor of Pharmacy program (30 credits)."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the maximum number of credit hours a student can take per semester?"}]}, {"role": "model", "parts": [{"text": "The maximum is typically 18-20 credit hours. Under special conditions (CGPA ≥ 2.0 or graduating that semester), students may register up to 21 credits. In summer term, the maximum is 8 credit hours."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the core values of LIU?"}]}, {"role": "model", "parts": [{"text": "LIU's core values are: Integrity, Excellence, Diversity and Inclusion, Collaboration, Innovation, Compassion, and Stewardship."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How can students apply for financial aid?"}]}, {"role": "model", "parts": [{"text": "Students must: 1) Fill out an application form from Student Affairs Office, 2) Schedule interview with Financial Aid Officer, 3) Submit complete form with documents before deadline (end of 5th week of semester), and 4) Renew application each academic year."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the grading system at LIU?"}]}, {"role": "model", "parts": [{"text": "LIU uses a quality points system: 90-100% = 4.0, decreasing by 0.1 per percentage point down to 60% = 1.0. Below 60% = 0. Undergraduate ratings: 3.91-4.0=Excellent, 3.28-3.90=Very Good, 2.64-3.27=Good, 2.0-2.63=Satisfactory, <2.0=Unsatisfactory."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are available in the School of Education?"}]}, {"role": "model", "parts": [{"text": "The School of Education offers: Early Childhood Education, Teacher Education (Biology-Chemistry), Teacher Education (Physics-Mathematics), Teaching English as a Second Language, and Translation."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the attendance policy?"}]}, {"role": "model", "parts": [{"text": "Students may miss no more than 33.33% of a course. Attendance is taken from first to last class, and no excuses eliminate absences. Exceeding limits results in automatic AW grade and dismissal from class."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the requirements to change majors?"}]}, {"role": "model", "parts": [{"text": "For same-school changes: meet new major requirements and submit change form. For different schools: meet admission requirements for new school/major, submit form for approval by department and dean. A fee of LBP 1,750,000 applies."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the graduation requirements for engineering undergraduates?"}]}, {"role": "model", "parts": [{"text": "Engineering undergraduates must complete 108 credits with major and cumulative GPA of 2.0 (70%) or higher."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is LIU's mission?"}]}, {"role": "model", "parts": [{"text": "LIU aims to provide affordable, accessible, and quality education to prepare students for success in their careers and communities."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a student portal at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU provides a student portal where students can access grades, schedules, and register for classes."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What degrees are available in the School of Arts and Sciences?"}]}, {"role": "model", "parts": [{"text": "The School of Arts and Sciences offers programs like Journalism, Psychology, Biology, and Chemistry."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the email for general inquiries at LIU?"}]}, {"role": "model", "parts": [{"text": "You can contact LIU at info@liu.edu.lb."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there online classes at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, some courses may be offered online depending on the program and semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What should I do if I lose my student ID?"}]}, {"role": "model", "parts": [{"text": "Report to the Student Affairs Office to issue a replacement ID card."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have a Career Services Center?"}]}, {"role": "model", "parts": [{"text": "Yes, the Career Services Center helps students with internships, CV writing, and job placement."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I get a transcript online?"}]}, {"role": "model", "parts": [{"text": "You may request transcripts through the registrar\u2019s office or student portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are offered in the School of Education?"}]}, {"role": "model", "parts": [{"text": "Majors include Early Childhood Education, ESL, and Science/Math Teaching."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How often can I apply to graduate programs?"}]}, {"role": "model", "parts": [{"text": "Graduate applications are usually open before the start of the fall semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What type of library resources are available?"}]}, {"role": "model", "parts": [{"text": "LIU libraries have physical and electronic books, journals, and internet access."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I take summer courses?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers summer courses with a maximum of 8 credit hours."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there transportation between campuses?"}]}, {"role": "model", "parts": [{"text": "Some campuses may offer transportation, or students can use local transit options."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I join the LIU Theater Club?"}]}, {"role": "model", "parts": [{"text": "Contact Student Affairs or attend club day events on campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a deadline for registration each semester?"}]}, {"role": "model", "parts": [{"text": "Yes, deadlines are announced by the Registrar before each semester begins."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I submit a petition for an issue?"}]}, {"role": "model", "parts": [{"text": "Petitions can be submitted to the concerned office with valid documentation."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there any tuition payment plans?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers installment payment options for tuition fees."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have a Book Club?"}]}, {"role": "model", "parts": [{"text": "Yes, the Book Club hosts regular meetings and reading discussions."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is a co-requisite course?"}]}, {"role": "model", "parts": [{"text": "A course that must be taken at the same time as another related course."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I attend classes across different campuses?"}]}, {"role": "model", "parts": [{"text": "Yes, but schedule gaps between classes must be ensured for travel."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU provide health insurance?"}]}, {"role": "model", "parts": [{"text": "Students pay a social security fee or submit existing insurance details."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens if I withdraw from a course late?"}]}, {"role": "model", "parts": [{"text": "Late withdrawals result in a 'W' grade and are non-refundable."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is attendance mandatory?"}]}, {"role": "model", "parts": [{"text": "Yes, missing more than 33.33% results in an AW grade."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are offered in the School of Business?"}]}, {"role": "model", "parts": [{"text": "Majors include Marketing, Finance, MIS, and International Business."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer Translation degrees?"}]}, {"role": "model", "parts": [{"text": "Yes, a BA in Translation is available under the School of Education."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I switch from Engineering to Business?"}]}, {"role": "model", "parts": [{"text": "Yes, if admission criteria are met and a change of major is approved."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the grading scale at LIU?"}]}, {"role": "model", "parts": [{"text": "Grades range from A to F with GPA points from 4.0 to 0."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Where can I get my course plan?"}]}, {"role": "model", "parts": [{"text": "Course plans are available in your school\u2019s academic office or website."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU support community outreach?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU emphasizes engagement with local and regional communities."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are internships mandatory for some programs?"}]}, {"role": "model", "parts": [{"text": "Yes, internships are required for certain majors like Business and Pharmacy."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What student services are available?"}]}, {"role": "model", "parts": [{"text": "LIU provides academic advising, career services, counseling, and housing."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What facilities are at the Mount Lebanon Campus?"}]}, {"role": "model", "parts": [{"text": "It has engineering and science labs, computer labs, sports areas, and libraries."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer programs in Hospitality?"}]}, {"role": "model", "parts": [{"text": "Yes, Hospitality Management is a major in the School of Business."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I take remedial courses?"}]}, {"role": "model", "parts": [{"text": "Yes, remedial courses help students meet prerequisites for other subjects."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is LIU\u2019s education system American-based?"}]}, {"role": "model", "parts": [{"text": "Yes, the credit-hour and semester systems are modeled on the American system."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I appeal a grade?"}]}, {"role": "model", "parts": [{"text": "Yes, you can file a formal appeal through the academic department."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there job fairs at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, Career Services organizes job fairs and employer visits."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the campus size of Bekaa?"}]}, {"role": "model", "parts": [{"text": "It spans 400,000 square meters and includes dorms, labs, and sports areas."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a limit to the number of clubs I can join?"}]}, {"role": "model", "parts": [{"text": "No, students can join multiple clubs based on interest and availability."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I do research as an undergrad?"}]}, {"role": "model", "parts": [{"text": "Yes, students are encouraged to participate in research with faculty."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Where is the Halba Campus located?"}]}, {"role": "model", "parts": [{"text": "It is in the northern city of Halba, serving Akkar and surrounding areas."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I know if a course has prerequisites?"}]}, {"role": "model", "parts": [{"text": "Check your study plan or consult with your academic advisor."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the role of Campus Council?"}]}, {"role": "model", "parts": [{"text": "They manage policies, procedures, and communications across the campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I access past exam papers?"}]}, {"role": "model", "parts": [{"text": "Past exams may be available through your faculty or academic office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there cafeterias on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, all major campuses include student cafeterias."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a school newspaper?"}]}, {"role": "model", "parts": [{"text": "Some campuses may have student publications or media clubs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What\u2019s the process to register for a minor?"}]}, {"role": "model", "parts": [{"text": "Consult your advisor and complete a form via the Registrar\u2019s Office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a graduation ceremony?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU holds annual graduation ceremonies for all campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I apply to more than one major?"}]}, {"role": "model", "parts": [{"text": "You can apply to one major but may change it later if approved."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the refund policy for dropped courses?"}]}, {"role": "model", "parts": [{"text": "During add/drop period: 100% tuition refund. After add/drop: no refund (but may petition). Registration fees are never refundable."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the make-up exam policies?"}]}, {"role": "model", "parts": [{"text": "Make-ups allowed for: 1) Hospital-proven sickness, 2) Death in family (with certificate), or 3) Accidents (expert report). Petitions due first Monday after last exam. Midterms handled by school, finals have specific make-up dates before next semester."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What undergraduate programs does the School of Business offer?"}]}, {"role": "model", "parts": [{"text": "The School of Business offers: Accounting Information Systems, Economics, Banking & Finance, Hospitality Management, Business Management, Management Information Systems, Marketing, International Business Management, and LIU-Worms International Business Management."}]}]}
+
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the vision of the School of Pharmacy?"}]}, {"role": "model", "parts": [{"text": "The School of Pharmacy's vision is to be a socially accountable institution committed to advancing the pharmacy profession through education, practice, research, and community outreach."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the duration of a typical master's program at LIU?"}]}, {"role": "model", "parts": [{"text": "Most master's programs at LIU last 2 years, depending on the field of study."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU accept international students?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU welcomes international students and has campuses abroad as well."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there any language requirements for admission?"}]}, {"role": "model", "parts": [{"text": "Applicants may need to take the LIU English Placement Test or submit TOEFL/IELTS scores."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I pay my tuition fees?"}]}, {"role": "model", "parts": [{"text": "You can pay at the Finance Office on campus or via bank transfer if available."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I take elective courses outside my major?"}]}, {"role": "model", "parts": [{"text": "Yes, elective courses are part of the curriculum and allow flexibility."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are classes recorded for later viewing?"}]}, {"role": "model", "parts": [{"text": "Some online or blended courses may offer recorded sessions, depending on the instructor."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the add/drop period?"}]}, {"role": "model", "parts": [{"text": "It is the first few days of the semester during which you can adjust your course schedule."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I access the e-library?"}]}, {"role": "model", "parts": [{"text": "Log in through the student portal with your LIU credentials to access digital resources."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is attendance tracked electronically?"}]}, {"role": "model", "parts": [{"text": "Yes, attendance is usually tracked via systems used by faculty in each course."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I defer my admission?"}]}, {"role": "model", "parts": [{"text": "Deferrals may be granted on a case-by-case basis; contact the Admissions Office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are group projects part of the coursework?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU encourages collaborative learning through group assignments."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there Wi-Fi on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, all LIU campuses provide secure and reliable wireless internet."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I take courses at night or weekends?"}]}, {"role": "model", "parts": [{"text": "Some programs offer flexible scheduling with evening or weekend classes."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there honors programs at LIU?"}]}, {"role": "model", "parts": [{"text": "LIU may offer academic distinctions or honors based on GPA and performance."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer guidance counseling?"}]}, {"role": "model", "parts": [{"text": "Yes, students can access academic and personal counseling services."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are parents allowed to attend orientation?"}]}, {"role": "model", "parts": [{"text": "Some campuses allow parents to attend special sessions during orientation."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I get student discounts using my ID?"}]}, {"role": "model", "parts": [{"text": "Yes, the LIU student ID may offer discounts at bookstores and local businesses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What are the main departments under the School of Engineering?"}]}, {"role": "model", "parts": [{"text": "Departments include Electrical, Mechanical, Computer, and Industrial Engineering."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I change my registered courses?"}]}, {"role": "model", "parts": [{"text": "Use the portal or meet your advisor during the add/drop period."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What are LIU's office working hours?"}]}, {"role": "model", "parts": [{"text": "Most administrative offices operate from 8 AM to 4 PM on weekdays."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there alumni networking events?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU organizes alumni events and maintains active alumni chapters."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a plagiarism policy?"}]}, {"role": "model", "parts": [{"text": "Yes, academic integrity is strictly enforced and plagiarism is penalized."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I reapply if my application is rejected?"}]}, {"role": "model", "parts": [{"text": "Yes, you may reapply in the next cycle with improved qualifications."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What types of assessments are used at LIU?"}]}, {"role": "model", "parts": [{"text": "Assessments include exams, presentations, research papers, and group projects."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have partnerships with other universities?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU has local and international partnerships for exchange and research."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I speak with a faculty advisor before applying?"}]}, {"role": "model", "parts": [{"text": "Yes, prospective students may contact departments to request advising."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there printing services on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, students can use printing and photocopying services in designated areas."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How are laboratory sessions conducted?"}]}, {"role": "model", "parts": [{"text": "Labs are held on campus in specialized rooms and are supervised by faculty."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I apply for on-campus jobs?"}]}, {"role": "model", "parts": [{"text": "Some campuses offer student assistant positions through administrative offices."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are internships paid?"}]}, {"role": "model", "parts": [{"text": "Some internships may be paid, depending on the host organization."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens if I fail a course?"}]}, {"role": "model", "parts": [{"text": "You may retake the course to improve your grade and GPA."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I join the LIU Social Act Club?"}]}, {"role": "model", "parts": [{"text": "Contact the Student Activities Office or attend a club fair on campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a mentoring program?"}]}, {"role": "model", "parts": [{"text": "Yes, students can be assigned faculty or peer mentors in some programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How many courses can I take in summer?"}]}, {"role": "model", "parts": [{"text": "You may take up to 8 credit hours during the summer semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the policy on incomplete grades?"}]}, {"role": "model", "parts": [{"text": "An incomplete (I) grade may be given if the student has valid reasons for not completing the course."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a code of conduct for students?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU enforces a student code of conduct for academic and social behavior."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register late?"}]}, {"role": "model", "parts": [{"text": "Late registration is allowed during add/drop with a late fee."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are campus maps available?"}]}, {"role": "model", "parts": [{"text": "Yes, you can find maps online or at campus information desks."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How is the PharmD program structured?"}]}, {"role": "model", "parts": [{"text": "It follows a post-BS model with coursework and clinical components."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens after submitting the application?"}]}, {"role": "model", "parts": [{"text": "You\u2019ll receive confirmation and may be asked to complete entrance exams."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I contact my professors?"}]}, {"role": "model", "parts": [{"text": "You can reach them via LIU email or during their office hours."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there an online grading system?"}]}, {"role": "model", "parts": [{"text": "Yes, grades are posted on the student portal each semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I appeal an AW grade?"}]}, {"role": "model", "parts": [{"text": "You may submit a written appeal with justification to your academic advisor."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "How are final exams scheduled?"}]}, {"role": "model", "parts": [{"text": "The Registrar\u2019s Office publishes the final exam schedule near the end of term."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there exchange programs?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU is part of several international academic exchange networks."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "What majors are offered at the Nabatieh Campus?"}]}, {"role": "model", "parts": [{"text": "Programs include Business, IT, Computer Science, Engineering, and Arts."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I pursue double majors?"}]}, {"role": "model", "parts": [{"text": "Yes, students may pursue double majors with approval from both departments."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Are student opinions considered in decision-making?"}]}, {"role": "model", "parts": [{"text": "Yes, feedback is collected through surveys and student councils."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot designed to answer questions and inquiries from students about the Lebanese International University (LIU)."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I join LIU with a technical baccalaureate degree?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU accepts applicants with a Technical Baccalaureate (BT3) or its equivalent."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU organize cultural activities?"}]}, {"role": "model", "parts": [{"text": "Yes, cultural and social events are regularly organized by student clubs and the administration."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a graduation photo day at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, campuses often organize a graduation photo session for students nearing completion of their degrees."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I retrieve my student ID number?"}]}, {"role": "model", "parts": [{"text": "You can retrieve your ID from the Registrar's Office or through the student portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Do I have to submit original documents when applying?"}]}, {"role": "model", "parts": [{"text": "Certified copies are typically required, but originals may be requested for verification."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a translation major at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU offers a BA in Translation under the School of Education."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I check my GPA online?"}]}, {"role": "model", "parts": [{"text": "Yes, your GPA and transcript are accessible through the LIU student portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the passing grade at LIU?"}]}, {"role": "model", "parts": [{"text": "The minimum passing grade is 60%, equivalent to a GPA of 1.0."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are engineering programs offered at all campuses?"}]}, {"role": "model", "parts": [{"text": "Engineering programs are offered at selected campuses such as Bekaa, Tripoli, and Mount Lebanon."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is class attendance mandatory?"}]}, {"role": "model", "parts": [{"text": "Yes, students must attend classes and missing more than 33.33% leads to an AW grade."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have a Dean’s Honor List?"}]}, {"role": "model", "parts": [{"text": "Yes, students with outstanding academic performance are recognized on the Dean’s Honor List."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I print documents on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, printing services are available in libraries and computer labs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How long does it take to complete a Teaching Diploma?"}]}, {"role": "model", "parts": [{"text": "The Teaching Diploma can be completed in about one year, depending on course load."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there any international student exchange programs?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU has partnerships with international universities for exchange opportunities."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a graduation fee?"}]}, {"role": "model", "parts": [{"text": "Yes, students pay a graduation fee during their final semester, which covers ceremony expenses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How many times can I retake a course?"}]}, {"role": "model", "parts": [{"text": "You can retake a course multiple times, but only the highest grade is counted toward GPA."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I take a semester off?"}]}, {"role": "model", "parts": [{"text": "Yes, students can apply for a Leave of Absence through the Registrar’s Office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How many credits is a full-time student?"}]}, {"role": "model", "parts": [{"text": "A full-time student typically registers for 12 to 18 credits per semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens if I fail multiple courses?"}]}, {"role": "model", "parts": [{"text": "You may be placed on academic probation and must improve your GPA to avoid suspension."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I switch my advisor?"}]}, {"role": "model", "parts": [{"text": "Yes, contact your department if you need to request a change of academic advisor."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there academic advising?"}]}, {"role": "model", "parts": [{"text": "Yes, every student is assigned an advisor to assist with course planning and academic progress."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are final exams mandatory?"}]}, {"role": "model", "parts": [{"text": "Yes, final exams are mandatory and a key part of your overall grade."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I graduate early?"}]}, {"role": "model", "parts": [{"text": "Yes, if you meet all credit and GPA requirements earlier than planned."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What’s the difference between core and major courses?"}]}, {"role": "model", "parts": [{"text": "Core courses are shared across programs, while major courses focus on your field of study."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register for courses online?"}]}, {"role": "model", "parts": [{"text": "Yes, students can register for courses through the LIU student portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there penalties for late registration?"}]}, {"role": "model", "parts": [{"text": "Yes, a late fee is charged if you register after the official deadline."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What GPA do I need for the Dean’s List?"}]}, {"role": "model", "parts": [{"text": "A GPA of 3.5 or higher is generally required for the Dean’s Honor List."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there online summer courses?"}]}, {"role": "model", "parts": [{"text": "Yes, some summer courses may be offered online depending on the department."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is participation in clubs mandatory?"}]}, {"role": "model", "parts": [{"text": "No, club participation is optional but highly encouraged for personal growth."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are night classes available?"}]}, {"role": "model", "parts": [{"text": "Yes, night classes are available for certain majors and are ideal for working students."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer evening MBA programs?"}]}, {"role": "model", "parts": [{"text": "Yes, the MBA program offers evening classes to accommodate working professionals."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I complete my bachelor's degree in less than 3 years?"}]}, {"role": "model", "parts": [{"text": "It may be possible by taking full course loads and summer sessions, with advisor approval."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there computer labs on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, each LIU campus includes well-equipped computer labs for student use."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I apply for graduation?"}]}, {"role": "model", "parts": [{"text": "You must complete the graduation application through the Registrar's Office during your final semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the minimum load for part-time students?"}]}, {"role": "model", "parts": [{"text": "Part-time students usually register for fewer than 12 credits per semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a pharmacy lab at every campus?"}]}, {"role": "model", "parts": [{"text": "Pharmacy labs are mainly located at campuses offering the School of Pharmacy programs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can students suggest new clubs?"}]}, {"role": "model", "parts": [{"text": "Yes, students can propose new clubs to the Student Affairs Office with enough interest."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are food services available on campus?"}]}, {"role": "model", "parts": [{"text": "Yes, cafeterias and vending machines are available at most LIU campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I change my campus?"}]}, {"role": "model", "parts": [{"text": "You must submit a campus transfer request through the Registrar’s Office with justification."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register if I have unpaid fees?"}]}, {"role": "model", "parts": [{"text": "No, you must clear outstanding balances before registering for new courses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer PhD programs?"}]}, {"role": "model", "parts": [{"text": "As of now, LIU offers undergraduate and master’s programs, but not PhDs."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the typical class size?"}]}, {"role": "model", "parts": [{"text": "Most classes range from 20 to 40 students depending on the course and campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is attendance taken electronically?"}]}, {"role": "model", "parts": [{"text": "Yes, instructors typically take attendance via the student portal system."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I contact the President’s Office?"}]}, {"role": "model", "parts": [{"text": "Inquiries to the President's Office are usually routed through the university's official communication channels."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are summer sessions mandatory?"}]}, {"role": "model", "parts": [{"text": "No, summer sessions are optional unless required by your academic plan."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I view my course schedule online?"}]}, {"role": "model", "parts": [{"text": "Yes, your full schedule is available on the student portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a deadline to submit graduation documents?"}]}, {"role": "model", "parts": [{"text": "Yes, deadlines are announced by the Registrar near the end of your final semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Do I need to meet with my advisor every semester?"}]}, {"role": "model", "parts": [{"text": "Yes, it’s recommended to meet your advisor each semester to stay on track."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can alumni access the library?"}]}, {"role": "model", "parts": [{"text": "Access for alumni depends on campus policy; inquire with library staff for details."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are scholarships based on GPA?"}]}, {"role": "model", "parts": [{"text": "Yes, many scholarships are merit-based and require maintaining a specific GPA."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register in person?"}]}, {"role": "model", "parts": [{"text": "Yes, registration can be done in person with help from the registrar’s staff."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are make-up classes available?"}]}, {"role": "model", "parts": [{"text": "Make-up classes are scheduled at the instructor's discretion if necessary."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the credit requirement for an MBA?"}]}, {"role": "model", "parts": [{"text": "The MBA program requires the completion of 39 credit hours."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I visit the campus before applying?"}]}, {"role": "model", "parts": [{"text": "Yes, campus tours are available through the admissions office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are classes held on Fridays?"}]}, {"role": "model", "parts": [{"text": "Yes, classes are scheduled Monday through Friday, and sometimes Saturdays."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer a Graphic Design major?"}]}, {"role": "model", "parts": [{"text": "Yes, the School of Arts and Sciences offers a Bachelor in Graphic Design."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What does a W grade mean?"}]}, {"role": "model", "parts": [{"text": "A 'W' grade means the student withdrew from the course after the add/drop period."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a penalty for failing a course?"}]}, {"role": "model", "parts": [{"text": "Failing affects your GPA, and you must retake the course if it's required."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are engineering labs mandatory?"}]}, {"role": "model", "parts": [{"text": "Yes, lab sessions are an essential and required part of engineering courses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How many campuses does LIU have?"}]}, {"role": "model", "parts": [{"text": "LIU has several campuses in Lebanon and abroad, including Bekaa, Beirut, Saida, and Tripoli."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is considered full-time in the MBA program?"}]}, {"role": "model", "parts": [{"text": "Full-time MBA students usually register for 9 credits or more per semester."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I switch from Business to Pharmacy?"}]}, {"role": "model", "parts": [{"text": "You must apply separately to the Pharmacy program and meet its admission requirements."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How can I join the Alumni Association?"}]}, {"role": "model", "parts": [{"text": "Graduates can contact the Alumni Office or register through the alumni portal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a difference between thesis and non-thesis master's programs?"}]}, {"role": "model", "parts": [{"text": "Yes, thesis programs involve research and writing, while non-thesis focus on coursework."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What if I lose access to my student portal?"}]}, {"role": "model", "parts": [{"text": "You should contact IT support or the registrar’s office to reset your login credentials."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there academic workshops offered?"}]}, {"role": "model", "parts": [{"text": "Yes, academic and career development workshops are offered throughout the year."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have study lounges?"}]}, {"role": "model", "parts": [{"text": "Yes, study lounges and quiet reading areas are available on campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I register for courses without advisor approval?"}]}, {"role": "model", "parts": [{"text": "Advisor approval is typically required to ensure you meet prerequisites and degree plans."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are course outlines available online?"}]}, {"role": "model", "parts": [{"text": "Yes, course outlines are available on the portal or from your department."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer Communication Arts?"}]}, {"role": "model", "parts": [{"text": "Yes, Communication Arts is offered under the School of Arts and Sciences."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the format of the entrance exam?"}]}, {"role": "model", "parts": [{"text": "The entrance exam typically assesses English language proficiency and occasionally math or logic."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I complete internships during the semester?"}]}, {"role": "model", "parts": [{"text": "Yes, with departmental approval, internships can be done during regular semesters."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer Journalism?"}]}, {"role": "model", "parts": [{"text": "Yes, Journalism is part of the Communication Arts major."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can parents attend student orientation?"}]}, {"role": "model", "parts": [{"text": "Some orientation events include sessions for parents to meet faculty and staff."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How is the PharmD different from the BS in Pharmacy?"}]}, {"role": "model", "parts": [{"text": "The PharmD includes additional clinical training and advanced coursework beyond the BS."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU have visual arts programs?"}]}, {"role": "model", "parts": [{"text": "Yes, programs in Graphic Design and related fields are offered at several campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I withdraw from a course and still graduate on time?"}]}, {"role": "model", "parts": [{"text": "Yes, if you retake it or replace the credits with another required course."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are language labs available?"}]}, {"role": "model", "parts": [{"text": "Yes, language labs support learning English, Arabic, and other languages at LIU."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU accept the SAT for admission?"}]}, {"role": "model", "parts": [{"text": "While not required, SAT scores may be submitted to strengthen your application."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there religious holidays observed?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU observes official national and religious holidays."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I access library resources from home?"}]}, {"role": "model", "parts": [{"text": "Yes, you can access the e-library and databases using your student credentials from off-campus."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a fee to retake an exam?"}]}, {"role": "model", "parts": [{"text": "Yes, a small fee may apply depending on the exam and your faculty’s policy."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What should I do if I have a class conflict?"}]}, {"role": "model", "parts": [{"text": "Inform your advisor and request a schedule adjustment during the add/drop period."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU provide counseling services?"}]}, {"role": "model", "parts": [{"text": "Yes, professional academic and personal counseling services are available at all campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I view my academic progress online?"}]}, {"role": "model", "parts": [{"text": "Yes, use the student portal to track GPA, credits completed, and other academic info."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is a laptop required at LIU?"}]}, {"role": "model", "parts": [{"text": "While not mandatory, a laptop is highly recommended for coursework and online tools."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I change my major more than once?"}]}, {"role": "model", "parts": [{"text": "Yes, but frequent changes may delay graduation and must be approved by the department."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are research projects required for graduation?"}]}, {"role": "model", "parts": [{"text": "Some programs require a final project or capstone, while others offer the option."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a fine for overdue library books?"}]}, {"role": "model", "parts": [{"text": "Yes, overdue items incur daily fines; return or renew books on time to avoid charges."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What sports are available at LIU?"}]}, {"role": "model", "parts": [{"text": "LIU offers basketball, football, table tennis, swimming, and more across various campuses."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I register for a lab course?"}]}, {"role": "model", "parts": [{"text": "Lab courses are registered through the portal like regular classes but may have prerequisites."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I apply to LIU if I live abroad?"}]}, {"role": "model", "parts": [{"text": "Yes, international applications are accepted and reviewed by the Admissions Office."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there any admission interviews?"}]}, {"role": "model", "parts": [{"text": "Some programs may require interviews or additional assessment after applying."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What documents are needed for graduate admission?"}]}, {"role": "model", "parts": [{"text": "You’ll need your transcript, ID, personal photo, application form, and proof of English proficiency."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I retake the placement exam?"}]}, {"role": "model", "parts": [{"text": "In most cases, retaking placement exams is not allowed. Confirm with the Registrar."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there an app for LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU has a mobile app for students to access schedules, grades, and announcements."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Do I need a student visa to study at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, international students must obtain a Lebanese student visa before enrollment."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I request my diploma by mail?"}]}, {"role": "model", "parts": [{"text": "Yes, you may request to have your diploma mailed upon graduation if you can’t collect it in person."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the role of the Student Affairs Office?"}]}, {"role": "model", "parts": [{"text": "They handle student life, clubs, events, advising, and various support services."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I pay fees in installments?"}]}, {"role": "model", "parts": [{"text": "Yes, LIU allows installment plans; consult the Finance Office for details."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Are there student elections?"}]}, {"role": "model", "parts": [{"text": "Yes, student councils are elected to represent the student body and collaborate with administration."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Can I study French at LIU?"}]}, {"role": "model", "parts": [{"text": "Yes, French is offered as a language elective or part of the education curriculum."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Does LIU offer nutrition degrees?"}]}, {"role": "model", "parts": [{"text": "Yes, the School of Arts and Sciences offers a BS in Nutrition and Dietetics."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What happens if I exceed the credit limit?"}]}, {"role": "model", "parts": [{"text": "You must receive special permission from your advisor and possibly the dean to exceed the credit cap."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "Is there a policy on academic dishonesty?"}]}, {"role": "model", "parts": [{"text": "Yes, cheating and plagiarism are serious offenses and may lead to suspension or dismissal."}]}]}
+{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "How do I apply for a change of major?"}]}, {"role": "model", "parts": [{"text": "Submit a change of major form from the Registrar’s Office, approved by the department and dean. Transfers between schools require meeting new program admission criteria."}]}]}{"systemInstruction": {"role": "system", "parts": [{"text": "You are an educational chatbot for LIU."}]}, "contents": [{"role": "user", "parts": [{"text": "What is the grading system at LIU?"}]}, {"role": "model", "parts": [{"text": "LIU uses a 4.0 scale: ≥90% = 4.0, 60% = 1.0, and <60% = 0. GPA ratings range from Excellent (3.91–4.0) to Unsatisfactory (<2.0 for undergraduates, <3.0 for graduates)."}]}]}
+
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What majors are available in the School of Education?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "The School of Education at LIU offers 5 undergraduate programs: Early Childhood Education, Teacher Education (Biology-Chemistry), Teaching English as a Second Language, Teacher Education (Physics-Mathematics), and Translation. Each program requires 99 credit hours, except Translation which requires 108 credit hours."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the attendance policy?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "At LIU, students may miss no more than 33.33% of any course during a regular semester or summer term. Attendance is taken for all class sessions from the first to the last day of classes, and excuses of any nature do NOT eliminate an absence. Students who exceed this limit are automatically given an AW (Academic Withdrawal) grade and will not be allowed to attend class any longer."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How many campuses does LIU have?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "LIU has nine campuses in Lebanon: Beirut, Bekaa, Saida, Nabatieh, Tripoli, Mount Lebanon, Tyre, Rayak, and Akkar. Additionally, LIU has three international campuses in Yemen, Senegal, and Mauritania."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the vision of LIU?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "The vision of LIU is to be a leading transnational University known for an outstanding student-centered, teaching-focused learning experience and academic research excellence, which empower its graduates for successful engagement in career and life opportunities, underpinned by outreach to alumni, enterprise and the professions."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What are the core values of LIU?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "LIU's core values are: Integrity, Excellence, Diversity and Inclusion, Collaboration, Innovation, Compassion, and Stewardship. These seven core values provide the foundation for how the university conducts itself and accomplishes its work."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How can I apply to LIU?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "To apply to LIU as an undergraduate student, you need to prepare these documents:\n1. Certified copy of Lebanese Baccalaureate (BACCII) or equivalent\n2. TOEFL/IELTS score or take LIU's English Placement Test\n3. Copy of ID card\n4. Copy of family civil status record\n5. Recent passport-sized photo\n6. National social security papers (if Lebanese)\n7. $30 non-refundable application fee\n8. $20 for each entrance exam\n\nYou can apply online through the 'Apply Now' link on the LIU website or contact admissions@liu.edu.lb for assistance."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Tell me about the School of Engineering"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "The School of Engineering at LIU prepares students for professional careers with sophisticated technical and communication skills. The school offers various undergraduate programs including Electronic Engineering with emphasis on Biomedical, Computer Engineering, Electrical Engineering, Electronics Engineering, Mechanical Engineering, Surveying Engineering, Communication Engineering, and Industrial Engineering. Each program requires 108 credits for graduation.\n\nAt the graduate level, the school offers Master's degrees in these same fields, requiring 52 credits. The school's mission is to train and qualify future engineers for successful careers while fostering research and maintaining an active faculty that promotes excellence. For more information, you can contact soe@liu.edu.lb."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the grading system at LIU?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "LIU uses a quality points (QPTS) grading system:\n- 90% or higher = 4.0 QPTS\n- 80% = 3.0 QPTS\n- 70% = 2.0 QPTS\n- 60% = 1.0 QPTS\n- Below 60% = 0 QPTS\n\nUndergraduate rating scale:\n- 3.91-4.00: Excellent\n- 3.28-3.90: Very Good\n- 2.64-3.27: Good\n- 2.0-2.63: Satisfactory\n- Below 2.0: Unsatisfactory\n\nCourse status abbreviations include AW (Academic Withdrawal), I (Incomplete), W (Withdrawal), and P/NP (Pass/Not-Pass for remedial courses)."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the make-up examination policy?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "Students are eligible for make-up exams under specific conditions:\n1. Sickness (proven by hospitalization report/discharge summary)\n2. Death in the family (proven by death certificate and personal identification)\n3. Accidents (proven by expert report)\n\nThe deadline to submit petitions is the first Monday after the last examination. For mid-term exams, students must appeal directly to their school with approval from the Dean/Associate Dean required. Make-up final exams are scheduled before the start of the next semester, with specific dates for Fall, Spring, and Summer terms."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "How do I change my major?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "To change your major at LIU:\n\n1. Within the same School: You must meet the requirements for admission to the new major and submit a change of major form from the Registrar's Office. The request is considered by the Department and Dean concerned. After approval, the form is sent to the Registrar's Office for implementation.\n\n2. Moving to another School: You are considered a new student by the new School and must meet its admission requirements. Fill out a change of major form from the Registrar's Office, which will be reviewed by the Department and Dean. After approval, it's sent to the Registrar's Office for implementation."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Tell me about the School of Pharmacy"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "The School of Pharmacy at LIU offers a Bachelor's degree in Pharmacy requiring 179 credits, typically completed in 3 years. The school also offers a Doctor of Pharmacy (Pharm D) postgraduate degree requiring 30 credits.\n\nThe School of Pharmacy's vision is to be a socially accountable institution committed to advancing the pharmacy profession through education, practice, research, and community outreach. Its mission is to develop distinguished professionals in pharmacy practice, research, and community services through a dynamic educational program aligned with national and international standards.\n\nAdmissions to the pharmacy program occur once a year, and applicants may apply from May until mid-August for the Pharmacy Entrance Exam. For more information, you can contact sop@liu.edu.lb."
+          }
+        ]
+      }
+    ]
+  }
+  {
+    "systemInstruction": {
+      "role": "system",
+      "parts": [
+        {
+          "text": "You are an educational chatbot for LIU."
+        }
+      ]
+    },
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the history of LIU?"
+          }
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "The Lebanese International University (LIU) was first founded as Bekaa University under Presidential Decree No. 5294 in April 2001, with its first two campuses in Al-Khyara (western Bekaa valley) and Beirut. The name was later changed to Lebanese International University as the founders envisioned making it a national university with presence in all six administrative districts of Lebanon.\n\nBetween 2003 and 2013, LIU established seven additional campuses in Lebanon: Saida, Nabatieh, Tripoli, Mount Lebanon, Tyre, Rayak, and Halba-Akkar. Since 2006, LIU expanded internationally, establishing four campuses in Yemen (Sanaa, Aden, and Taiz), one in Mauritania, and one in Senegal.\n\nThe university has been under the leadership of Mr. Abdul Rahim Mourad, founder and President, since 2001. LIU's mission focuses on providing access to higher education for first-generation students and democratizing higher education."
+          }
+        ]
+      }
+    ]
+  }
