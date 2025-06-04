@@ -183,12 +183,15 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        run_id=$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')
-        echo "Deleting all artifacts for run ID: $run_id"
-        for artifact_id in $(gh api -X GET "repos/${{ github.repository }}/actions/runs/$run_id/artifacts" --jq '.artifacts[].id'); do
-          echo "Deleting artifact ID: $artifact_id"
-          gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$artifact_id"
-        done
+        echo "Removing task definition artifact..."
+
+        # Rework on this later -- Ali Hammoud
+        # run_id=$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')
+        # echo "Deleting all artifacts for run ID: $run_id"
+        # for artifact_id in $(gh api -X GET "repos/${{ github.repository }}/actions/runs/$run_id/artifacts" --jq '.artifacts[].id'); do
+        #   echo "Deleting artifact ID: $artifact_id"
+        #   gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$artifact_id"
+        # done
 
 
     
