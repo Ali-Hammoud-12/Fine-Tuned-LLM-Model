@@ -36,7 +36,27 @@ export default function ChatbotPage() {
   const [filePreview, setFilePreview] = useState<{ url: string, type: 'image' | 'video' | 'audio' } | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const socketRef = useRef<any>(null);
+  const voiceSubMenuRef = useRef<HTMLDivElement>(null);
 
+  // Update the existing useEffect for handling clicks outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Close attachment menu if clicking outside
+      if (attachmentMenuRef.current && !attachmentMenuRef.current.contains(event.target as Node)) {
+        setShowAttachmentMenu(false);
+      }
+
+      // Close voice submenu if clicking outside
+      if (voiceSubMenuRef.current && !voiceSubMenuRef.current.contains(event.target as Node)) {
+        setShowVoiceSubMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   // Initialize audio context and analyser
   const initAudioContext = () => {
     audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -46,6 +66,8 @@ export default function ChatbotPage() {
 
   // Start recording
   const startRecording = async (): Promise<void> => {
+    setShowVoiceSubMenu(false); // Close voice submenu when starting recording
+
     return new Promise(async (resolve, reject) => {
       try {
         // Check if MediaDevices API is available
@@ -116,10 +138,10 @@ export default function ChatbotPage() {
           text: `Could not access microphone: ${err instanceof Error ? err.message : 'Unknown error'}`
         }]);
         reject(err);
-
       }
     });
   };
+
 
   const [streamingMessage, setStreamingMessage] = useState<{
     index: number;
@@ -478,11 +500,10 @@ export default function ChatbotPage() {
 
   const [showVoiceSubMenu, setShowVoiceSubMenu] = useState(false);
 
-  // Update the handleAttachmentClick function
   const handleAttachmentClick = async (type: string) => {
     if (type === 'voice') {
-      setShowAttachmentMenu(false);
-      setShowVoiceSubMenu(true);
+      setShowAttachmentMenu(false); // Close main menu
+      setShowVoiceSubMenu(true);    // Open voice submenu
       return;
     }
 
@@ -525,8 +546,9 @@ export default function ChatbotPage() {
     };
 
     input.click();
-    setShowAttachmentMenu(false);
+    setShowAttachmentMenu(false); // Close menu after selection
   };
+
 
   const clearFilePreview = () => {
     if (filePreview?.url) {
@@ -562,15 +584,16 @@ export default function ChatbotPage() {
     };
 
     input.click();
-    setShowVoiceSubMenu(false);
+    setShowVoiceSubMenu(false); // Close voice submenu after selection
   };
+
   const router = useRouter();
   const handleBack = () => {
     router.back(); // This will navigate to the previous page in the history stack
   };
   return (
     <div className="container">
-      <div className="header ">
+      <div className="header">
         <div className="back-btn">
           <button
             className="back-button"
@@ -710,7 +733,7 @@ export default function ChatbotPage() {
               {!isRecording && audioURL && (
                 <button
                   className="send-button"
-                  onClick={handleSubmit} // Changed to directly call handleSubmit
+                  onClick={handleSubmit}
                   aria-label="Send voice message"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -793,7 +816,7 @@ export default function ChatbotPage() {
 
           {/* Voice submenu */}
           {showVoiceSubMenu && (
-            <div className="voice-sub-menu">
+            <div className="voice-sub-menu" ref={voiceSubMenuRef}>
               <button onClick={startRecording}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 1C10.3431 1 9 2.34315 9 4V12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12V4C15 2.34315 13.6569 1 12 1Z" fill="#BD24DF" />
@@ -811,20 +834,8 @@ export default function ChatbotPage() {
               </button>
             </div>
           )}
-
-
-
         </div>
-        {/* 
-        <input
-          type="text"
-          className="chat-input"
-          placeholder="Type your message here..."
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          onKeyPress={handleKeyPress}
-          disabled={isSubmitting || isRecording}
-        /> */}
+
         {/* File preview area */}
         {filePreview && (
           <div className="file-preview-container">
@@ -900,42 +911,47 @@ export default function ChatbotPage() {
         </button>
       </div>
 
-
       <style jsx>
         {`
         .container {
           display: flex;
           flex-direction: column;
           height: 100vh;
-          max-width: 800px;
+          max-width: 100%;
           margin: 0 auto;
-          padding: 20px;
+          padding: 0;
           background-color: white;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-          border-radius: 12px;
           overflow: hidden;
         }
         
         .header {
-          margin-bottom: 20px;
+          margin-bottom: 0;
           position: relative;
-          display:flex;
-          align-items:center ;
-          width:100%;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          padding: 16px;
+          background-color: white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          z-index: 10;
         }
         
         .header h2 {
           color: #2D6ADE;
-          margin-bottom: 8px;
+          margin: 0 auto;
           font-weight: 600;
-          width:80%;
+          font-size: 1.2rem;
+          text-align: center;
+          flex: 1;
         }
         
         .gradient-bar {
-          height: 4px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 3px;
           width: 100%;
           background: linear-gradient(90deg, #BD24DF 0%, #2D6ADE 100%);
-          border-radius: 2px;
         }
         
         .chat-container {
@@ -943,11 +959,10 @@ export default function ChatbotPage() {
           overflow-y: auto;
           padding: 16px;
           background-color: #f8f9fa;
-          border-radius: 8px;
-          margin-bottom: 16px;
           display: flex;
           flex-direction: column;
           gap: 12px;
+          -webkit-overflow-scrolling: touch;
         }
         
         .welcome-message {
@@ -958,6 +973,7 @@ export default function ChatbotPage() {
           height: 100%;
           text-align: center;
           color: #6c757d;
+          padding: 20px;
         }
         
         .welcome-icon {
@@ -968,11 +984,18 @@ export default function ChatbotPage() {
         .welcome-message h3 {
           color: #2D6ADE;
           margin-bottom: 8px;
+          font-size: 1.3rem;
+        }
+        
+        .welcome-message p {
+          font-size: 1rem;
+          max-width: 80%;
+          margin: 0 auto;
         }
         
         .message {
           display: flex;
-          max-width: 80%;
+          max-width: 85%;
         }
         
         .message.user {
@@ -988,17 +1011,20 @@ export default function ChatbotPage() {
           border-radius: 18px;
           position: relative;
           word-wrap: break-word;
+          font-size: 0.95rem;
         }
+        
         .streaming-cursor {
-  animation: blink 1s infinite;
-  color: #2D6ADE;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
+          animation: blink 1s infinite;
+          color: #2D6ADE;
+          margin-left: 2px;
+        }
+        
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        
         .message.user .message-bubble {
           background: linear-gradient(135deg, #BD24DF 0%, #2D6ADE 100%);
           color: white;
@@ -1025,7 +1051,7 @@ export default function ChatbotPage() {
         
         .message-sender {
           font-weight: 600;
-          font-size: 0.8em;
+          font-size: 0.75em;
           margin-bottom: 4px;
         }
         
@@ -1045,20 +1071,22 @@ export default function ChatbotPage() {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 8px;
+          padding: 12px;
           background-color: white;
-          border-radius: 24px;
-          border: 1px solid #dee2e6;
+          border-top: 1px solid #dee2e6;
+          position: relative;
         }
         
         .chat-input {
           flex: 1;
           border: none;
           padding: 12px 16px;
-          border-radius: 20px;
+          border-radius: 24px;
           outline: none;
-          font-size: 16px;
+          font-size: 0.95rem;
           background-color: #f8f9fa;
+          min-height: 48px;
+          box-sizing: border-box;
         }
         
         .attachment-button {
@@ -1071,6 +1099,7 @@ export default function ChatbotPage() {
           align-items: center;
           justify-content: center;
           transition: background-color 0.2s;
+          flex-shrink: 0;
         }
         
         .attachment-button:hover:not(:disabled) {
@@ -1084,6 +1113,7 @@ export default function ChatbotPage() {
         
         .attachment-wrapper {
           position: relative;
+          flex-shrink: 0;
         }
         
         .attachment-menu {
@@ -1100,7 +1130,8 @@ export default function ChatbotPage() {
           gap: 4px;
           min-width: 120px;
         }
-         .file-preview-container {
+        
+        .file-preview-container {
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -1151,9 +1182,23 @@ export default function ChatbotPage() {
           font-size: 14px;
           z-index: 2;
         }
-.back-btn{
-width:20%;
-}
+
+        .back-btn {
+          position: absolute;
+          left: 16px;
+          z-index: 1;
+        }
+        
+        .back-button {
+          background: none;
+          border: none;
+          padding: 8px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         .upload-loader {
           position: absolute;
           top: 0;
@@ -1179,6 +1224,7 @@ width:20%;
         @keyframes spin {
           to { transform: rotate(360deg); }
         }
+        
         .attachment-menu button {
           display: flex;
           align-items: center;
@@ -1189,7 +1235,7 @@ width:20%;
           cursor: pointer;
           border-radius: 8px;
           color: #495057;
-          font-size: 14px;
+          font-size: 0.9rem;
         }
         
         .attachment-menu button:hover {
@@ -1197,21 +1243,18 @@ width:20%;
           color: #2D6ADE;
         }
         
-        .attachment-menu button svg {
-          color: inherit;
-        }
-        
         .submit-button {
           background: linear-gradient(135deg, #BD24DF 0%, #2D6ADE 100%);
           border: none;
           border-radius: 50%;
-          width: 48px;
-          height: 48px;
+          width: 44px;
+          height: 44px;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: opacity 0.2s;
+          flex-shrink: 0;
         }
         
         .submit-button:disabled {
@@ -1320,7 +1363,7 @@ width:20%;
           justify-content: center;
           gap: 8px;
           color: #FF3B30;
-          font-size: 14px;
+          font-size: 0.9rem;
         }
         
         .recording-dot {
@@ -1372,7 +1415,8 @@ width:20%;
           background-color: #2D6ADE;
           color: #2D6ADE;
         }
-           .loading-indicator {
+        
+        .loading-indicator {
           display: flex;
           align-items: center;
           gap: 8px;
@@ -1380,7 +1424,7 @@ width:20%;
         }
 
         .loading-text {
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           color: #666;
         }
 
@@ -1421,140 +1465,199 @@ width:20%;
           animation: spin 1s ease-in-out infinite;
         }
         
-        @keyframes spin {
-          to { transform: rotate(360deg); }
+        /* Media message styles */
+        .media-container {
+          margin-top: 8px;
+          max-width: 100%;
+        }
+
+        .uploaded-image {
+          max-width: 100%;
+          max-height: 300px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: transform 0.2s;
+          border: 1px solid #eaeaea;
+        }
+
+        .uploaded-image:hover {
+          transform: scale(1.02);
+        }
+
+        .image-caption {
+          font-size: 0.8rem;
+          color: #666;
+          margin-top: 4px;
+          padding: 0 4px;
+        }
+
+        /* File message styles */
+        .file-message {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 8px;
+          background: #f5f7fa;
+          border-radius: 8px;
+          margin-top: 8px;
+          border: 1px solid #eaeaea;
+        }
+
+        .file-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .file-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .file-name {
+          font-weight: 500;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: #2D6ADE;
+          font-size: 0.9rem;
+        }
+
+        .file-size {
+          font-size: 0.75rem;
+          color: #666;
+          margin-top: 2px;
+        }
+
+        .voice-sub-menu {
+          position: absolute;
+          bottom: 100%;
+          left: 0;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+          padding: 8px;
+          z-index: 10;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          min-width: 160px;
+        }
+        
+        .voice-sub-menu button {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border: none;
+          background: none;
+          cursor: pointer;
+          border-radius: 8px;
+          color: #495057;
+          font-size: 0.9rem;
+          text-align: left;
+        }
+        
+        .voice-sub-menu button:hover {
+          background-color: #f1f3f5;
+          color: #2D6ADE;
+        }
+        
+        .voice-sub-menu button svg {
+          flex-shrink: 0;
         }
         
         /* Responsive styles */
         @media (max-width: 768px) {
           .container {
+            padding: 0;
+          }
+          
+          .header {
+            padding: 12px 16px;
+          }
+          
+          .header h2 {
+            font-size: 1.1rem;
+          }
+          
+          .chat-container {
             padding: 12px;
-            height: 100vh;
-            border-radius: 0;
           }
           
           .message {
             max-width: 90%;
           }
-        }
-        
-        @media (max-width: 480px) {
-          .header h2 {
-            font-size: 1.5rem;
+          
+          .message-bubble {
+            padding: 10px 14px;
+            font-size: 0.9rem;
           }
           
           .chat-input {
             padding: 10px 14px;
-            font-size: 14px;
+            font-size: 0.9rem;
           }
           
           .submit-button {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
+          }
+          
+          .welcome-message h3 {
+            font-size: 1.1rem;
+          }
+          
+          .welcome-message p {
+            font-size: 0.9rem;
           }
         }
-
-
-        /* Media message styles */
-.media-container {
-  margin-top: 8px;
-  max-width: 100%;
-}
-
-.uploaded-image {
-  max-width: 100%;
-  max-height: 300px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  border: 1px solid #eaeaea;
-}
-
-.uploaded-image:hover {
-  transform: scale(1.02);
-}
-
-.image-caption {
-  font-size: 0.8rem;
-  color: #666;
-  margin-top: 4px;
-  padding: 0 4px;
-}
-
-/* File message styles */
-.file-message {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px;
-  background: #f5f7fa;
-  border-radius: 8px;
-  margin-top: 8px;
-  border: 1px solid #eaeaea;
-}
-
-.file-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.file-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.file-name {
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #2D6ADE;
-}
-
-.file-size {
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 2px;
-}
-
-   .voice-sub-menu {
-        position: absolute;
-        bottom: 100%;
-        left: 0;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        padding: 8px;
-        z-index: 10;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-width: 160px;
-      }
-      
-      .voice-sub-menu button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        border: none;
-        background: none;
-        cursor: pointer;
-        border-radius: 8px;
-        color: #495057;
-        font-size: 14px;
-        text-align: left;
-      }
-      
-      .voice-sub-menu button:hover {
-        background-color: #f1f3f5;
-        color: #2D6ADE;
-      }
-      
-      .voice-sub-menu button svg {
-        flex-shrink: 0;
-      }
+        
+        @media (max-width: 480px) {
+          .header h2 {
+            font-size: 1rem;
+          }
+          
+          .message {
+            max-width: 95%;
+          }
+          
+          .message-bubble {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+          }
+          
+          .chat-input {
+            padding: 8px 12px;
+            min-height: 44px;
+          }
+          
+          .submit-button {
+            width: 36px;
+            height: 36px;
+          }
+          
+          .attachment-menu, .voice-sub-menu {
+            min-width: 140px;
+          }
+          
+          .attachment-menu button, .voice-sub-menu button {
+            font-size: 0.85rem;
+            padding: 6px 10px;
+          }
+          
+          .welcome-icon {
+            font-size: 40px;
+          }
+          
+          .welcome-message h3 {
+            font-size: 1rem;
+          }
+          
+          .welcome-message p {
+            font-size: 0.85rem;
+          }
+        }
       `}</style>
     </div>
   );
