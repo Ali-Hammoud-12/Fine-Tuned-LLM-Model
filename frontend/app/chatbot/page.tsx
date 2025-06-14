@@ -1636,7 +1636,7 @@ export default function ChatbotPage() {
     
     .voice-sub-menu {
       left: auto;
-      right: 0;
+      right: 5;
       margin-left: 0;
     }
   }
