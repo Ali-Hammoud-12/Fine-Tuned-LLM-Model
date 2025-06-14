@@ -102,7 +102,7 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
 
     # Initialize the GenerativeModel with the tuned model name
     model = GenerativeModel(
-        model_name="projects/988399269486/locations/us-central1/endpoints/579404144930979840"
+        model_name="projects/988399269486/locations/us-central1/endpoints/6862444594601132032"
     )
 
     # Convert conversation history to a list of Content objects
@@ -123,60 +123,3 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
     return f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{response.text}"
 
 generate_chat_response = generate_fine_tuned_chat_response
-
-# Old Code
-# def generate_fine_tuned_chat_response(user_text, conversation_history):
-#     """
-#     Generates a chat response using the fine-tuned Gemini model.
-
-#     Args:
-#         user_text (str): The text input from the user.
-#         conversation_history (list): The list of previous messages in the conversation.
-    
-#     Returns:
-#         str: The formatted response from the fine-tuned Gemini model.
-#     """
-#     # Configure the API key
-#     genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    
-#     # Define generation configuration
-#     generation_config = {
-#         "temperature": 1,
-#         "top_p": 0.95,
-#         "top_k": 40,
-#         "max_output_tokens": 500,
-#         "response_mime_type": "text/plain",
-#     }
-    
-#     # Create the fine-tuned model
-#     model = genai.GenerativeModel(
-#         model_name="tunedModels/fine-tuned-liu-chatbot-model-4gx0ihgpkto",
-#         generation_config=generation_config,
-#     )
-    
-#     chat_history = []
-#     for message in conversation_history:
-#         role = message.get("role")
-#         # Convert "assistant" to "model" as expected by the API.
-#         if role == "assistant":
-#             role = "model"
-#         chat_history.append({
-#             "role": role,
-#             "parts": [message.get("content")]
-#         })
-    
-#     # Start a chat session with the current conversation history.
-#     chat_session = model.start_chat(history=chat_history)
-    
-#     # Send the new user message and get the response.
-#     response = chat_session.send_message(user_text)
-    
-#     # Process the response (using a simple formatter here).
-#     answer = display_chatbot_execution_result(response)
-    
-#     # Append the assistant's answer to the conversation history.
-#     conversation_history.append({"role": "assistant", "content": answer})
-    
-#     # Format the final response for display.
-#     formatted_response = f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{answer}"   
-#     return formatted_response

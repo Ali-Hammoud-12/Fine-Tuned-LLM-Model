@@ -226,3 +226,51 @@ response = gemini.image.generate(
 - **Dataset Collection ID:** Ensure correctness and existence of the ID.
 - **Check JSONL Format:** Validate proper syntax and structure.
 - **Improve Sources:** Use structured data from LIU and official academic portals.
+
+## Cloud Architecture
+
+![image](https://github.com/user-attachments/assets/eed9b9b7-8663-4591-b5a9-7613d9065e6c)
+
+ AWS architecture deployed in three availability zones (`eu-west-1a`, `eu-west-1b`, and `eu-west-1c`) within a VPC. Key components include:  
+- **Public Subnets**: Contain NAT Gateways and Elastic Load Balancers to route traffic securely between the internet and private subnets.  
+- **Private Subnets**: Host the production AI chatbot application (Frontend --> 3000 | Backend --> port 5000)
+- **AWS WAF**: Protects against malicious internet traffic.  
+- **AWS Shield**: Provides enhanced protection for the entire setup, especially from DDoS attacks.  
+- **AWS S3**: stores multimedia input (video, audio, and images).  
+- **AWS SQS**: Handles asynchronous calls and solves race condition problems.  
+- **AWS AI Services (Textract / Transcribe)**: Convert multimedia inputs to text.
+
+### DNS-Based Routing with Auto Scaling 
+
+![image](https://github.com/user-attachments/assets/404564d0-1e4f-48f1-aef2-4261336722c4)
+
+This section focuses on how users access the application. The flow is as follows:  
+1. User enters `www.talk2liu.click` in their browser.  
+2. **Amazon Route 53** resolves the domain to IP `15.237.239.118:443`.  
+3. **Application Load Balancer (ALB)** receives the request on port 443 (HTTPS) and forwards it to port 3000 (frontend).  
+4. The ALB routes the request to a private EC2 instance.  
+5. Each EC2 instance hosts the backend app on port 5000 and processes the request.  
+6. The **Auto Scaling Group** manages EC2 instances and uses round-robin scaling based on load.
+
+### System Architecture  
+
+![image](https://github.com/user-attachments/assets/d09cbf60-63d5-45e0-b70b-48172e41d0fc)
+
+We used **Gemini 2.0 Flash-Lite**, a powerful LLM that is pre-trained and fine-tuned using huge number of QA pairs for training and validation file. The system supports multiple multimedia inputs (images, videos, audio), which are processed through secure API calls. Gemini handles the interpretation and conversion of this data into structured text, which is then displayed through an interactive UI.
+
+### Result of Model Tuning  
+
+![image](https://github.com/user-attachments/assets/178d33ef-8b93-4b5b-9a4e-97285f4efc45)
+![image](https://github.com/user-attachments/assets/a4d60c9e-5524-48e6-bb27-e3bdf36bd804)
+
+The model was trained with:
+- **Batch Size**: 1  
+- **Learning Rate**: 2  
+- **Epochs**: 14  
+- **Training Samples**: 6000 QA pairs  
+- **Validation Samples**: 1500 QA pairs (80/20 split)  
+- **Checkpoints**: 10 intermediate checkpoints were used to save the best model based on validation metrics.  
+
+Final results:
+- **Training Accuracy**: 95%  
+- **Validation Accuracy**: 78%  
