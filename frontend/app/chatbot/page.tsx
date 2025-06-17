@@ -1192,11 +1192,14 @@ export default function ChatbotPage() {
   .media-container {
     margin-top: 0.5rem;
     border-radius: 12px;
+      max-width: 500px;
+    max-height: 300px;
     overflow: hidden;
+
   }
 
   .uploaded-image {
-    max-width: 100%;
+    max-width: 500px;
     max-height: 300px;
     border-radius: 12px;
     cursor: pointer;
