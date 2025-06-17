@@ -841,7 +841,7 @@ export default function ChatbotPage() {
           <div className="file-preview-container">
             {filePreview.type === 'image' && (
               <div className="image-preview">
-                <img src={filePreview.url} alt="Preview" className="preview-image" />
+                <img src={filePreview.url} alt="Preview" className="preview-image h-32  w-32" />
                 <button onClick={clearFilePreview} className="remove-preview-button">
                   ×
                 </button>
@@ -855,7 +855,7 @@ export default function ChatbotPage() {
 
             {filePreview.type === 'video' && (
               <div className="video-preview">
-                <video src={filePreview.url} controls className="preview-video" />
+                <video src={filePreview.url} controls className="preview-video h-32 w-5" />
                 <button onClick={clearFilePreview} className="remove-preview-button">
                   ×
                 </button>
