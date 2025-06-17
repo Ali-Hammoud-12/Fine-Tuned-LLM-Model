@@ -33,7 +33,7 @@ const workdata: workdata[] = [
 const Work = () => {
     return (
         <div>
-            <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative md:h-[50rem] ' id="features-section">
+            <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative md:h-[40rem] ' id="features-section">
                 <div className="radial-bgone hidden lg:block"></div>
                 <div className='text-center mb-14'>
                     <h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>How it work</h3>
