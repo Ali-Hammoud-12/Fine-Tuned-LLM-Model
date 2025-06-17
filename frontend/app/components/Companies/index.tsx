@@ -10,9 +10,11 @@ interface Data {
 const data: Data[] = [
   
   {
-    imgSrc: "/images/Companies/liu-logo.png",
+    imgSrc: "/images/Companies/aws.jpg",
   },
-
+ {
+    imgSrc: "/images/Companies/eng.png",
+  },
   {
     imgSrc: "/images/Companies/aws.png",
   },
@@ -24,9 +26,11 @@ const data: Data[] = [
   },
 
   {
-    imgSrc: "/images/Companies/aws.png",
+    imgSrc: "/images/Companies/aws.jpg",
   },
-
+ {
+    imgSrc: "/images/Companies/eng.png",
+  },
   {
     imgSrc: "/images/Companies/gemini.png",
   },
