@@ -15,7 +15,7 @@ const Simple = () => {
         </h3>
         <p className="text-center text-bluish text-lg font-normal mb-8">
           Our AI-powered platform helps you easily find personalized answers{" "}
-          <br /> to a wide range of academic and university-related queries at
+          <br /> to a wide range of academic and university-related questions at
           the Lebanese International University.
         </p>
         <div className="flex justify-center ">

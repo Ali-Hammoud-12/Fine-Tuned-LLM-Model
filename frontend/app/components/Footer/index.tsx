@@ -49,7 +49,7 @@ const footer = () => {
                 <div className="h1 text-[38px] ml-2 text-white"> LIU</div>
                 </div>
             
-            <h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>   Our AI-powered assistant leverages advanced machine learning and cloud technology to provide instant, accurate answers to university-related questions, ensuring a seamless academic experience.
+            <h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>    Our AI-powered assistant provides instant, reliable answers to student questions, helping you navigate academics with confidence. Built with privacy in mind, it ensures your data stays secure while delivering smart, personalized support.  
             </h3>
             <div className='flex gap-4'>
               {socialLinks.map((items, i) => (
@@ -75,9 +75,9 @@ const footer = () => {
 
           <div className="col-span-4">
             <h3 className="text-white text-xl font-medium mb-9">Contact Us</h3>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />+961 76/600450</h4>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/email.svg'} alt="email-icon" width={20} height={20} />ali.lara@gmail.com</h4>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Beirut,Lebanon</h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />+961 76-600450</h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/email.svg'} alt="email-icon" width={20} height={20} />ali.lara.thesis@gmail.com</h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Beirut- Lebanon</h4>
           </div>
 
         </div>
@@ -86,7 +86,7 @@ const footer = () => {
       {/* All Rights Reserved */}
 
       <div className='py-8 px-4 border-t border-t-lightblue'>
-        <h3 className='text-center text-offwhite'>@2025 - All Rights Reserved by <Link href="https://adminmart.com/" target="_blank"> liu.com</Link></h3>
+        <h3 className='text-center text-offwhite'>@2025 Ali Habib Hammoud & Lara Ali Mohti. All Rights Reserved.</h3>
       </div>
 
     </div>

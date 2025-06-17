@@ -13,19 +13,19 @@ const workdata: workdata[] = [
         imgSrc: '/images/Work/icon-one.svg',
         heading: 'Ask Questions',
         subheading: 'Easily ask questions related to university life, academics, and student resources at the Lebanese International University.',
-        hiddenpara: 'Our AI model is designed to understand your academic queries and provide clear, personalized answers to help you navigate university life.',
+        hiddenpara: 'Our AI model is designed to understand your academic questions and provide clear, personalized answers to help you navigate university life.',
     },
     {
         imgSrc: '/images/Work/icon-two.svg',
         heading: 'Free of Charge',
         subheading: 'Access all services at no cost! Our AI model is completely free to use for all students and faculty members.',
-        hiddenpara: 'Enjoy the benefits of personalized academic assistance without any fees or hidden charges. It’s entirely free for the LIU community.',
+        hiddenpara: 'Access all services at no cost! This AI model is completely free to use for all students and faculty members.',
     },
     {
         imgSrc: '/images/Features/featureOne.svg',
         heading: 'AI Effectiveness & Security',
         subheading: 'Leverage the power of advanced AI to get accurate, and helpful answers.',
-        hiddenpara: 'Our AI model not only delivers personalized academic assistance but also adheres to the highest security standards. By utilizing cloud services and AWS, we ensure that your data is secure, private, and handled with the utmost care.',
+        hiddenpara: 'This model not only delivers personalized academic assistance but also follows the best security standards. User’s data will only be stored at session. After the user closes the session, all collected data will be deleted.',
     }
 ]
 
@@ -33,7 +33,7 @@ const workdata: workdata[] = [
 const Work = () => {
     return (
         <div>
-            <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative ' id="features-section">
+            <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative md:h-[50rem] ' id="features-section">
                 <div className="radial-bgone hidden lg:block"></div>
                 <div className='text-center mb-14'>
                     <h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>How it work</h3>
