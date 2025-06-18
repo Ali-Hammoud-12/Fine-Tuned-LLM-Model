@@ -11,11 +11,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <nav className="p-4 bg-gray-100">
-          <Link href="/" className="mr-4">Home</Link>
-          <Link href="/chatbot">Chatbot</Link>
-        </nav>
+      <body >
+       
         {children}
       </body>
     </html>

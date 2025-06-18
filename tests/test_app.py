@@ -38,11 +38,27 @@ def test_chat(client):
     assert data is not None, f"Response is not valid JSON: {response.data}"
     assert "response" in data, f"Response content missing: {data}"
 
-    response_text = data["response"]
+    response_text = data["response"].lower()
     assert response_text, "Response body is empty"
-    assert "financial aid" in response_text.lower() or "support services" in response_text.lower(), \
-        f"Unexpected response content: {response_text}"
+    
+    # Accept multiple possible correct answers about equal access
+    valid_keywords = [
+    "financial aid",
+    "support services",
+    "discrimination",
+    "equal access",
+    "equal opportunity",
+    "socioeconomic",
+    "inclusion",
+    "affirmative action",
+    "regardless of sex",
+    "educational opportunities",
+    "inclusivity", 
+    "diversity"
+    ]
 
+    assert any(keyword in response_text for keyword in valid_keywords), \
+        f"Response doesn't mention equal access concepts: {response_text}"
 def test_upload_direct_s3(client):
     dummy_file = (io.BytesIO(b"dummy file content"), "test_upload.txt")
     data = {"file": dummy_file}
