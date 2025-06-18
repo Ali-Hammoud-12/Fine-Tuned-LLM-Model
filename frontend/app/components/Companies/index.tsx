@@ -12,13 +12,13 @@ const data: Data[] = [
   {
     imgSrc: "/images/Companies/aws.png",
   },
-
-
-
   {
     imgSrc: "/images/Companies/gemini.png",
   }, {
     imgSrc: "/images/Companies/liu-logo.png",
+  },
+  {
+    imgSrc: "/images/Companies/soe.png",
   },
   {
     imgSrc: "/images/Companies/gemini.png",
