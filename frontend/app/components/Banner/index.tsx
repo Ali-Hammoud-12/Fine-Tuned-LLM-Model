@@ -12,7 +12,7 @@ const Banner = () => {
         <div className='bg-image relative' id="home-section">
             <div className='arrowOne'></div>
             <div className='radial-banner hidden lg:block'></div>
-            <ModalVideo channel='youtube' isOpen={isOpen} videoId="1YyAzVmP9xQ" onClose={() => setOpen(false)} />
+            <ModalVideo channel='youtube' isOpen={isOpen} videoId="LEdXEkoje-g" onClose={() => setOpen(false)} />
 
             <div className="mx-auto max-w-7xl pt-10 lg:pt-10 sm:pb-24 px-6">
 
