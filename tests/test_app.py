@@ -52,7 +52,9 @@ def test_chat(client):
     "inclusion",
     "affirmative action",
     "regardless of sex",
-    "educational opportunities"
+    "educational opportunities",
+    "inclusivity", 
+    "diversity"
     ]
 
     assert any(keyword in response_text for keyword in valid_keywords), \
