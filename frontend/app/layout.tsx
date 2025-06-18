@@ -11,9 +11,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-          <Link href="/" className="mr-4">Home</Link>
-          <Link href="/chatbot">Chatbot</Link>
+      <body >
+       
         {children}
       </body>
     </html>
