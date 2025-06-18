@@ -18,7 +18,7 @@ const data: Data[] = [
     imgSrc: "/images/Companies/liu-logo.png",
   },
   {
-    imgSrc: "/images/Companies/soe.png",
+    imgSrc: "/images/Companies/eng.png",
   },
   {
     imgSrc: "/images/Companies/gemini.png",
