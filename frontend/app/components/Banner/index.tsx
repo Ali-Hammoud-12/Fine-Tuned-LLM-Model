@@ -27,7 +27,7 @@ const Banner = () => {
                             <div className='flex align-middle justify-center md:justify-start'>
                                 <Link href="/chatbot">
                                     <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>Get Started</button>
-                                </Link>    <button onClick={() => setOpen(true)} className='bg-transparent flex justify-center items-center text-white'><Image src={'/images/Banner/playbutton.svg'} alt="button-image" className='mr-3' width={47} height={47} />How it work</button>
+                                </Link>    <button onClick={() => setOpen(true)} className='bg-transparent flex justify-center items-center text-white'><Image src={'/images/Banner/playbutton.svg'} alt="button-image" className='mr-3' width={47} height={47} />How it works</button>
                             </div>
                         </div>
 

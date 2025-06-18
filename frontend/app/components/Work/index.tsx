@@ -36,7 +36,7 @@ const Work = () => {
             <div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative md:h-[40rem] ' id="features-section">
                 <div className="radial-bgone hidden lg:block"></div>
                 <div className='text-center mb-14'>
-                    <h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>How it work</h3>
+                    <h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>How it works</h3>
                     <p className='text-bluish md:text-lg font-normal leading-8'>Our personalized AI model helps you get answers to your academic and university life-related questions at the Lebanese International University.
                     <br /> Learn how this innovative solution works to provide tailored guidance through an interactive chat interface.
                     </p>
