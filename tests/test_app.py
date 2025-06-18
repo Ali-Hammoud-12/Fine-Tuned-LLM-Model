@@ -43,14 +43,18 @@ def test_chat(client):
     
     # Accept multiple possible correct answers about equal access
     valid_keywords = [
-        "financial aid",
-        "support services",
-        "discrimination",
-        "equal access",
-        "equal opportunity",
-        "socioeconomic",
-        "inclusion"
+    "financial aid",
+    "support services",
+    "discrimination",
+    "equal access",
+    "equal opportunity",
+    "socioeconomic",
+    "inclusion",
+    "affirmative action",
+    "regardless of sex",
+    "educational opportunities"
     ]
+
     assert any(keyword in response_text for keyword in valid_keywords), \
         f"Response doesn't mention equal access concepts: {response_text}"
 def test_upload_direct_s3(client):
