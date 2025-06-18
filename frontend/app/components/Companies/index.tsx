@@ -13,9 +13,7 @@ const data: Data[] = [
     imgSrc: "/images/Companies/aws.png",
   },
  
-  {
-    imgSrc: "/images/Companies/aws.png",
-  },
+ 
 
   {
     imgSrc: "/images/Companies/gemini.png",
