@@ -177,6 +177,9 @@ jobs:
     name: Cleanup Phase
     if: always()
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
     - name: Remove Task Definition Artifact
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
