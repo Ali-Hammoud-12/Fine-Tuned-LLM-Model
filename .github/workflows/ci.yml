@@ -180,17 +180,24 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Remove Task Definition Artifact
+    - name: Remove artifacts using curl
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "Removing task definition artifact..."
+        echo "Cleaning up artifacts..."
+        run_id=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs \
+          | jq '.workflow_runs[0].id')
 
-        run_id=$(gh run list --limit 1 --json databaseId -q '.[0].databaseId')
-        echo "Deleting all artifacts for run ID: $run_id"
-        for artifact_id in $(gh api -X GET "repos/${{ github.repository }}/actions/runs/$run_id/artifacts" --jq '.artifacts[].id'); do
-          echo "Deleting artifact ID: $artifact_id"
-          gh api -X DELETE "repos/${{ github.repository }}/actions/artifacts/$artifact_id"
+        echo "Run ID: $run_id"
+        artifact_ids=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id/artifacts \
+          | jq '.artifacts[].id')
+
+        for id in $artifact_ids; do
+          echo "Deleting artifact ID: $id"
+          curl -X DELETE -H "Authorization: Bearer $GITHUB_TOKEN" \
+            https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$id
         done
 
 
