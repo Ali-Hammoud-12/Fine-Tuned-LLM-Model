@@ -2,10 +2,10 @@ name: ChatBot App CI/CD Pipeline
 on:
   push:
     branches:
-      - chatbot-app-deploy
-    # paths:
-    #   - 'backend/**'
-    #   - 'frontend/**'
+      - master
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
 
 permissions:
   actions: write
