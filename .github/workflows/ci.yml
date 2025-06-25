@@ -177,28 +177,27 @@ jobs:
     name: Cleanup Phase
     if: always()
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Clean Up Artifact
+        run: |
+          RUN_ID="${{ github.run_id }}"
+          APK_NAME="task-definition"
 
-    - name: Remove artifacts using curl
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "Cleaning up artifacts..."
-        run_id=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
-          https://api.github.com/repos/${{ github.repository }}/actions/runs \
-          | jq '.workflow_runs[0].id')
+          # Get artifact IDs only for the current run
+          ARTIFACTS=$(gh api repos/${{ github.repository }}/actions/runs/$RUN_ID/artifacts --jq '.artifacts[] | {id: .id, name: .name}')
 
-        echo "Run ID: $run_id"
-        artifact_ids=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
-          https://api.github.com/repos/${{ github.repository }}/actions/runs/$run_id/artifacts \
-          | jq '.artifacts[].id')
+          echo "$ARTIFACTS" | jq -c '.' | while read -r artifact; do
+            ID=$(echo "$artifact" | jq -r '.id')
+            NAME=$(echo "$artifact" | jq -r '.name')
 
-        for id in $artifact_ids; do
-          echo "Deleting artifact ID: $id"
-          curl -X DELETE -H "Authorization: Bearer $GITHUB_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$id
-        done
+            if [[ "$NAME" != "$APK_NAME" ]]; then
+              echo "Deleting artifact: $NAME (ID=$ID)"
+              gh api --method DELETE /repos/${{ github.repository }}/actions/artifacts/$ID
+            else
+              echo "Keeping artifact: $NAME (ID=$ID)"
+            fi
+          done
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
     
