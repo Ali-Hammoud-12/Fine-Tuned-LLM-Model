@@ -1,5 +1,9 @@
 # 🧠 Fine-Tuned LLM Model
 
+[![🎬 Demo Video](https://img.shields.io/badge/Demo-YouTube-red?logo=youtube)](https://www.youtube.com/watch?v=LEdXEkoje-g)
+
+> 🎥 Click the badge above to watch the full demonstration of the chatbot application in action.
+
 ## Overview
 
 This project implements a chatbot application powered by **Google's Gemini 1.5 Flash** model. It’s fine-tuned for educational and conversational use cases, integrates seamlessly with AWS services, and is optimized for both cost and performance.
