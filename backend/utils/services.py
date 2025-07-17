@@ -102,7 +102,7 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
 
     # Initialize the GenerativeModel with the tuned model name
     model = GenerativeModel(
-        model_name="projects/988399269486/locations/us-central1/endpoints/6862444594601132032"
+        model_name="projects/988399269486/locations/us-central1/endpoints/8693984675871326208"
     )
 
     # Convert conversation history to a list of Content objects
