@@ -89,9 +89,44 @@ def create_finetuning_job():
     
     return tuning_job
 
+def validate_response_scope(response_text, user_question):
+    """
+    Validates that the response is within the LIU training scope.
+    Returns the original response if valid, or forces a fallback message if invalid.
+    """
+    # Keywords that indicate LIU-related content
+    liu_keywords = ["liu", "lebanese international university", "campus", "registration", 
+                   "tuition", "admission", "program", "course", "beirut", "bekaa", 
+                   "saida", "nabatieh", "tripoli", "mount lebanon", "tyre", "rayak", "akkar"]
+    
+    # Check if the response already contains the fallback message
+    fallback_indicators = ["have not been trained on this", "not about LIU", "only provide information about LIU"]
+    
+    response_lower = response_text.lower()
+    user_question_lower = user_question.lower()
+    
+    # If response contains fallback indicators, it's already properly constrained
+    if any(indicator in response_lower for indicator in fallback_indicators):
+        return response_text
+    
+    # Check if the user question and response contain LIU-related content
+    question_has_liu_content = any(keyword in user_question_lower for keyword in liu_keywords)
+    response_has_liu_content = any(keyword in response_lower for keyword in liu_keywords)
+    
+    # If neither question nor response contain LIU content, force fallback
+    if not question_has_liu_content and not response_has_liu_content:
+        return "I apologize, but I have not been trained on this specific question. I can only provide information about LIU (Lebanese International University) based on my training data. Please ask me questions about LIU's programs, admissions, campus locations, registration dates, tuition, or other university-related topics."
+    
+    # If response seems too general or doesn't contain LIU content when it should
+    if question_has_liu_content and not response_has_liu_content and len(response_text) < 50:
+        return "I apologize, but I have not been trained on this specific question. I can only provide information about LIU (Lebanese International University) based on my training data. Please ask me questions about LIU's programs, admissions, campus locations, registration dates, tuition, or other university-related topics."
+    
+    return response_text
+
 def generate_fine_tuned_chat_response(user_text, conversation_history):
     """
     Generates a chat response using the fine-tuned Gemini model deployed to Vertex AI.
+    The model is constrained to only answer based on its LIU training data.
     """
 
     # Initialize Vertex AI
@@ -102,7 +137,16 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
 
     # Initialize the GenerativeModel with the tuned model name
     model = GenerativeModel(
-        model_name="projects/988399269486/locations/us-central1/endpoints/8693984675871326208"
+        model_name="projects/988399269486/locations/us-central1/endpoints/8693984675871326208",
+        system_instruction="""You are an educational chatbot specifically trained on LIU (Lebanese International University) information. 
+
+CRITICAL INSTRUCTIONS:
+- You must ONLY answer questions using information from your LIU training dataset
+- If a question is NOT about LIU or you don't have specific information in your training data to answer it, you MUST respond with: "I apologize, but I have not been trained on this specific question. I can only provide information about LIU (Lebanese International University) based on my training data. Please ask me questions about LIU's programs, admissions, campus locations, registration dates, tuition, or other university-related topics."
+- Do NOT use general knowledge or make up information
+- Do NOT answer questions about other universities, general topics, or anything outside your LIU training scope
+- Be specific and accurate in your responses using only the information you were trained on
+- Always identify yourself as a LIU educational chatbot"""
     )
 
     # Convert conversation history to a list of Content objects
@@ -117,9 +161,12 @@ def generate_fine_tuned_chat_response(user_text, conversation_history):
     # Send the user's message and get the response
     response = chat.send_message(user_text)
 
-    # Append the assistant's response to the conversation history
-    conversation_history.append({"role": "assistant", "content": response.text})
+    # Validate the response to ensure it's within LIU scope
+    validated_response = validate_response_scope(response.text, user_text)
 
-    return f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{response.text}"
+    # Append the assistant's response to the conversation history
+    conversation_history.append({"role": "assistant", "content": validated_response})
+
+    return f"<strong>Fine-Tuned LIU ChatBot:</strong><br/>{validated_response}"
 
 generate_chat_response = generate_fine_tuned_chat_response
