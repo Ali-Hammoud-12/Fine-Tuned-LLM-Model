@@ -6,7 +6,7 @@
 
 ## Overview
 
-This project implements a chatbot application powered by **Google's Gemini 1.5 Flash** model. It’s fine-tuned for educational and conversational use cases, integrates seamlessly with AWS services, and is optimized for both cost and performance.
+This project implements a chatbot application powered by **Gemini 2.0 Flash-Lite** model. It’s fine-tuned for educational and conversational use cases, integrates seamlessly with AWS services, and is optimized for both cost and performance.
 
 ## 📁 Project Structure
 
