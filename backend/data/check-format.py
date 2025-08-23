@@ -8,7 +8,7 @@ def fix_line(line):
     try:
         data = json.loads(line.strip())
 
-        # Validate systemInstruction
+        # Validate systemInstructions
         if "systemInstruction" not in data:
             raise ValueError("Missing systemInstruction")
 
